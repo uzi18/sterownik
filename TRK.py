@@ -169,7 +169,7 @@ while True:
             tZadDol = tempZadanaDol
             tempCO(tZadGora,tZadDol)
             if (c.getTempZew()) > T_zewnętrzna_lato:
-                def trybLato(T_zewnętrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przerwa_nawiew_czas,przerwa_nawiew_moc ):
+                trybLato(T_zewnętrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przerwa_nawiew_czas,przerwa_nawiew_moc ):
             if (c.getTempCO()) < tempZadanaDol:
                 razy_jeden = ile_krokow * [False];
             for licznik in range(0,ile_krokow):
