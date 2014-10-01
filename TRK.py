@@ -6,7 +6,7 @@ from sterownik import *
 import threading
 import time;
 #===============================================================================
-#               TRK by Stan v 0.3.62
+#               TRK by Stan v 0.3.63
 #===============================================================================
 #============ Parametry logowania do sterownika ================================
 #     wpisz nr IP sterownika , swój login i hasło
@@ -38,7 +38,7 @@ czas_przerwy = [20,30,60,13,20,100]
 czas_nawiewu = [20,30,60,13,20,100]
 moc_nawiewu = [46,43,40,43,40,40]
 tryb = ['start','start','jeden_normal','normal','normal','stop']       # możliwe stany to - start, stop, normal, oba, jeden_start,
-ile_razy_jeden = 1;                                                    # jeden_normal, jeden_stop,
+razy_jeden = ile_krokow * [False];                                     # jeden_normal, jeden_stop,
 
 #=========== Parametry trybu Lato ==========================================================
 
@@ -159,7 +159,6 @@ return
 #=================================================================================================
 praca = 0
 hist = 1
-jeden_licznik = 0
 procPStart(tempZadanaDol)
 while True:
     licznik = 0
@@ -172,7 +171,7 @@ while True:
             if (c.getTempZew()) > T_zewnętrzna_lato:
                 def trybLato(T_zewnętrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przerwa_nawiew_czas,przerwa_nawiew_moc ):
             if (c.getTempCO()) < tempZadanaDol:
-                jeden_licznik = 0
+                razy_jeden = ile_krokow * [False];
             for licznik in range(0,ile_krokow):
                 if praca == 1:
                     if czas_podawania[licznik] > 0:
@@ -198,10 +197,10 @@ while True:
                             print ("uruchamiam blok START nr " + str(licznik))
                             print (TRYB)
                             pracaPieca(czPod,czPrz,czNaw,moNaw)
-                        if TRYB == 'jeden_start' and jeden_licznik < ile_razy_jeden:
+                        if TRYB == 'jeden_start' and razy_jeden[licznik] == False:
                             print ("uruchamiam blok JEDEN_START nr " + str(licznik))
                             print (TRYB)
-                            jeden_licznik += 1
+                            razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw)
                     if ((c.getTempCO()) < tempZadanaGora):
                         if ((c.getTempCO()) > tempZadanaDol):
@@ -209,20 +208,20 @@ while True:
                                 print ("uruchamiam blok NORMAL nr " + str(licznik))
                                 print (TRYB)
                                 pracaPieca(czPod,czPrz,czNaw,moNaw)
-                            if TRYB == 'jeden_normal' and jeden_licznik < ile_razy_jeden:
+                            if TRYB == 'jeden_normal' and razy_jeden[licznik] == False:
                                 print ("uruchamiam blok JEDEN_NORMAL nr " + str(licznik))
                                 print (TRYB)
-                                jeden_licznik += 1
+                                razy_jeden[licznik] = True
                                 pracaPieca(czPod,czPrz,czNaw,moNaw)
                     if ((c.getTempCO()) >= tempZadanaGora):
                         if TRYB == 'stop':
                             print ("uruchamiam blok STOP nr " + str(licznik))
                             print (TRYB)
                             pracaPieca(czPod,czPrz,czNaw,moNaw)
-                        if TRYB == 'jeden_stop' and jeden_licznik < ile_razy_jeden:
+                        if TRYB == 'jeden_stop' and razy_jeden[licznik] == False:
                             print ("uruchamiam blok JEDEN_STOP nr " + str(licznik))
                             print (TRYB)
-                            jeden_licznik += 1
+                            razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw)
                     if ((c.getTempCO()) >= tempZadanaGora) or ((c.getTempCO()) <= tempZadanaDol):
                         if TRYB == 'oba':
