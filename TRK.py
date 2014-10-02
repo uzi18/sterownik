@@ -124,14 +124,16 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw):
     if czNaw > 0:
         c.setDmuchawa(True);
         c.setDmuchawaMoc(moNaw);
-        while a <= b:
-            time.sleep(1)
-            a += 1
-            if czPod < a:
-                c.setPodajnik(False);
-            if czNaw < a:
-                c.setDmuchawa(False);
-        return
+        
+    while a <= b:
+        time.sleep(1)
+        a += 1
+        if czPod < a:
+           c.setPodajnik(False);
+        if czNaw < a:
+           c.setDmuchawa(False);
+    
+    return
 
 
 
