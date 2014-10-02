@@ -101,6 +101,9 @@ def spaliny():
     ts180 = daneTSpal[-1] - daneTSpal[-1 -1 * 6 * 3]
     print "trend TSpal: " + str(ts020) + "/20s "+ str(ts060) + "/60s "+ str(ts120) + "/120s "+ str(ts180) + "/180s"
 
+def status():
+    c.getStatus()
+
 
 c.getStatus()    
 daneTSpal = []
@@ -109,6 +112,8 @@ x = c.getTempSpaliny()
 for y in range(60):
     daneTSpal.append(x) 
 
+wstatus = RTimer(status)
+wstatus.startInterval(1)
 wspaliny = RTimer(regulatorSpalania)
 wspaliny.startInterval(10) # co 10s.
 
