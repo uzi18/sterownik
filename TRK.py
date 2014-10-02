@@ -42,7 +42,7 @@ razy_jeden = ile_krokow * [False];                                     # jeden_n
 
 #=========== Parametry trybu Lato ==========================================================
 
-T_zewnętrzna_lato = 15;
+T_zewnetrzna_lato = 15;
 T_dolna_CWU = 44;
 przerwa_minut = 60;
 przerwa_podawanie = 5;
@@ -99,13 +99,13 @@ def spaliny():
     ts060 = daneTSpal[-1] - daneTSpal[-1 -1 * 6 * 1]
     ts120 = daneTSpal[-1] - daneTSpal[-1 -1 * 6 * 2]
     ts180 = daneTSpal[-1] - daneTSpal[-1 -1 * 6 * 3]
-    print "trend TSpal: " + str(ts020) + "/20s "+ str(ts060) + "/60s "+ str(ts120) + "/120s "+ str(ts180) + "/180s"
+    print ("trend TSpal: " + str(ts020) + "/20s "+ str(ts060) + "/60s "+ str(ts120) + "/120s "+ str(ts180) + "/180s")
 
 def status():
     c.getStatus()
 
 def regulatorCWU():
-    print "Watek regulator CWU..."
+    print ("Watek regulator CWU...")
     if (c.getTrybAuto() != True):
         if (c.getTempCO() >= T_dolna_CWU):
             if (c.getTempCWU() < T_dolna_CWU):
@@ -124,7 +124,7 @@ for y in range(60):
 
 wstatus = RTimer(status)
 wstatus.startInterval(1)
-wspaliny = RTimer(regulatorSpalania)
+wspaliny = RTimer(spaliny)
 wspaliny.startInterval(10) # co 10s.
 wcwu = RTimer(regulatorCWU)
 wcwu.startInterval(10)
@@ -178,7 +178,8 @@ def tempCO(tZadGora,tZadDol):
         praca = 0
         print ("Temperatura CO: " + str(c.getTempCO()) + "°C. Oczekiwanie.")
         time.sleep(5);
-    return praca
+        
+    return
 
 #================= Procedura przed startowa ==========================================
 
@@ -188,16 +189,18 @@ def procPStart(tempZadanaDol):
               c.setPompaCO(True);
               if ((c.getTempCO()) >= tempZadanaDol):
                   print ("Temperatura CO: " + str(c.getTempCO()) + "°C. Oczekiwanie.")
-                  time.sleep(30);
+                  time.sleep(5);
               else:
-                  return
+                  break
+     
 
 #================ Tryb Lato ===========================================================
 
-def trybLato(T_zewnętrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przerwa_nawiew_czas,przerwa_nawiew_moc ):
+def trybLato(T_zewnetrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przerwa_nawiew_czas,przerwa_nawiew_moc ):
         if (c.getTrybAuto() != True):
+            print ("uruchamiam tryb LATO")
             c.setPompaCO(False);
-            while (c.getTempZew()) > T_zewnętrzna_lato:
+            while (c.getTempZew()) > T_zewnetrzna_lato:
                     if (c.getTrybAuto() != True):
                         c.setPodajnik(True);
                         time.sleep(przerwa_podawanie)
@@ -206,33 +209,33 @@ def trybLato(T_zewnętrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,prze
                         c.setDmuchawaMoc(przerwa_nawiew_moc);
                         time.sleep(przerwa_nawiew_czas);
                         przerwa_l = 60 * przerwa_minut
-                        for 1 in range (0, przerwa_l):
+                        for l in range (0, przerwa_l):
                                 if (c.getTrybAuto() != True):
                                     if ((c.getTempCWU()) < T_dolna_CWU):
                                         break
                                     if ((c.getTempCWU()) >= T_dolna_CWU):
                                         time.sleep(60);
-return
 
 #=================================================================================================
 #                  PROGRAM GŁÓWNY
 #=================================================================================================
 praca = 0
 hist = 1
-procPStart(tempZadanaDol)
-while True:
-    licznik = 0
+try:
+    procPStart(tempZadanaDol)
+    while True:
+        licznik = 0
         if (c.getTrybAuto() != True):
             c.setPompaCO(True);
             tZadGora = tempZadanaGora
             tZadDol = tempZadanaDol
             tempCO(tZadGora,tZadDol)
-            if (c.getTempZew()) > T_zewnętrzna_lato:
-                trybLato(T_zewnętrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przerwa_nawiew_czas,przerwa_nawiew_moc ):
+            if (c.getTempZew()) > T_zewnetrzna_lato:
+                trybLato(T_zewnetrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przerwa_nawiew_czas,przerwa_nawiew_moc)
             if (c.getTempCO()) < tempZadanaDol:
                 razy_jeden = ile_krokow * [False];
-            for licznik in range(0,ile_krokow):
-                if praca == 1:
+            if praca == 1:
+                for licznik in range(0,ile_krokow):
                     if czas_podawania[licznik] > 0:
                         czPod = czas_podawania[licznik] + czasPodawania
                     else:
@@ -254,28 +257,23 @@ while True:
                     if ((c.getTempCO()) <= tempZadanaDol):
                         if TRYB == 'start':
                             print ("uruchamiam blok START nr " + str(licznik))
-                            print (TRYB)
                             pracaPieca(czPod,czPrz,czNaw,moNaw)
                         if TRYB == 'jeden_start' and razy_jeden[licznik] == False:
                             print ("uruchamiam blok JEDEN_START nr " + str(licznik))
-                            print (TRYB)
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw)
                     if ((c.getTempCO()) < tempZadanaGora):
                         if ((c.getTempCO()) > tempZadanaDol):
                             if TRYB == 'normal':
                                 print ("uruchamiam blok NORMAL nr " + str(licznik))
-                                print (TRYB)
                                 pracaPieca(czPod,czPrz,czNaw,moNaw)
                             if TRYB == 'jeden_normal' and razy_jeden[licznik] == False:
                                 print ("uruchamiam blok JEDEN_NORMAL nr " + str(licznik))
-                                print (TRYB)
                                 razy_jeden[licznik] = True
                                 pracaPieca(czPod,czPrz,czNaw,moNaw)
                     if ((c.getTempCO()) >= tempZadanaGora):
                         if TRYB == 'stop':
                             print ("uruchamiam blok STOP nr " + str(licznik))
-                            print (TRYB)
                             pracaPieca(czPod,czPrz,czNaw,moNaw)
                         if TRYB == 'jeden_stop' and razy_jeden[licznik] == False:
                             print ("uruchamiam blok JEDEN_STOP nr " + str(licznik))
@@ -285,9 +283,16 @@ while True:
                     if ((c.getTempCO()) >= tempZadanaGora) or ((c.getTempCO()) <= tempZadanaDol):
                         if TRYB == 'oba':
                             print ("uruchamiam blok OBA nr " + str(licznik))
-                            print (TRYB)
                             pracaPieca(czPod,czPrz,czNaw,moNaw)
                     if tlo > 0:
                         c.setDmuchawa(True);
                         c.setDmuchawaMoc(tlo);
 
+finally:
+    wstatus.stop()
+    wspaliny.stop()
+    wcwu.stop()
+    c.setDmuchawa(False);
+    c.setPodajnik(False);
+    c.setPompaCWU(False);
+    c.setPompaCO(False);
