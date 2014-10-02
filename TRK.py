@@ -147,50 +147,45 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw):
 def tempCO(tZadGora,tZadDol):
     global praca
     global hist
-    if (bool(c.getStatus())):
-            if ((c.getTempCO()) < tZadDol):
-                praca = 1
-                hist = 1
-                print ('warunek spełniony Todcz < Tzad dolnej - uruchamiam grzanie')
-                print ("Temperatura CO: " + str(c.getTempCO()) + "°C")
-            elif ((c.getTempCO()) > tZadGora + 0.2):
-                praca = 0
-                hist = 0
-                print ('warunek spełniony Todcz > Tzad górnej - zatrzymuję grzanie')
-                print ("Temperatura CO: " + str(c.getTempCO()) + "°C")
-                time.sleep(15);
-            elif hist == 1 and ((c.getTempCO()) < tZadGora + 0.2):
-                praca = 1
-                print ('warunek spełniony Todcz < Tzad górnej - kontynuuję grzanie')
-                print ("Temperatura CO: " + str(c.getTempCO()) + "°C")
-            else:
-                praca = 0
-                print ("Temperatura CO: " + str(c.getTempCO()) + "°C. Oczekiwanie.")
-                time.sleep(5);
+    if ((c.getTempCO()) < tZadDol):
+        praca = 1
+        hist = 1
+        print ('warunek spełniony Todcz < Tzad dolnej - uruchamiam grzanie')
+        print ("Temperatura CO: " + str(c.getTempCO()) + "°C")
+    elif ((c.getTempCO()) > tZadGora + 0.2):
+        praca = 0
+        hist = 0
+        print ('warunek spełniony Todcz > Tzad górnej - zatrzymuję grzanie')
+        print ("Temperatura CO: " + str(c.getTempCO()) + "°C")
+        time.sleep(15);
+    elif hist == 1 and ((c.getTempCO()) < tZadGora + 0.2):
+        praca = 1
+        print ('warunek spełniony Todcz < Tzad górnej - kontynuuję grzanie')
+        print ("Temperatura CO: " + str(c.getTempCO()) + "°C")
+    else:
+        praca = 0
+        print ("Temperatura CO: " + str(c.getTempCO()) + "°C. Oczekiwanie.")
+        time.sleep(5);
     return praca
 
 #================= Procedura przed startowa ==========================================
 
 def procPStart(tempZadanaDol):
     while True:
-        if (bool(c.getStatus())):
-            if (c.getTrybAuto() != True):
-                c.setPompaCO(True);
-                if ((c.getTempCO()) >= tempZadanaDol):
-                    print ("Temperatura CO: " + str(c.getTempCO()) + "°C. Oczekiwanie.")
-                    time.sleep(30);
-                else:
-                    return
-
+          if (c.getTrybAuto() != True):
+              c.setPompaCO(True);
+              if ((c.getTempCO()) >= tempZadanaDol):
+                  print ("Temperatura CO: " + str(c.getTempCO()) + "°C. Oczekiwanie.")
+                  time.sleep(30);
+              else:
+                  return
 
 #================ Tryb Lato ===========================================================
 
 def trybLato(T_zewnętrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przerwa_nawiew_czas,przerwa_nawiew_moc ):
-    if (bool(c.getStatus())):
         if (c.getTrybAuto() != True):
             c.setPompaCO(False);
             while (c.getTempZew()) > T_zewnętrzna_lato:
-                if (bool(c.getStatus())):
                     if (c.getTrybAuto() != True):
                         c.setPodajnik(True);
                         time.sleep(przerwa_podawanie)
@@ -200,7 +195,6 @@ def trybLato(T_zewnętrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,prze
                         time.sleep(przerwa_nawiew_czas);
                         przerwa_l = 60 * przerwa_minut
                         for 1 in range (0, przerwa_l):
-                            if (bool(c.getStatus())):
                                 if (c.getTrybAuto() != True):
                                     if ((c.getTempCWU()) < T_dolna_CWU):
                                         c.setPompaCWU(True);
@@ -208,9 +202,6 @@ def trybLato(T_zewnętrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,prze
                                     if ((c.getTempCWU()) >= T_dolna_CWU):
                                         time.sleep(60);
 return
-
-
-
 
 #=================================================================================================
 #                  PROGRAM GŁÓWNY
@@ -220,7 +211,6 @@ hist = 1
 procPStart(tempZadanaDol)
 while True:
     licznik = 0
-    if (bool(c.getStatus())):
         if (c.getTrybAuto() != True):
             c.setPompaCO(True);
             tZadGora = tempZadanaGora
@@ -289,8 +279,4 @@ while True:
                     if tlo > 0:
                         c.setDmuchawa(True);
                         c.setDmuchawaMoc(tlo);
-
-
-
-
 
