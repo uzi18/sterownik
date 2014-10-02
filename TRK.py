@@ -60,8 +60,59 @@ global tZadGora
 global tZadDol
 global hist
 global praca
-#========= FUNKCJA PRACA PIECA ==============================================================
 
+#========= WATKI ==============================================================
+class RTimer(object):
+    def __init__(self, function):
+        self._timer     = None
+        self.interval   = None
+        self.function   = function
+        self.is_running = False
+
+    def _run(self):
+        self.is_running = False
+        self.start()
+        self.function()
+
+    def start(self):
+        if not self.is_running:
+            self._timer = threading.Timer(self.interval, self._run)
+            self._timer.start()
+            self.is_running = True
+
+    def startInterval(self, interval):
+        self.interval = interval
+        if not self.is_running:
+            self._timer = threading.Timer(self.interval, self._run)
+            self._timer.start()
+            self.is_running = True
+
+    def stop(self):
+        self._timer.cancel()
+        self.is_running = False
+
+def spaliny():
+    x = c.getTempSpaliny()
+    daneTSpal.pop(0)
+    daneTSpal.append(x)
+    ts020 = daneTSpal[-1] - daneTSpal[-3]
+    ts060 = daneTSpal[-1] - daneTSpal[-1 -1 * 6 * 1]
+    ts120 = daneTSpal[-1] - daneTSpal[-1 -1 * 6 * 2]
+    ts180 = daneTSpal[-1] - daneTSpal[-1 -1 * 6 * 3]
+    print "trend TSpal: " + str(ts020) + "/20s "+ str(ts060) + "/60s "+ str(ts120) + "/120s "+ str(ts180) + "/180s"
+
+
+c.getStatus()    
+daneTSpal = []
+x = c.getTempSpaliny()
+# 60 * 10s.
+for y in range(60):
+    daneTSpal.append(x) 
+
+wspaliny = RTimer(regulatorSpalania)
+wspaliny.startInterval(10) # co 10s.
+
+#========= FUNKCJA PRACA PIECA ==============================================================
 
 def pracaPieca(czPod,czPrz,czNaw,moNaw):
     a = 1
