@@ -104,6 +104,16 @@ def spaliny():
 def status():
     c.getStatus()
 
+def regulatorCWU():
+    print "Watek regulator CWU..."
+    if (c.getTrybAuto() != True):
+        if (c.getTempCO() >= T_dolna_CWU):
+            if (c.getTempCWU() < T_dolna_CWU):
+                if (c.getPompaCWU() == False):
+                    c.setPompaCWU(True);
+        if (c.getTempCWU() >= T_dolna_CWU):
+            if (c.getPompaCWU() == True):
+             c.setPompaCWU(False);
 
 c.getStatus()    
 daneTSpal = []
@@ -116,6 +126,8 @@ wstatus = RTimer(status)
 wstatus.startInterval(1)
 wspaliny = RTimer(regulatorSpalania)
 wspaliny.startInterval(10) # co 10s.
+wcwu = RTimer(regulatorCWU)
+wcwu.startInterval(10)
 
 #========= FUNKCJA PRACA PIECA ==============================================================
 
@@ -197,7 +209,6 @@ def trybLato(T_zewnętrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,prze
                         for 1 in range (0, przerwa_l):
                                 if (c.getTrybAuto() != True):
                                     if ((c.getTempCWU()) < T_dolna_CWU):
-                                        c.setPompaCWU(True);
                                         break
                                     if ((c.getTempCWU()) >= T_dolna_CWU):
                                         time.sleep(60);
