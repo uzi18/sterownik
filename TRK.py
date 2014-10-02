@@ -60,6 +60,8 @@ global tZadGora
 global tZadDol
 global hist
 global praca
+global p
+global d
 
 #========= WATKI ==============================================================
 class RTimer(object):
@@ -115,6 +117,21 @@ def regulatorCWU():
             if (c.getPompaCWU() == True):
              c.setPompaCWU(False);
 
+def uruchomBloki():
+    pracaBloki()
+
+def stopPodajnik():
+    global p
+    wsp.stop()
+    c.setPodajnik(False);
+    p = 0
+
+def stopDmuchawa():
+    global d
+    wsd.stop()
+    c.setDmuchawa(False);
+    d = 0
+
 c.getStatus()    
 daneTSpal = []
 x = c.getTempSpaliny()
@@ -128,31 +145,36 @@ wspaliny = RTimer(spaliny)
 wspaliny.startInterval(10) # co 10s.
 wcwu = RTimer(regulatorCWU)
 wcwu.startInterval(10)
+wbl = RTimer(uruchomBloki)
+wsp = RTimer(stopPodajnik)
+wsd = RTimer(stopDmuchawa)
 
 #========= FUNKCJA PRACA PIECA ==============================================================
 
 def pracaPieca(czPod,czPrz,czNaw,moNaw):
+    global p
+    global d
     a = 1
     b = czPrz
+    p = 0
+    d = 0
     if czNaw >= czPrz:
         czNaw = czPrz
     if czPod > 0:
         c.setPodajnik(True);
+        p = 1
+        wsp.startInterval(czPod)
+        
     if czNaw > 0:
         c.setDmuchawa(True);
         c.setDmuchawaMoc(moNaw);
+        d = 1
+        wsd.startInterval(czNaw)
         
-    while a <= b:
-        time.sleep(1)
-        a += 1
-        if czPod < a:
-           c.setPodajnik(False);
-        if czNaw < a:
-           c.setDmuchawa(False);
+    while p != 0 or d != 0:
+        time.sleep(0.1)
     
     return
-
-
 
 #=========== FUNKCJA SPRAWDZENIA TMPERATURY CO ===============================================
 
@@ -216,13 +238,9 @@ def trybLato(T_zewnetrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przer
                                     if ((c.getTempCWU()) >= T_dolna_CWU):
                                         time.sleep(60);
 
-#=================================================================================================
-#                  PROGRAM GŁÓWNY
-#=================================================================================================
-praca = 0
-hist = 1
-try:
-    procPStart(tempZadanaDol)
+def pracaBloki():
+    global razy_jeden
+    wbl.stop()
     while True:
         licznik = 0
         if (c.getTrybAuto() != True):
@@ -287,11 +305,27 @@ try:
                     if tlo > 0:
                         c.setDmuchawa(True);
                         c.setDmuchawaMoc(tlo);
+        
+#=================================================================================================
+#                  PROGRAM GŁÓWNY
+#=================================================================================================
+praca = 0
+hist = 1
+procPStart(tempZadanaDol)
+wbl.startInterval(1)
+
+try:
+    while True:
+        time.sleep(1);
 
 finally:
-    wstatus.stop()
-    wspaliny.stop()
+    print ("Koncze dzialanie ...")
+    wsd.stop()
+    wsp.stop()
+    wbl.stop()
     wcwu.stop()
+    wspaliny.stop()
+    wstatus.stop()
     c.setDmuchawa(False);
     c.setPodajnik(False);
     c.setPompaCWU(False);
