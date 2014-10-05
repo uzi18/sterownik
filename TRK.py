@@ -298,7 +298,7 @@ def trybLato(T_zewnetrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przer
                         c.setDmuchawa(True);
                         c.setDmuchawaMoc(przerwa_nawiew_moc);
                         time.sleep(przerwa_nawiew_czas);
-                        przerwa_l = 60 * przerwa_minut
+                        przerwa_l = przerwa_minut
                         for l in range (0, przerwa_l):
                                 if (c.getTrybAuto() != True):
                                     if ((c.getTempCWU()) < T_dolna_CWU):
