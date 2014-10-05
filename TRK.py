@@ -23,6 +23,11 @@ tempZadanaGora = 50.2;
 tempZadanaDol = 50;
 tlo = 38;
 
+#======== paramtery wykrywania dopalania 
+tspalin = 100
+deltaspalin = 10
+max_obr_dmuchawy = 52
+
 #======== Korekta grupowa =============
 
 czasPodawania = 0;
@@ -38,7 +43,7 @@ czas_przerwy = [20,30,60,13,20,100]
 czas_nawiewu = [20,30,60,13,20,100]
 moc_nawiewu = [46,43,40,43,40,40]
 tryb = ['start','start','jeden_normal','normal','normal','stop']       # możliwe stany to - start, stop, normal, oba, jeden_start,
-razy_jeden = ile_krokow * [False];                                     # jeden_normal, jeden_stop,
+tryb_nawiewu =   ['man','man' ,'man','man','man','man'] # auto/manual
 
 #=========== Parametry trybu Lato ==========================================================
 
@@ -62,6 +67,12 @@ global hist
 global praca
 global p
 global d
+global ts060
+global razy_jeden
+global autospaliny
+autospaliny = False
+ts060 = 0
+razy_jeden = ile_krokow * [False];
 
 #========= WATKI ==============================================================
 class RTimer(object):
@@ -94,19 +105,70 @@ class RTimer(object):
         self.is_running = False
 
 def spaliny():
+    global autospaliny
+    global ts060
+    wspaliny.stop()
     x = c.getTempSpaliny()
     daneTSpal.pop(0)
     daneTSpal.append(x)
+    tts060 = ts060 
     ts020 = daneTSpal[-1] - daneTSpal[-3]
     ts060 = daneTSpal[-1] - daneTSpal[-1 -1 * 6 * 1]
+    ts061 = daneTSpal[-2] - daneTSpal[-2 -1 * 6 * 1]
     ts120 = daneTSpal[-1] - daneTSpal[-1 -1 * 6 * 2]
     ts180 = daneTSpal[-1] - daneTSpal[-1 -1 * 6 * 3]
+    tts060 = ts060 - tts060
     print ("trend TSpal: " + str(ts020) + "/20s "+ str(ts060) + "/60s "+ str(ts120) + "/120s "+ str(ts180) + "/180s")
+    print ("trend tts060: " + str(tts060) + "/60s  tspalin:" + str(x) + " tco:"+ str(c.getTempCO()))
+    if autospaliny == True:
+       #if x - 20 <= tempZadanaDol:
+       #   print("a")
+       #   autospaliny = False
+       #   wsp.start()
+       #   return
+
+       if ts060 <= -deltaspalin:
+          print("b")
+          autospaliny = False
+          wspaliny.start()
+          return
+      
+       if ts060 < -deltaspalin and tts060 < 0:
+          print("c")
+          autospaliny = False
+          wspaliny.start()
+          return
+
+       if ts060 > 0 and ts061 < 0:
+          print("d")
+          autospaliny = False
+          wspaliny.start()
+          return
+      
+       delta = tspalin - x
+       moc = c.getDmuchawaMoc()
+       if ts060 != 0:
+          nowamoc = int(moc + delta/abs(ts060))
+       else:
+          nowamoc = moc
+       
+       if nowamoc > max_obr_dmuchawy:
+          nowamoc = max_obr_dmuchawy
+
+       if nowamoc < 25:
+          nowamoc = 25
+        
+       print ("autospaliny TSpal: " + str(x) + " delta: "+ str(delta) +" moc: "+ str(moc) + " nowamoc: "+ str(nowamoc))
+       c.setDmuchawaMoc(nowamoc)
+    wspaliny.start()
 
 def status():
+    wstatus.stop()
     c.getStatus()
+    wstatus.start()
 
 def regulatorCWU():
+    wcwu.stop()
     print ("Watek regulator CWU...")
     if (c.getTrybAuto() != True):
         if (c.getTempCO() >= T_dolna_CWU):
@@ -116,8 +178,10 @@ def regulatorCWU():
         if (c.getTempCWU() >= T_dolna_CWU):
             if (c.getPompaCWU() == True):
              c.setPompaCWU(False);
+    wcwu.start()
 
 def uruchomBloki():
+    wbl.stop()
     pracaBloki()
 
 def stopPodajnik():
@@ -128,7 +192,11 @@ def stopPodajnik():
 
 def stopDmuchawa():
     global d
+    global autospaliny
     wsd.stop()
+    while autospaliny == True:
+      time.sleep(0.1)
+    
     c.setDmuchawa(False);
     d = 0
 
@@ -140,7 +208,7 @@ for y in range(60):
     daneTSpal.append(x) 
 
 wstatus = RTimer(status)
-wstatus.startInterval(1)
+wstatus.startInterval(2)
 wspaliny = RTimer(spaliny)
 wspaliny.startInterval(10) # co 10s.
 wcwu = RTimer(regulatorCWU)
@@ -240,7 +308,7 @@ def trybLato(T_zewnetrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przer
 
 def pracaBloki():
     global razy_jeden
-    wbl.stop()
+    global autospaliny
     while True:
         licznik = 0
         if (c.getTrybAuto() != True):
@@ -271,6 +339,7 @@ def pracaBloki():
                     else:
                         moNaw = 0
                     TRYB = tryb[licznik]
+                    autospaliny = tryb_nawiewu[licznik] == 'auto'
 
                     if ((c.getTempCO()) <= tempZadanaDol):
                         if TRYB == 'start':
