@@ -23,7 +23,7 @@ tempZadanaGora = 50.2;
 tempZadanaDol = 50;
 tlo = 38;
 
-#======== paramtery wykrywania dopalania 
+#======== paramtery autoregulacji spalin
 tspalin = 100
 deltaspalin = 10
 max_obr_dmuchawy = 52
@@ -219,13 +219,15 @@ wsd = RTimer(stopDmuchawa)
 
 #========= FUNKCJA PRACA PIECA ==============================================================
 
-def pracaPieca(czPod,czPrz,czNaw,moNaw):
+def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
+    global autospaliny
     global p
     global d
     a = 1
     b = czPrz
     p = 0
     d = 0
+    autospaliny = False
     if czNaw >= czPrz:
         czNaw = czPrz
     if czPod > 0:
@@ -238,6 +240,7 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw):
         c.setDmuchawaMoc(moNaw);
         d = 1
         wsd.startInterval(czNaw)
+        autospaliny = asp
         
     while p != 0 or d != 0:
         time.sleep(0.1)
@@ -308,7 +311,6 @@ def trybLato(T_zewnetrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przer
 
 def pracaBloki():
     global razy_jeden
-    global autospaliny
     while True:
         licznik = 0
         if (c.getTrybAuto() != True):
@@ -339,44 +341,37 @@ def pracaBloki():
                     else:
                         moNaw = 0
                     TRYB = tryb[licznik]
-                    autospaliny = False
+                    asp = tryb_nawiewu[licznik] == 'auto'
 
                     if ((c.getTempCO()) <= tempZadanaDol):
                         if TRYB == 'start':
                             print ("uruchamiam blok START nr " + str(licznik))
-                            autospaliny = tryb_nawiewu[licznik] == 'auto'
-                            pracaPieca(czPod,czPrz,czNaw,moNaw)
+                            pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
                         if TRYB == 'jeden_start' and razy_jeden[licznik] == False:
                             print ("uruchamiam blok JEDEN_START nr " + str(licznik))
                             razy_jeden[licznik] = True
-                            autospaliny = tryb_nawiewu[licznik] == 'auto'
-                            pracaPieca(czPod,czPrz,czNaw,moNaw)
+                            pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
                     if ((c.getTempCO()) < tempZadanaGora):
                         if ((c.getTempCO()) > tempZadanaDol):
                             if TRYB == 'normal':
                                 print ("uruchamiam blok NORMAL nr " + str(licznik))
-                                autospaliny = tryb_nawiewu[licznik] == 'auto'
-                                pracaPieca(czPod,czPrz,czNaw,moNaw)
+                                pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
                             if TRYB == 'jeden_normal' and razy_jeden[licznik] == False:
                                 print ("uruchamiam blok JEDEN_NORMAL nr " + str(licznik))
                                 razy_jeden[licznik] = True
-                                autospaliny = tryb_nawiewu[licznik] == 'auto'
-                                pracaPieca(czPod,czPrz,czNaw,moNaw)
+                                pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
                     if ((c.getTempCO()) >= tempZadanaGora):
                         if TRYB == 'stop':
                             print ("uruchamiam blok STOP nr " + str(licznik))
-                            autospaliny = tryb_nawiewu[licznik] == 'auto'
-                            pracaPieca(czPod,czPrz,czNaw,moNaw)
+                            pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
                         if TRYB == 'jeden_stop' and razy_jeden[licznik] == False:
                             print ("uruchamiam blok JEDEN_STOP nr " + str(licznik))
                             razy_jeden[licznik] = True
-                            autospaliny = tryb_nawiewu[licznik] == 'auto'
-                            pracaPieca(czPod,czPrz,czNaw,moNaw)
+                            pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
                     if ((c.getTempCO()) >= tempZadanaGora) or ((c.getTempCO()) <= tempZadanaDol):
                         if TRYB == 'oba':
                             print ("uruchamiam blok OBA nr " + str(licznik))
-                            autospaliny = tryb_nawiewu[licznik] == 'auto'
-                            pracaPieca(czPod,czPrz,czNaw,moNaw)
+                            pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
                     if tlo > 0:
                         c.setDmuchawa(True);
                         c.setDmuchawaMoc(tlo);
