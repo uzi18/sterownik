@@ -82,6 +82,7 @@ class sterownik:
                 
                 try:
                         with self.lock:
+                             time.sleep(0.2)
                              self.last_res, self.last_content = self.h.request("http://" + self.s_address + "/?com=" + req, "GET")
                         
                         if (self.last_res.status == 200):
