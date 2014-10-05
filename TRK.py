@@ -120,7 +120,7 @@ def spaliny():
     tts060 = ts060 - tts060
     print ("trend TSpal: " + str(ts020) + "/20s "+ str(ts060) + "/60s "+ str(ts120) + "/120s "+ str(ts180) + "/180s")
     print ("trend tts060: " + str(tts060) + "/60s  tspalin:" + str(x) + " tco:"+ str(c.getTempCO()))
-    if autospaliny == True:
+    if autospaliny == True and wsd.is_running == False:
        #if x - 20 <= tempZadanaDol:
        #   print("a")
        #   autospaliny = False
@@ -339,37 +339,43 @@ def pracaBloki():
                     else:
                         moNaw = 0
                     TRYB = tryb[licznik]
-                    autospaliny = tryb_nawiewu[licznik] == 'auto'
+                    autospaliny = False
 
                     if ((c.getTempCO()) <= tempZadanaDol):
                         if TRYB == 'start':
                             print ("uruchamiam blok START nr " + str(licznik))
+                            autospaliny = tryb_nawiewu[licznik] == 'auto'
                             pracaPieca(czPod,czPrz,czNaw,moNaw)
                         if TRYB == 'jeden_start' and razy_jeden[licznik] == False:
                             print ("uruchamiam blok JEDEN_START nr " + str(licznik))
                             razy_jeden[licznik] = True
+                            autospaliny = tryb_nawiewu[licznik] == 'auto'
                             pracaPieca(czPod,czPrz,czNaw,moNaw)
                     if ((c.getTempCO()) < tempZadanaGora):
                         if ((c.getTempCO()) > tempZadanaDol):
                             if TRYB == 'normal':
                                 print ("uruchamiam blok NORMAL nr " + str(licznik))
+                                autospaliny = tryb_nawiewu[licznik] == 'auto'
                                 pracaPieca(czPod,czPrz,czNaw,moNaw)
                             if TRYB == 'jeden_normal' and razy_jeden[licznik] == False:
                                 print ("uruchamiam blok JEDEN_NORMAL nr " + str(licznik))
                                 razy_jeden[licznik] = True
+                                autospaliny = tryb_nawiewu[licznik] == 'auto'
                                 pracaPieca(czPod,czPrz,czNaw,moNaw)
                     if ((c.getTempCO()) >= tempZadanaGora):
                         if TRYB == 'stop':
                             print ("uruchamiam blok STOP nr " + str(licznik))
+                            autospaliny = tryb_nawiewu[licznik] == 'auto'
                             pracaPieca(czPod,czPrz,czNaw,moNaw)
                         if TRYB == 'jeden_stop' and razy_jeden[licznik] == False:
                             print ("uruchamiam blok JEDEN_STOP nr " + str(licznik))
-                            print (TRYB)
                             razy_jeden[licznik] = True
+                            autospaliny = tryb_nawiewu[licznik] == 'auto'
                             pracaPieca(czPod,czPrz,czNaw,moNaw)
                     if ((c.getTempCO()) >= tempZadanaGora) or ((c.getTempCO()) <= tempZadanaDol):
                         if TRYB == 'oba':
                             print ("uruchamiam blok OBA nr " + str(licznik))
+                            autospaliny = tryb_nawiewu[licznik] == 'auto'
                             pracaPieca(czPod,czPrz,czNaw,moNaw)
                     if tlo > 0:
                         c.setDmuchawa(True);
