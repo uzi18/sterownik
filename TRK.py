@@ -271,8 +271,6 @@ def tempCO(tZadGora,tZadDol):
         praca = 0
         print ("Temperatura CO: " + str(c.getTempCO()) + "°C. Oczekiwanie.")
         time.sleep(5);
-        
-    return
 
 #================= Procedura przed startowa ==========================================
 
