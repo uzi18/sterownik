@@ -223,8 +223,6 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
     global autospaliny
     global p
     global d
-    a = 1
-    b = czPrz
     p = 0
     d = 0
     autospaliny = False
