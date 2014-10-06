@@ -195,7 +195,7 @@ def stopDmuchawa():
     global autospaliny
     wsd.stop()
     while autospaliny == True:
-      time.sleep(0.1)
+      time.sleep(0.01)
     
     c.setDmuchawa(False);
     d = 0
@@ -241,7 +241,7 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
         autospaliny = asp
         
     while p != 0 or d != 0:
-        time.sleep(0.1)
+        time.sleep(0.01)
     
     return
 
@@ -260,7 +260,7 @@ def tempCO(tZadGora,tZadDol):
         hist = 0
         print ('warunek spełniony Todcz > Tzad górnej - zatrzymuję grzanie')
         print ("Temperatura CO: " + str(c.getTempCO()) + "°C")
-        time.sleep(15);
+        time.sleep(5);
     elif hist == 1 and ((c.getTempCO()) < tZadGora + 0.2):
         praca = 1
         print ('warunek spełniony Todcz < Tzad górnej - kontynuuję grzanie')
