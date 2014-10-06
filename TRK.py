@@ -316,7 +316,7 @@ def pracaBloki():
             tempCO(tZadGora,tZadDol)
             if (c.getTempZew()) > T_zewnetrzna_lato:
                 trybLato(T_zewnetrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przerwa_nawiew_czas,przerwa_nawiew_moc)
-            if (c.getTempCO()) < tempZadanaDol:
+            if praca == 0 and (c.getTempCO()) < tempZadanaDol:
                 razy_jeden = ile_krokow * [False];
             if praca == 1:
                 for licznik in range(0,ile_krokow):
