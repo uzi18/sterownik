@@ -351,15 +351,14 @@ def pracaBloki():
                             print ("uruchamiam blok JEDEN_START nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                    if ((c.getTempCO()) < tempZadanaGora):
-                        if ((c.getTempCO()) > tempZadanaDol):
-                            if TRYB == 'normal':
-                                print ("uruchamiam blok NORMAL nr " + str(licznik))
-                                pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                            if TRYB == 'jeden_normal' and razy_jeden[licznik] == False:
-                                print ("uruchamiam blok JEDEN_NORMAL nr " + str(licznik))
-                                razy_jeden[licznik] = True
-                                pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
+                    if ((c.getTempCO()) < tempZadanaGora) and ((c.getTempCO()) > tempZadanaDol):
+                        if TRYB == 'normal':
+                            print ("uruchamiam blok NORMAL nr " + str(licznik))
+                            pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
+                        if TRYB == 'jeden_normal' and razy_jeden[licznik] == False:
+                            print ("uruchamiam blok JEDEN_NORMAL nr " + str(licznik))
+                            razy_jeden[licznik] = True
+                            pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
                     if ((c.getTempCO()) >= tempZadanaGora):
                         if TRYB == 'stop':
                             print ("uruchamiam blok STOP nr " + str(licznik))
