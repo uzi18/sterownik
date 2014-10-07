@@ -325,18 +325,22 @@ def pracaBloki():
                         czPod = czas_podawania[licznik] + czasPodawania
                     else:
                         czPod = 0
+                    
                     if czas_przerwy[licznik] > 0:
                         czPrz = czas_przerwy[licznik] + czas_podawania[licznik] + czasPrzerwy + czasPodawania
                     else:
                         czPrz = 0
+                    
                     if czas_nawiewu[licznik] > 0:
                         czNaw = czas_nawiewu[licznik] + czas_podawania[licznik] + czasNawiewu + czasPodawania
                     else:
                         czNaw = 0
+                    
                     if moc_nawiewu[licznik] > 0:
                         moNaw = moc_nawiewu[licznik] + mocNawiewu
                     else:
                         moNaw = 0
+                    
                     TRYB = tryb[licznik]
                     asp = tryb_autodopalania
 
