@@ -133,13 +133,13 @@ def spaliny():
           wspaliny.start()
           return
       
-       if ts060 < -deltaspalin and tts060 < 0:
+       elif ts060 < -deltaspalin and tts060 < 0:
           print("c")
           autodopalanie = False
           wspaliny.start()
           return
 
-       if ts060 > 0 and ts061 < 0:
+       elif ts060 > 0 and ts061 < 0:
           print("d")
           autodopalanie = False
           wspaliny.start()
@@ -175,7 +175,7 @@ def regulatorCWU():
             if (c.getTempCWU() < T_dolna_CWU):
                 if (c.getPompaCWU() == False):
                     c.setPompaCWU(True);
-        if (c.getTempCWU() >= T_dolna_CWU):
+        elif (c.getTempCWU() >= T_dolna_CWU):
             if (c.getPompaCWU() == True):
              c.setPompaCWU(False);
     wcwu.start()
@@ -345,27 +345,27 @@ def pracaBloki():
                         if TRYB == 'start':
                             print ("uruchamiam blok START nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                        if TRYB == 'jeden_start' and razy_jeden[licznik] == False:
+                        elif TRYB == 'jeden_start' and razy_jeden[licznik] == False:
                             print ("uruchamiam blok JEDEN_START nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                    if ((c.getTempCO()) < tempZadanaGora) and ((c.getTempCO()) > tempZadanaDol):
+                    elif ((c.getTempCO()) < tempZadanaGora) and ((c.getTempCO()) > tempZadanaDol):
                         if TRYB == 'normal':
                             print ("uruchamiam blok NORMAL nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                        if TRYB == 'jeden_normal' and razy_jeden[licznik] == False:
+                        elif TRYB == 'jeden_normal' and razy_jeden[licznik] == False:
                             print ("uruchamiam blok JEDEN_NORMAL nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                    if ((c.getTempCO()) >= tempZadanaGora):
+                    elif ((c.getTempCO()) >= tempZadanaGora):
                         if TRYB == 'stop':
                             print ("uruchamiam blok STOP nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                        if TRYB == 'jeden_stop' and razy_jeden[licznik] == False:
+                        elif TRYB == 'jeden_stop' and razy_jeden[licznik] == False:
                             print ("uruchamiam blok JEDEN_STOP nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                    if ((c.getTempCO()) >= tempZadanaGora) or ((c.getTempCO()) <= tempZadanaDol):
+                    elif ((c.getTempCO()) >= tempZadanaGora) or ((c.getTempCO()) <= tempZadanaDol):
                         if TRYB == 'oba':
                             print ("uruchamiam blok OBA nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
