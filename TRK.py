@@ -69,6 +69,8 @@ global p
 global d
 global ts060
 global razy_jeden
+global ostatni_stop
+ostatni_stop = 0
 global autodopalanie
 autodopalanie = False
 ts060 = 0
@@ -306,6 +308,7 @@ def trybLato(T_zewnetrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przer
 
 def pracaBloki():
     global razy_jeden
+    global ostatni_stop
     while True:
         licznik = 0
         if koniec == True:
@@ -317,6 +320,11 @@ def pracaBloki():
             tempCO(tZadGora,tZadDol)
             #if (c.getTempZew()) > T_zewnetrzna_lato:
             #    trybLato(T_zewnetrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przerwa_nawiew_czas,przerwa_nawiew_moc)
+            
+            for licznik in range(0,ile_krokow):
+                if tryb[licznik] == 'stop':
+                  ostatni_stop = licznik
+            
             if praca == 1:
                 for licznik in range(0,ile_krokow):
                     if koniec == True:
@@ -341,8 +349,12 @@ def pracaBloki():
                     else:
                         moNaw = 0
                     
+                    if tryb_autodopalania:
+                       asp = licznik == ostatni_stop
+                    else:
+                       asp = False
+
                     TRYB = tryb[licznik]
-                    asp = tryb_autodopalania
                     tco = c.getTempCO()
 
                     if (tco <= tempZadanaDol):
