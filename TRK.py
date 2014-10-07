@@ -324,9 +324,9 @@ def pracaBloki():
                 if c.getPompaCO() == False:
                     c.setPompaCO(True)
             
-            for licznik in range(0,ile_krokow):
-                if tryb[licznik] == 'stop':
-                  ostatni_stop = licznik
+            for l in range(0,ile_krokow):
+                if tryb[l] == 'stop':
+                  ostatni_stop = l
             
             if praca == 1:
                 for licznik in range(0,ile_krokow):
