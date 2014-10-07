@@ -271,19 +271,6 @@ def tempCO(tZadGora,tZadDol):
         print ("Temperatura CO: " + str(c.getTempCO()) + "°C. Oczekiwanie.")
         time.sleep(5);
 
-#================= Procedura przed startowa ==========================================
-
-def procPStart(tempZadanaDol):
-    while True:
-          if (c.getTrybAuto() != True):
-              c.setPompaCO(True);
-              if ((c.getTempCO()) >= tempZadanaDol):
-                  print ("Temperatura CO: " + str(c.getTempCO()) + "°C. Oczekiwanie.")
-                  time.sleep(5);
-              else:
-                  break
-     
-
 #================ Tryb Lato ===========================================================
 
 def trybLato(T_zewnetrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przerwa_nawiew_czas,przerwa_nawiew_moc ):
@@ -291,6 +278,8 @@ def trybLato(T_zewnetrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przer
             print ("uruchamiam tryb LATO")
             c.setPompaCO(False);
             while (c.getTempZew()) > T_zewnetrzna_lato:
+                    if koniec == True:
+                        break
                     if (c.getTrybAuto() != True):
                         c.setPodajnik(True);
                         time.sleep(przerwa_podawanie)
@@ -300,6 +289,8 @@ def trybLato(T_zewnetrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przer
                         time.sleep(przerwa_nawiew_czas);
                         przerwa_l = przerwa_minut
                         for l in range (0, przerwa_l):
+                                if koniec == True:
+                                    break
                                 if (c.getTrybAuto() != True):
                                     if ((c.getTempCWU()) < T_dolna_CWU):
                                         break
@@ -310,8 +301,10 @@ def pracaBloki():
     global razy_jeden
     while True:
         licznik = 0
+        if koniec == True:
+          break
         if (c.getTrybAuto() != True):
-            c.setPompaCO(True);
+            #c.setPompaCO(True);
             tZadGora = tempZadanaGora
             tZadDol = tempZadanaDol
             tempCO(tZadGora,tZadDol)
@@ -321,6 +314,8 @@ def pracaBloki():
                 razy_jeden = ile_krokow * [False];
             if praca == 1:
                 for licznik in range(0,ile_krokow):
+                    if koniec == True:
+                        break
                     if czas_podawania[licznik] > 0:
                         czPod = czas_podawania[licznik] + czasPodawania
                     else:
@@ -383,7 +378,6 @@ def pracaBloki():
 #=================================================================================================
 praca = 0
 hist = 1
-procPStart(tempZadanaDol)
 wbl.startInterval(1)
 
 try:
