@@ -27,6 +27,7 @@ tlo = 38;
 tspalin = 100
 deltaspalin = 10
 max_obr_dmuchawy = 52
+tryb_autodopalania = False
 
 #======== Korekta grupowa =============
 
@@ -43,7 +44,6 @@ czas_przerwy = [20,30,60,13,20,100]
 czas_nawiewu = [20,30,60,13,20,100]
 moc_nawiewu = [46,43,40,43,40,40]
 tryb = ['start','start','jeden_normal','normal','normal','stop']       # możliwe stany to - start, stop, normal, oba, jeden_start,
-tryb_nawiewu =   ['man','man' ,'man','man','man','man'] # auto/manual
 
 #=========== Parametry trybu Lato ==========================================================
 
@@ -69,8 +69,8 @@ global p
 global d
 global ts060
 global razy_jeden
-global autospaliny
-autospaliny = False
+global autodopalanie
+autodopalanie = False
 ts060 = 0
 razy_jeden = ile_krokow * [False];
 
@@ -105,7 +105,7 @@ class RTimer(object):
         self.is_running = False
 
 def spaliny():
-    global autospaliny
+    global autodopalanie
     global ts060
     wspaliny.stop()
     x = c.getTempSpaliny()
@@ -120,28 +120,28 @@ def spaliny():
     tts060 = ts060 - tts060
     print ("trend TSpal: " + str(ts020) + "/20s "+ str(ts060) + "/60s "+ str(ts120) + "/120s "+ str(ts180) + "/180s")
     print ("trend tts060: " + str(tts060) + "/60s  tspalin:" + str(x) + " tco:"+ str(c.getTempCO()))
-    if autospaliny == True and wsd.is_running == False:
+    if autodopalanie == True and wsd.is_running == False:
        #if x - 20 <= tempZadanaDol:
        #   print("a")
-       #   autospaliny = False
+       #   autodopalanie = False
        #   wsp.start()
        #   return
 
        if ts060 <= -deltaspalin:
           print("b")
-          autospaliny = False
+          autodopalanie = False
           wspaliny.start()
           return
       
        if ts060 < -deltaspalin and tts060 < 0:
           print("c")
-          autospaliny = False
+          autodopalanie = False
           wspaliny.start()
           return
 
        if ts060 > 0 and ts061 < 0:
           print("d")
-          autospaliny = False
+          autodopalanie = False
           wspaliny.start()
           return
       
@@ -192,9 +192,10 @@ def stopPodajnik():
 
 def stopDmuchawa():
     global d
-    global autospaliny
+    global autodopalanie
+    global koniec
     wsd.stop()
-    while autospaliny == True:
+    while autodopalanie == True:
       time.sleep(0.01)
     
     c.setDmuchawa(False);
@@ -220,12 +221,12 @@ wsd = RTimer(stopDmuchawa)
 #========= FUNKCJA PRACA PIECA ==============================================================
 
 def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
-    global autospaliny
+    global autodopalanie
     global p
     global d
     p = 0
     d = 0
-    autospaliny = False
+    autodopalanie = False
     if czNaw >= czPrz:
         czNaw = czPrz
     if czPod > 0:
@@ -238,7 +239,7 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
         c.setDmuchawaMoc(moNaw);
         d = 1
         wsd.startInterval(czNaw)
-        autospaliny = asp
+        autodopalanie = asp
         
     while p != 0 or d != 0:
         time.sleep(0.01)
@@ -337,7 +338,7 @@ def pracaBloki():
                     else:
                         moNaw = 0
                     TRYB = tryb[licznik]
-                    asp = tryb_nawiewu[licznik] == 'auto'
+                    asp = tryb_autodopalania
 
                     if ((c.getTempCO()) <= tempZadanaDol):
                         if TRYB == 'start':
