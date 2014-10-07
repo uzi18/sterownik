@@ -229,10 +229,6 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
     autodopalanie = False
     if czNaw >= czPrz:
         czNaw = czPrz
-    if czPod > 0:
-        c.setPodajnik(True);
-        p = 1
-        wsp.startInterval(czPod)
         
     if czNaw > 0:
         c.setDmuchawa(True);
@@ -240,6 +236,11 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
         d = 1
         wsd.startInterval(czNaw)
         autodopalanie = asp
+
+    if czPod > 0:
+        c.setPodajnik(True);
+        p = 1
+        wsp.startInterval(czPod)
         
     while p != 0 or d != 0:
         time.sleep(0.01)
