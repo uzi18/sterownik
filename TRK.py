@@ -52,12 +52,9 @@ tryb = ['start','start','jeden_normal','normal','normal','stop']       # możliw
 
 #=========== Parametry trybu Lato ==========================================================
 
+Tryb_autolato = False
 T_zewnetrzna_lato = 15;
 T_dolna_CWU = 44;
-przerwa_minut = 60;
-przerwa_podawanie = 5;
-przerwa_nawiew_czas = 90;
-przerwa_nawiew_moc = 41;
 
 #===========================================================================================
 #                KOD PROGRAMU
@@ -306,32 +303,6 @@ def tempCO(tZadGora,tZadDol):
         if wpod.is_running != True:
            wpod.startInterval(podtrzymanie_postoj*60)
 
-#================ Tryb Lato ===========================================================
-
-def trybLato(T_zewnetrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przerwa_nawiew_czas,przerwa_nawiew_moc ):
-        if (c.getTrybAuto() != True):
-            print ("uruchamiam tryb LATO")
-            c.setPompaCO(False);
-            while (c.getTempZew()) > T_zewnetrzna_lato:
-                    if koniec == True:
-                        break
-                    if (c.getTrybAuto() != True):
-                        c.setPodajnik(True);
-                        time.sleep(przerwa_podawanie)
-                        c.setPodajnik(False);
-                        c.setDmuchawa(True);
-                        c.setDmuchawaMoc(przerwa_nawiew_moc);
-                        time.sleep(przerwa_nawiew_czas);
-                        przerwa_l = przerwa_minut
-                        for l in range (0, przerwa_l):
-                                if koniec == True:
-                                    break
-                                if (c.getTrybAuto() != True):
-                                    if ((c.getTempCWU()) < T_dolna_CWU):
-                                        break
-                                    if ((c.getTempCWU()) >= T_dolna_CWU):
-                                        time.sleep(60);
-
 #================ Przertwarzanie bloków ===============================================
 
 def pracaBloki():
@@ -342,12 +313,14 @@ def pracaBloki():
         if koniec == True:
           break
         if (c.getTrybAuto() != True):
-            #c.setPompaCO(True);
             tZadGora = tempZadanaGora
             tZadDol = tempZadanaDol
             tempCO(tZadGora,tZadDol)
-            #if (c.getTempZew()) > T_zewnetrzna_lato:
-            #    trybLato(T_zewnetrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przerwa_nawiew_czas,przerwa_nawiew_moc)
+            
+            if Tryb_autolato and c.getTempZew() > T_zewnetrzna_lato:
+                c.setPompaCO(False)
+            else:
+                c.setPompaCO(True)
             
             for licznik in range(0,ile_krokow):
                 if tryb[licznik] == 'stop':
