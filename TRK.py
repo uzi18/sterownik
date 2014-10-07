@@ -297,6 +297,8 @@ def trybLato(T_zewnetrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przer
                                     if ((c.getTempCWU()) >= T_dolna_CWU):
                                         time.sleep(60);
 
+#================ Przertwarzanie bloków ===============================================
+
 def pracaBloki():
     global razy_jeden
     while True:
