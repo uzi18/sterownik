@@ -201,6 +201,9 @@ def podtrzymanie():
     wpod.stop()
     print ("Podtrzymanie ...")
     pracaPieca(podtrzymanie_podajnik,podtrzymanie_przerwa + podtrzymanie_podajnik,podtrzymanie_przerwa,podtrzymanie_nadmuch,False)
+    #if tlo > 0:
+    #    c.setDmuchawa(True);
+    #    c.setDmuchawaMoc(tlo);
     wpod.startInterval(podtrzymanie_postoj*60)
 
 def stopPodajnik():
@@ -411,11 +414,6 @@ def pracaBloki():
                             print ("uruchamiam blok OBA nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
                     
-                    # do przeniesienia
-                    #if tlo > 0:
-                    #    c.setDmuchawa(True);
-                    #    c.setDmuchawaMoc(tlo);
-        
 #=================================================================================================
 #                  PROGRAM GŁÓWNY
 #=================================================================================================
