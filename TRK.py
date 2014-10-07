@@ -245,6 +245,7 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
     while p != 0 or d != 0:
         time.sleep(0.01)
     
+    print ("praca wyjscie ...")
     return
 
 #=========== FUNKCJA SPRAWDZENIA TMPERATURY CO ===============================================
@@ -252,9 +253,11 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
 def tempCO(tZadGora,tZadDol):
     global praca
     global hist
+    global razy_jeden
     if ((c.getTempCO()) < tZadDol):
         praca = 1
         hist = 1
+        razy_jeden = ile_krokow * [False];
         print ('warunek spełniony Todcz < Tzad dolnej - uruchamiam grzanie')
         print ("Temperatura CO: " + str(c.getTempCO()) + "°C")
     elif ((c.getTempCO()) > tZadGora + 0.2):
@@ -313,8 +316,6 @@ def pracaBloki():
             tempCO(tZadGora,tZadDol)
             #if (c.getTempZew()) > T_zewnetrzna_lato:
             #    trybLato(T_zewnetrzna_lato,T_dolna_CWU,przerwa_minut,przerwa_podawanie,przerwa_nawiew_czas,przerwa_nawiew_moc)
-            if praca == 0 and (c.getTempCO()) < tempZadanaDol:
-                razy_jeden = ile_krokow * [False];
             if praca == 1:
                 for licznik in range(0,ile_krokow):
                     if koniec == True:
