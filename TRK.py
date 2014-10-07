@@ -302,7 +302,7 @@ def tempCO(tZadGora,tZadDol):
     if praca:
         if wpod.is_running == True:
            wpod.stop()
-    else
+    else:
         if wpod.is_running != True:
            wpod.startInterval(podtrzymanie_postoj*60)
 
@@ -428,6 +428,7 @@ try:
 finally:
     print ("Koncze dzialanie ...")
     koniec = True
+    wpod.stop()
     wsd.stop()
     wsp.stop()
     wbl.stop()
