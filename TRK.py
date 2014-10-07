@@ -44,7 +44,6 @@ mocNawiewu = 0;
 
 #========== Parametry bloków ===============================================================
 
-ile_krokow = 6;
 czas_podawania = [5,0,0,3,0,0]
 czas_przerwy = [20,30,60,13,20,100]
 czas_nawiewu = [20,30,60,13,20,100]
@@ -80,6 +79,12 @@ ostatni_stop = 0
 global autodopalanie
 autodopalanie = False
 ts060 = 0
+global ile_krokow
+ile_krokow = len(czas_podawania);
+if not len(czas_podawania) == len(czas_przerwy) == len(czas_nawiewu) == len(moc_nawiewu) == len(tryb):
+   print ("Błąd: Zła ilość elementów w blokach")
+   sys.exit()
+
 razy_jeden = ile_krokow * [False];
 
 #========= WATKI ==============================================================
