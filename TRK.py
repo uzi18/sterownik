@@ -10,7 +10,7 @@ import time;
 #===============================================================================
 #============ Parametry logowania do sterownika ================================
 #     wpisz nr IP sterownika , swój login i hasło
-c = sterownik('192.168.1.199', 'login', 'haslo');
+c = sterownik('192.168.2.2', 'admin', 'admin');
 
 #===============================================================================
 #                         Parametry wspólne
@@ -21,7 +21,13 @@ c = sterownik('192.168.1.199', 'login', 'haslo');
 
 tempZadanaGora = 50.2;
 tempZadanaDol = 50;
-#tlo = 38;
+
+#======== parametry podtrzymania ===============
+
+podtrzymanie_postoj = 10 # w minutach
+podtrzymanie_podajnik = 10
+podtrzymanie_przerwa = 30
+podtrzymanie_nadmuch = 38
 
 #======== paramtery autoregulacji spalin
 tspalin = 100
@@ -186,6 +192,12 @@ def uruchomBloki():
     wbl.stop()
     pracaBloki()
 
+def podtrzymanie():
+    wpod.stop()
+    print ("Podtrzymanie ...")
+    pracaPieca(podtrzymanie_podajnik,podtrzymanie_przerwa + podtrzymanie_podajnik,podtrzymanie_przerwa,podtrzymanie_nadmuch,False)
+    wpod.startInterval(podtrzymanie_postoj*60)
+
 def stopPodajnik():
     global p
     wsp.stop()
@@ -219,6 +231,7 @@ wcwu.startInterval(10)
 wbl = RTimer(uruchomBloki)
 wsp = RTimer(stopPodajnik)
 wsd = RTimer(stopDmuchawa)
+wpod = RTimer(podtrzymanie)
 
 #========= FUNKCJA PRACA PIECA ==============================================================
 
@@ -277,6 +290,13 @@ def tempCO(tZadGora,tZadDol):
         praca = 0
         print ("Temperatura CO: " + str(tco) + "°C. Oczekiwanie.")
         time.sleep(5);
+    
+    if praca:
+        if wpod.is_running == True:
+           wpod.stop()
+    else
+        if wpod.is_running != True:
+           wpod.startInterval(podtrzymanie_postoj*60)
 
 #================ Tryb Lato ===========================================================
 
