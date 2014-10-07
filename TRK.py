@@ -158,7 +158,7 @@ def spaliny():
        if nowamoc < 25:
           nowamoc = 25
         
-       print ("autospaliny TSpal: " + str(x) + " delta: "+ str(delta) +" moc: "+ str(moc) + " nowamoc: "+ str(nowamoc))
+       print ("autodopalanie TSpal: " + str(x) + " delta: "+ str(delta) +" moc: "+ str(moc) + " nowamoc: "+ str(nowamoc))
        c.setDmuchawaMoc(nowamoc)
     wspaliny.start()
 
