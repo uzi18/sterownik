@@ -318,9 +318,11 @@ def pracaBloki():
             tempCO(tZadGora,tZadDol)
             
             if Tryb_autolato and c.getTempZew() > T_zewnetrzna_lato:
-                c.setPompaCO(False)
+                if c.getPompaCO() == True:
+                    c.setPompaCO(False)
             else:
-                c.setPompaCO(True)
+                if c.getPompaCO() == False:
+                    c.setPompaCO(True)
             
             for licznik in range(0,ile_krokow):
                 if tryb[licznik] == 'stop':
