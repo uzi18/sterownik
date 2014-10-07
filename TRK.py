@@ -254,25 +254,26 @@ def tempCO(tZadGora,tZadDol):
     global praca
     global hist
     global razy_jeden
-    if ((c.getTempCO()) < tZadDol):
+    tco = c.getTempCO()
+    if (tco < tZadDol):
         praca = 1
         hist = 1
         razy_jeden = ile_krokow * [False];
         print ('warunek spełniony Todcz < Tzad dolnej - uruchamiam grzanie')
-        print ("Temperatura CO: " + str(c.getTempCO()) + "°C")
-    elif ((c.getTempCO()) > tZadGora + 0.2):
+        print ("Temperatura CO: " + str(tco) + "°C")
+    elif (tco > tZadGora + 0.2):
         praca = 0
         hist = 0
         print ('warunek spełniony Todcz > Tzad górnej - zatrzymuję grzanie')
-        print ("Temperatura CO: " + str(c.getTempCO()) + "°C")
+        print ("Temperatura CO: " + str(tco) + "°C")
         time.sleep(5);
-    elif hist == 1 and ((c.getTempCO()) < tZadGora + 0.2):
+    elif hist == 1 and (tco < tZadGora + 0.2):
         praca = 1
         print ('warunek spełniony Todcz < Tzad górnej - kontynuuję grzanie')
-        print ("Temperatura CO: " + str(c.getTempCO()) + "°C")
+        print ("Temperatura CO: " + str(tco) + "°C")
     else:
         praca = 0
-        print ("Temperatura CO: " + str(c.getTempCO()) + "°C. Oczekiwanie.")
+        print ("Temperatura CO: " + str(tco) + "°C. Oczekiwanie.")
         time.sleep(5);
 
 #================ Tryb Lato ===========================================================
@@ -342,8 +343,9 @@ def pracaBloki():
                     
                     TRYB = tryb[licznik]
                     asp = tryb_autodopalania
+                    tco = c.getTempCO()
 
-                    if ((c.getTempCO()) <= tempZadanaDol):
+                    if (tco <= tempZadanaDol):
                         if TRYB == 'start':
                             print ("uruchamiam blok START nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
@@ -351,7 +353,7 @@ def pracaBloki():
                             print ("uruchamiam blok JEDEN_START nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                    elif ((c.getTempCO()) < tempZadanaGora) and ((c.getTempCO()) > tempZadanaDol):
+                    elif (tco < tempZadanaGora) and (tco > tempZadanaDol):
                         if TRYB == 'normal':
                             print ("uruchamiam blok NORMAL nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
@@ -359,7 +361,7 @@ def pracaBloki():
                             print ("uruchamiam blok JEDEN_NORMAL nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                    elif ((c.getTempCO()) >= tempZadanaGora):
+                    elif (tco >= tempZadanaGora):
                         if TRYB == 'stop':
                             print ("uruchamiam blok STOP nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
@@ -367,7 +369,7 @@ def pracaBloki():
                             print ("uruchamiam blok JEDEN_STOP nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                    elif ((c.getTempCO()) >= tempZadanaGora) or ((c.getTempCO()) <= tempZadanaDol):
+                    elif (tco >= tempZadanaGora) or (tco <= tempZadanaDol):
                         if TRYB == 'oba':
                             print ("uruchamiam blok OBA nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
