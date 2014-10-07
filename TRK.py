@@ -21,7 +21,7 @@ c = sterownik('192.168.1.199', 'login', 'haslo');
 
 tempZadanaGora = 50.2;
 tempZadanaDol = 50;
-tlo = 38;
+#tlo = 38;
 
 #======== paramtery autoregulacji spalin
 tspalin = 100
@@ -368,9 +368,11 @@ def pracaBloki():
                         if TRYB == 'oba':
                             print ("uruchamiam blok OBA nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                    if tlo > 0:
-                        c.setDmuchawa(True);
-                        c.setDmuchawaMoc(tlo);
+                    
+                    # do przeniesienia
+                    #if tlo > 0:
+                    #    c.setDmuchawa(True);
+                    #    c.setDmuchawaMoc(tlo);
         
 #=================================================================================================
 #                  PROGRAM GŁÓWNY
@@ -386,6 +388,7 @@ try:
 
 finally:
     print ("Koncze dzialanie ...")
+    koniec = True
     wsd.stop()
     wsp.stop()
     wbl.stop()
