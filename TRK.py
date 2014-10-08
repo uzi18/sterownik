@@ -1,16 +1,20 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+#===============================================================================
+#               TRK by Stan v 0.3.64
+#===============================================================================
+
 # Import bibliotek
 from sterownik import *
 import threading, time
 import signal, os
-#===============================================================================
-#               TRK by Stan v 0.3.64
-#===============================================================================
-#============ Parametry logowania do sterownika ================================
-#     wpisz nr IP sterownika , swój login i hasło
-c = sterownik('192.168.2.2', 'admin', 'admin');
+try:
+  import konf_polaczenie
+except ImportError:
+  raise ImportError('brak pliku konfiguracji: konf_polaczenie.py')
+
+c = sterownik(konf_polaczenie.ip, konf_polaczenie.login, konf_polaczenie.haslo);
 
 #===============================================================================
 #                         Parametry wspólne
