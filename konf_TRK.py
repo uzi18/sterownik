@@ -1,5 +1,5 @@
 #===============================================================================
-#                         Parametry wspólne
+#                         Parametry wspolne
 #
 # Tutaj wpisz parametry globalne pracy
 #===============================================================================
@@ -29,8 +29,8 @@ czasPrzerwy   = 0;
 czasNawiewu   = 0;
 mocNawiewu    = 0;
 
-#========== Parametry bloków ===================================================
-# możliwe tryby to - start, stop, normal, oba, jeden_start, jeden_normal, jeden_stop
+#========== Parametry blokow ===================================================
+# mozliwe tryby to - start, stop, normal, oba, jeden_start, jeden_normal, jeden_stop
 
 czas_podawania = [ 5 ,  0,  0,  3,  0,  0]
 czas_przerwy   = [ 20, 30, 60, 13, 20,100]
