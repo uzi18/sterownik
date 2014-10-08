@@ -12,9 +12,14 @@ import signal, os
 try:
   import konf_polaczenie
 except ImportError:
-  raise ImportError('brak pliku konfiguracji: konf_polaczenie.py')
+  raise ImportError('brak pliku konfiguracji polaczenia ze sterownikiem: konf_polaczenie.py')
 
 c = sterownik(konf_polaczenie.ip, konf_polaczenie.login, konf_polaczenie.haslo);
+
+try:
+  from konf_TRK import *
+except ImportError:
+  raise ImportError('brak pliku konfiguracji parametrow pracy TRK: konf_TRK.py')
 
 #===============================================================================
 #                         Parametry wspólne
