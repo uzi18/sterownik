@@ -8,7 +8,7 @@ import time
 import signal
 import os
 #===============================================================================
-#               TRK by Stan v 0.3.63
+#               TRK by Stan v 0.3.64
 #===============================================================================
 #============ Parametry logowania do sterownika ================================
 #     wpisz nr IP sterownika , swój login i hasło
@@ -139,7 +139,7 @@ def spaliny():
        #   wsp.start()
        #   return
 
-       if ts060 <= -deltaspalin:
+       if ts060 <= -deltaspalin and x < tspalin:
           print("b")
           autodopalanie = False
           wspaliny.start()
