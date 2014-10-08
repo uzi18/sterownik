@@ -4,7 +4,9 @@
 # Import biblioteki
 from sterownik import *
 import threading
-import time;
+import time
+import signal
+import os
 #===============================================================================
 #               TRK by Stan v 0.3.63
 #===============================================================================
@@ -396,15 +398,9 @@ try:
         time.sleep(1);
 
 finally:
-    print ("Koncze dzialanie ...")
-    wpod.stop()
-    wsd.stop()
-    wsp.stop()
-    wbl.stop()
-    wcwu.stop()
-    wspaliny.stop()
-    wstatus.stop()
+    print ("Kończę działanie ...")
     c.setDmuchawa(False);
     c.setPodajnik(False);
     c.setPompaCWU(False);
     c.setPompaCO(False);
+    os.kill(os.getpid(), signal.SIGTERM)
