@@ -15,7 +15,7 @@ podtrzymanie_podajnik = 10
 podtrzymanie_przerwa = 30
 podtrzymanie_nadmuch = 38
 
-#======== paramtery autoregulacji spalin
+#======== paramtery autoregulacji dopalania
 tspalin = 100
 deltaspalin = 10
 max_obr_dmuchawy = 52
