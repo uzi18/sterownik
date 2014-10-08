@@ -212,7 +212,6 @@ def stopPodajnik():
 def stopDmuchawa():
     global d
     global autodopalanie
-    global koniec
     wsd.stop()
     while autodopalanie == True:
       time.sleep(0.01)
@@ -310,8 +309,6 @@ def pracaBloki():
     global ostatni_stop
     while True:
         licznik = 0
-        if koniec == True:
-          break
         if (c.getTrybAuto() != True):
             tZadGora = tempZadanaGora
             tZadDol = tempZadanaDol
@@ -330,8 +327,6 @@ def pracaBloki():
             
             if praca == 1:
                 for licznik in range(0,ile_krokow):
-                    if koniec == True:
-                        break
                     if czas_podawania[licznik] > 0:
                         czPod = czas_podawania[licznik] + czasPodawania
                     else:
@@ -402,7 +397,6 @@ try:
 
 finally:
     print ("Koncze dzialanie ...")
-    koniec = True
     wpod.stop()
     wsd.stop()
     wsp.stop()
