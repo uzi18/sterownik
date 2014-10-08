@@ -34,6 +34,7 @@ tspalin = 100
 deltaspalin = 10
 max_obr_dmuchawy = 52
 tryb_autodopalania = False
+opoznienie = 3
 
 #======== Korekta grupowa =============
 
@@ -76,6 +77,8 @@ ostatni_stop = 0
 global autodopalanie
 autodopalanie = False
 ts060 = 0
+global opoznienie_licznik
+opoznienie_licznik = 0
 global ile_krokow
 ile_krokow = len(czas_podawania);
 if not len(czas_podawania) == len(czas_przerwy) == len(czas_nawiewu) == len(moc_nawiewu) == len(tryb):
@@ -116,6 +119,7 @@ class RTimer(object):
 
 def spaliny():
     global autodopalanie
+    global opoznienie_licznik
     global ts060
     wspaliny.stop()
     x = c.getTempSpaliny()
@@ -131,6 +135,13 @@ def spaliny():
     print ("trend TSpal: " + str(ts020) + "/20s "+ str(ts060) + "/60s "+ str(ts120) + "/120s "+ str(ts180) + "/180s")
     print ("trend tts060: " + str(tts060) + "/60s  tspalin:" + str(x) + " tco:"+ str(c.getTempCO()))
     if autodopalanie == True and wsd.is_running == False:
+       if opoznienie_licznik != opoznienie:
+          opoznienie_licznik = opoznienie_licznik + 1
+          wsp.start()
+          return
+       
+       opoznienie_licznik = 0
+       
        #if x - 20 <= tempZadanaDol:
        #   print("a")
        #   autodopalanie = False
