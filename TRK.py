@@ -1,12 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Import biblioteki
+# Import bibliotek
 from sterownik import *
-import threading
-import time
-import signal
-import os
+import threading, time
+import signal, os
 #===============================================================================
 #               TRK by Stan v 0.3.64
 #===============================================================================
