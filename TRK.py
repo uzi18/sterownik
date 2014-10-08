@@ -102,7 +102,7 @@ def spaliny():
     if autodopalanie == True and wsd.is_running == False:
        if opoznienie_licznik != opoznienie:
           opoznienie_licznik = opoznienie_licznik + 1
-          wsp.start()
+          wspaliny.start()
           return
        
        opoznienie_licznik = 0
@@ -110,7 +110,7 @@ def spaliny():
        #if x - 20 <= tempZadanaDol:
        #   print("a")
        #   autodopalanie = False
-       #   wsp.start()
+       #   wspaliny.start()
        #   return
 
        if ts060 <= -deltaspalin and x < tspalin:
