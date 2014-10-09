@@ -132,6 +132,8 @@ def spaliny():
           return
       
        delta = tspalin - x
+       if delta < 0:
+          delta = delta / 2
        moc = c.getDmuchawaMoc()
        if ts060 != 0:
           nowamoc = int(moc + delta/abs(ts060))
