@@ -18,6 +18,7 @@ podtrzymanie_nadmuch = 38
 #======== paramtery autoregulacji dopalania
 tspalin = 100
 deltaspalin = 10
+min_obr_dmuchawy = 25
 max_obr_dmuchawy = 52
 tryb_autodopalania = False
 opoznienie = 3

@@ -143,8 +143,8 @@ def spaliny():
        if nowamoc > max_obr_dmuchawy:
           nowamoc = max_obr_dmuchawy
 
-       if nowamoc < 25:
-          nowamoc = 25
+       if nowamoc < min_obr_dmuchawy:
+          nowamoc = min_obr_dmuchawy
         
        print ("autodopalanie TSpal: " + str(x) + " delta: "+ str(delta) +" moc: "+ str(moc) + " nowamoc: "+ str(nowamoc))
        c.setDmuchawaMoc(nowamoc)
