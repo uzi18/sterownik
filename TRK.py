@@ -127,7 +127,7 @@ def spaliny():
        
        if max_licznik > 6 * 15:
           print ("*** MAX CZAS DOPALANIA OSIAGNIETO delta:"+str(maxdelta))
-          deltaspalin = int(abs(maxdelta)*0.9)
+          deltaspalin = abs(maxdelta)*0.9
           autodopalanie = False
           wspaliny.start()
           return
