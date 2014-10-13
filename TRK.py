@@ -125,7 +125,13 @@ def spaliny():
           autodopalanie = False
           wspaliny.start()
           return
-          
+       
+       if c.getTempPodajnik() > max_temp_podajnika:
+          print ("*** MAX TEMP PODAJNIKA OSIAGNIETA")
+          autodopalanie = False
+          wspaliny.start()
+          return
+
        #if x - 20 <= tempZadanaDol:
        #   print("a")
        #   autodopalanie = False
