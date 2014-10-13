@@ -17,7 +17,7 @@ except ImportError:
 c = sterownik(konf_polaczenie.ip, konf_polaczenie.login, konf_polaczenie.haslo);
 
 try:
-  from konf_TRK import *
+  import konf_TRK
 except ImportError:
   raise ImportError('brak pliku konfiguracji parametrow pracy TRK: konf_TRK.py')
 
@@ -48,9 +48,13 @@ autodopalanie = False
 ts060 = 0
 global opoznienie_licznik
 opoznienie_licznik = 0
+global kold
+global knew
+global nowakonfiguracja
+nowakonfiguracja = False
 global ile_krokow
-ile_krokow = len(czas_podawania);
-if not len(czas_podawania) == len(czas_przerwy) == len(czas_nawiewu) == len(moc_nawiewu) == len(tryb):
+ile_krokow = len(konf_TRK.czas_podawania);
+if not len(konf_TRK.czas_podawania) == len(konf_TRK.czas_przerwy) == len(konf_TRK.czas_nawiewu) == len(konf_TRK.moc_nawiewu) == len(konf_TRK.tryb):
    print ("Błąd: Zła ilość elementów w blokach")
    sys.exit()
 
@@ -110,12 +114,12 @@ def spaliny():
     if autodopalanie == True and wsd.is_running == False:
        max_licznik = max_licznik + 1
        
-       if (c.getTempCO() < tempZadanaGora): 
+       if (c.getTempCO() < konf_TRK.tempZadanaGora): 
           autodopalanie = False
           wspaliny.start()
           return
        
-       if opoznienie_licznik != opoznienie:
+       if opoznienie_licznik != konf_TRK.opoznienie:
           opoznienie_licznik = opoznienie_licznik + 1
           wspaliny.start()
           return
@@ -138,19 +142,19 @@ def spaliny():
           wspaliny.start()
           return
 
-       #if x - 20 <= tempZadanaDol:
+       #if x - 20 <= konf_TRK.tempZadanaDol:
        #   print("a")
        #   autodopalanie = False
        #   wspaliny.start()
        #   return
 
-       if ts060 <= -deltaspalin and x < tspalin:
+       if ts060 <= -konf_TRK.deltaspalin and x < konf_TRK.tspalin:
           print("b")
           autodopalanie = False
           wspaliny.start()
           return
       
-       elif ts060 < -deltaspalin and tts060 < 0:
+       elif ts060 < -konf_TRK.deltaspalin and tts060 < 0:
           print("c")
           autodopalanie = False
           wspaliny.start()
@@ -162,7 +166,7 @@ def spaliny():
           wspaliny.start()
           return
       
-       delta = tspalin - x
+       delta = konf_TRK.tspalin - x
        if delta < 0:
           delta = delta / 2
        moc = c.getDmuchawaMoc()
@@ -171,11 +175,11 @@ def spaliny():
        else:
           nowamoc = moc
        
-       if nowamoc > max_obr_dmuchawy:
-          nowamoc = max_obr_dmuchawy
+       if nowamoc > konf_TRK.max_obr_dmuchawy:
+          nowamoc = konf_TRK.max_obr_dmuchawy
 
-       if nowamoc < min_obr_dmuchawy:
-          nowamoc = min_obr_dmuchawy
+       if nowamoc < konf_TRK.min_obr_dmuchawy:
+          nowamoc = konf_TRK.min_obr_dmuchawy
         
        print ("autodopalanie TSpal: " + str(x) + " delta: "+ str(delta) +" moc: "+ str(moc) + " nowamoc: "+ str(nowamoc))
        c.setDmuchawaMoc(nowamoc)
@@ -188,15 +192,41 @@ def status():
     c.getStatus()
     wstatus.start()
 
+def files_to_timestamp(path):
+    files = [os.path.join(path, f) for f in os.listdir(path)]
+    return dict ([(f, os.path.getmtime(f)) for f in files])
+
+def konfig():
+    wkonf.stop()
+    global kold
+    global knew
+    global nowakonfiguracja
+    knew = files_to_timestamp('.')
+    added = [f for f in knew.keys() if not f in kold.keys()]
+    removed = [f for f in kold.keys() if not f in knew.keys()]
+    modified = []
+
+    for f in kold.keys():
+        if not f in removed:
+           if os.path.getmtime(f) != kold.get(f):
+              modified.append(f)
+       
+    kold = knew
+    for f in modified:
+        if f == './konf_TRK.py':
+           nowakonfiguracja = True
+    
+    wkonf.start()
+
 def regulatorCWU():
     wcwu.stop()
     print ("Watek regulator CWU...")
     if (c.getTrybAuto() != True):
-        if (c.getTempCO() >= T_dolna_CWU):
-            if (c.getTempCWU() < T_dolna_CWU):
+        if (c.getTempCO() >= konf_TRK.T_dolna_CWU):
+            if (c.getTempCWU() < konf_TRK.T_dolna_CWU):
                 if (c.getPompaCWU() == False):
                     c.setPompaCWU(True);
-        elif (c.getTempCWU() >= T_dolna_CWU):
+        elif (c.getTempCWU() >= konf_TRK.T_dolna_CWU):
             if (c.getPompaCWU() == True):
              c.setPompaCWU(False);
     wcwu.start()
@@ -208,11 +238,11 @@ def uruchomBloki():
 def podtrzymanie():
     wpod.stop()
     print ("Podtrzymanie ...")
-    pracaPieca(podtrzymanie_podajnik,podtrzymanie_przerwa + podtrzymanie_podajnik,podtrzymanie_przerwa,podtrzymanie_nadmuch,False)
+    pracaPieca(konf_TRK.podtrzymanie_podajnik,konf_TRK.podtrzymanie_przerwa + konf_TRK.podtrzymanie_podajnik,konf_TRK.podtrzymanie_przerwa,konf_TRK.podtrzymanie_nadmuch,False)
     #if tlo > 0:
     #    c.setDmuchawa(True);
-    #    c.setDmuchawaMoc(tlo);
-    wpod.startInterval(podtrzymanie_postoj*60)
+    #    c.setDmuchawaMoc(konf_TRK.tlo);
+    wpod.startInterval(konf_TRK.podtrzymanie_postoj*60)
 
 def stopPodajnik():
     global p
@@ -243,6 +273,9 @@ wspaliny = RTimer(spaliny)
 wspaliny.startInterval(10) # co 10s.
 wcwu = RTimer(regulatorCWU)
 wcwu.startInterval(10)
+kold = files_to_timestamp('.')
+wkonf = RTimer(konfig)
+wkonf.startInterval(10)
 wbl = RTimer(uruchomBloki)
 wsp = RTimer(stopPodajnik)
 wsd = RTimer(stopDmuchawa)
@@ -311,7 +344,7 @@ def tempCO(tZadGora,tZadDol):
            wpod.stop()
     else:
         if wpod.is_running != True:
-           wpod.startInterval(podtrzymanie_postoj*60)
+           wpod.startInterval(konf_TRK.podtrzymanie_postoj*60)
 
 #================ Przertwarzanie bloków ===============================================
 
@@ -321,11 +354,11 @@ def pracaBloki():
     while True:
         licznik = 0
         if (c.getTrybAuto() != True):
-            tZadGora = tempZadanaGora
-            tZadDol = tempZadanaDol
+            tZadGora = konf_TRK.tempZadanaGora
+            tZadDol = konf_TRK.tempZadanaDol
             tempCO(tZadGora,tZadDol)
             
-            if Tryb_autolato and c.getTempZew() > T_zewnetrzna_lato:
+            if konf_TRK.Tryb_autolato and c.getTempZew() > konf_TRK.T_zewnetrzna_lato:
                 if c.getPompaCO() == True:
                     c.setPompaCO(False)
             else:
@@ -333,40 +366,40 @@ def pracaBloki():
                     c.setPompaCO(True)
             
             for l in range(0,ile_krokow):
-                if tryb[l] == 'stop':
+                if konf_TRK.tryb[l] == 'stop':
                   ostatni_stop = l
             
             if praca == 1:
                 for licznik in range(0,ile_krokow):
-                    if czas_podawania[licznik] > 0:
-                        czPod = czas_podawania[licznik] + czasPodawania
+                    if konf_TRK.czas_podawania[licznik] > 0:
+                        czPod = konf_TRK.czas_podawania[licznik] + konf_TRK.czasPodawania
                     else:
                         czPod = 0
                     
-                    if czas_przerwy[licznik] > 0:
-                        czPrz = czas_przerwy[licznik] + czas_podawania[licznik] + czasPrzerwy + czasPodawania
+                    if konf_TRK.czas_przerwy[licznik] > 0:
+                        czPrz = konf_TRK.czas_przerwy[licznik] + konf_TRK.czas_podawania[licznik] + konf_TRK.czasPrzerwy + konf_TRK.czasPodawania
                     else:
                         czPrz = 0
                     
-                    if czas_nawiewu[licznik] > 0:
-                        czNaw = czas_nawiewu[licznik] + czas_podawania[licznik] + czasNawiewu + czasPodawania
+                    if konf_TRK.czas_nawiewu[licznik] > 0:
+                        czNaw = konf_TRK.czas_nawiewu[licznik] + konf_TRK.czas_podawania[licznik] + konf_TRK.czasNawiewu + konf_TRK.czasPodawania
                     else:
                         czNaw = 0
                     
-                    if moc_nawiewu[licznik] > 0:
-                        moNaw = moc_nawiewu[licznik] + mocNawiewu
+                    if konf_TRK.moc_nawiewu[licznik] > 0:
+                        moNaw = konf_TRK.moc_nawiewu[licznik] + konf_TRK.mocNawiewu
                     else:
                         moNaw = 0
                     
-                    if tryb_autodopalania:
+                    if konf_TRK.tryb_autodopalania:
                        asp = licznik == ostatni_stop
                     else:
                        asp = False
 
-                    TRYB = tryb[licznik]
+                    TRYB = konf_TRK.tryb[licznik]
                     tco = c.getTempCO()
 
-                    if (tco <= tempZadanaDol):
+                    if (tco <= konf_TRK.tempZadanaDol):
                         if TRYB == 'start':
                             print ("uruchamiam blok START nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
@@ -374,7 +407,7 @@ def pracaBloki():
                             print ("uruchamiam blok JEDEN_START nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                    elif (tco < tempZadanaGora) and (tco > tempZadanaDol):
+                    elif (tco < konf_TRK.tempZadanaGora) and (tco > konf_TRK.tempZadanaDol):
                         if TRYB == 'normal':
                             print ("uruchamiam blok NORMAL nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
@@ -382,7 +415,7 @@ def pracaBloki():
                             print ("uruchamiam blok JEDEN_NORMAL nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                    elif (tco >= tempZadanaGora):
+                    elif (tco >= konf_TRK.tempZadanaGora):
                         if TRYB == 'stop':
                             print ("uruchamiam blok STOP nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
@@ -390,7 +423,7 @@ def pracaBloki():
                             print ("uruchamiam blok JEDEN_STOP nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                    elif (tco >= tempZadanaGora) or (tco <= tempZadanaDol):
+                    elif (tco >= konf_TRK.tempZadanaGora) or (tco <= konf_TRK.tempZadanaDol):
                         if TRYB == 'oba':
                             print ("uruchamiam blok OBA nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
@@ -404,7 +437,17 @@ wbl.startInterval(1)
 
 try:
     while True:
-        time.sleep(1);
+        if nowakonfiguracja == True:
+           print ('Nowa konfiguracja')
+           reload(sys.modules["konf_TRK"])
+           nowakonfiguracja = False
+           ile_krokow = len(konf_TRK.czas_podawania);
+           if not len(konf_TRK.czas_podawania) == len(konf_TRK.czas_przerwy) == len(konf_TRK.czas_nawiewu) == len(konf_TRK.moc_nawiewu) == len(konf_TRK.tryb):
+              print ("Błąd: Zła ilość elementów w blokach")
+              sys.exit()
+
+           razy_jeden = ile_krokow * [False];
+        time.sleep(0.2);
 
 finally:
     print ("Kończę działanie ...")
