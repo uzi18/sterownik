@@ -109,6 +109,12 @@ def spaliny():
     
     if autodopalanie == True and wsd.is_running == False:
        max_licznik = max_licznik + 1
+       
+       if (c.getTempCO() < tempZadanaGora): 
+          autodopalanie = False
+          wspaliny.start()
+          return
+       
        if opoznienie_licznik != opoznienie:
           opoznienie_licznik = opoznienie_licznik + 1
           wspaliny.start()
