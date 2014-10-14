@@ -228,9 +228,11 @@ def regulatorCWU():
             if (c.getTempCWU() < konf_TRK.T_dolna_CWU):
                 if (c.getPompaCWU() == False):
                     c.setPompaCWU(True);
+                    print ("*** CWU: ON")
         elif (c.getTempCWU() >= konf_TRK.T_dolna_CWU):
             if (c.getPompaCWU() == True):
              c.setPompaCWU(False);
+             print ("*** CWU: OFF")
     wcwu.start()
 
 def uruchomBloki():
