@@ -312,7 +312,6 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
     while p != 0 or d != 0:
         time.sleep(0.01)
     
-    print ("praca wyjscie ...")
     return
 
 #=========== FUNKCJA SPRAWDZENIA TMPERATURY CO ===============================================
