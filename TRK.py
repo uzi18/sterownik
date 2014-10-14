@@ -136,7 +136,7 @@ def spaliny():
           wspaliny.start()
           return
        
-       if c.getTempPodajnik() > max_temp_podajnika:
+       if c.getTempPodajnik() > konf_TRK.max_temp_podajnika:
           print ("*** MAX TEMP PODAJNIKA OSIAGNIETA")
           autodopalanie = False
           wspaliny.start()
