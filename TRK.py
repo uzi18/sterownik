@@ -330,7 +330,7 @@ def tempCO(tZadGora,tZadDol):
         print ('warunek spełniony Todcz > Tzad górnej - zatrzymuję grzanie')
         print ("Temperatura CO: " + str(tco) + "°C")
         time.sleep(5);
-    elif (hist == 1 or wymuszonahistereza == True) and (tco < tZadGora + 0.2):
+    elif (hist == 1 or konf_TRK.wymuszonahistereza == True) and (tco < tZadGora + 0.2):
         praca = 1
         print ('warunek spełniony Todcz < Tzad górnej - kontynuuję grzanie')
         print ("Temperatura CO: " + str(tco) + "°C")
@@ -360,9 +360,11 @@ def pracaBloki():
             
             if konf_TRK.Tryb_autolato and c.getTempZew() > konf_TRK.T_zewnetrzna_lato:
                 if c.getPompaCO() == True:
+                    print ("*** AUTOLATO: OFF")
                     c.setPompaCO(False)
             else:
                 if c.getPompaCO() == False:
+                    print ("*** AUTOLATO: ON")
                     c.setPompaCO(True)
             
             for l in range(0,ile_krokow):
