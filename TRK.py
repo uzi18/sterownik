@@ -190,6 +190,8 @@ def spaliny():
 def status():
     wstatus.stop()
     c.getStatus()
+    if c.getTrybAuto() == True:
+       print ("*** UWAGA! sterownik w trybie AUTO")
     wstatus.start()
 
 def files_to_timestamp(path):
