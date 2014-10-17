@@ -374,7 +374,7 @@ def pracaBloki():
             #for l in range(0,ile_krokow):
             #    if konf_TRK.tryb[l] == 'stop':
             #      ostatni_stop = l
-            ostatni_stop = ile_krokow
+            ostatni_stop = ile_krokow - 1
             
             if praca == 1:
                 for licznik in range(0,ile_krokow):
