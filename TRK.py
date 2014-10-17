@@ -182,6 +182,7 @@ def spaliny():
           nowamoc = konf_TRK.min_obr_dmuchawy
         
        print ("autodopalanie TSpal: " + str(x) + " delta: "+ str(delta) +" moc: "+ str(moc) + " nowamoc: "+ str(nowamoc))
+       c.setDmuchawa(True); #workaround - na wylaczajaca sie dmuchawe
        c.setDmuchawaMoc(nowamoc)
     else:
       max_licznik = 0
