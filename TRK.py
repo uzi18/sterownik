@@ -371,9 +371,10 @@ def pracaBloki():
                     print ("*** AUTOLATO: ON")
                     c.setPompaCO(True)
             
-            for l in range(0,ile_krokow):
-                if konf_TRK.tryb[l] == 'stop':
-                  ostatni_stop = l
+            #for l in range(0,ile_krokow):
+            #    if konf_TRK.tryb[l] == 'stop':
+            #      ostatni_stop = l
+            ostatni_stop = ile_krokow
             
             if praca == 1:
                 for licznik in range(0,ile_krokow):
