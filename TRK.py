@@ -112,6 +112,7 @@ def spaliny():
     print ("trend tts060: " + str(tts060) + "/60s  tspalin:" + str(x) + " tco:"+ str(c.getTempCO()))
     
     if autodopalanie == True and wsd.is_running == False:
+       c.setDmuchawa(True); #workaround - na wylaczajaca sie dmuchawe
        max_licznik = max_licznik + 1
        
        if (c.getTempCO() < konf_TRK.tempZadanaGora): 
@@ -182,7 +183,6 @@ def spaliny():
           nowamoc = konf_TRK.min_obr_dmuchawy
         
        print ("autodopalanie TSpal: " + str(x) + " delta: "+ str(delta) +" moc: "+ str(moc) + " nowamoc: "+ str(nowamoc))
-       c.setDmuchawa(True); #workaround - na wylaczajaca sie dmuchawe
        c.setDmuchawaMoc(nowamoc)
     else:
       max_licznik = 0
