@@ -25,6 +25,10 @@ except ImportError:
 #===========================================================================================
 #                KOD PROGRAMU
 #===============================================================================
+global tp
+global td
+tp = 0
+td = 0
 global czPod
 global czPrz
 global czNaw
@@ -253,6 +257,7 @@ def stopPodajnik():
     global p
     wsp.stop()
     c.setPodajnik(False);
+    print "== stop podajnik realny czas: ", time.time() - tp
     p = 0
 
 def stopDmuchawa():
@@ -263,6 +268,7 @@ def stopDmuchawa():
       time.sleep(0.01)
     
     c.setDmuchawa(False);
+    print "== stop dmuchawa realny czas: ", time.time() - td
     d = 0
 
 c.getStatus()    
@@ -290,6 +296,8 @@ wpod = RTimer(podtrzymanie)
 
 def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
     global autodopalanie
+    global tp
+    global td
     global p
     global d
     p = 0
@@ -300,14 +308,18 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
         
     if czNaw > 0:
         c.setDmuchawa(True);
+        td = time.time()
         c.setDmuchawaMoc(moNaw);
         d = 1
+        print "== start dmuchawa na czas ", czNaw
         wsd.startInterval(czNaw)
         autodopalanie = asp
 
     if czPod > 0:
         c.setPodajnik(True);
+        tp = time.time()
         p = 1
+        print "== start podajnik na czas ", czPod
         wsp.startInterval(czPod)
         
     while p != 0 or d != 0:
