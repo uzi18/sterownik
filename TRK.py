@@ -323,9 +323,10 @@ def tempCO(tZadGora,tZadDol):
     global razy_jeden
     tco = c.getTempCO()
     if (tco < tZadDol):
+        if praca != 1:
+           razy_jeden = ile_krokow * [False];
         praca = 1
         hist = 1
-        razy_jeden = ile_krokow * [False];
         print ('warunek spełniony Todcz < Tzad dolnej - uruchamiam grzanie')
         print ("Temperatura CO: " + str(tco) + "°C")
     elif (tco > tZadGora + 0.2):
