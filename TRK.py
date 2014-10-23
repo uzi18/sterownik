@@ -227,18 +227,39 @@ def konfig():
 
 def regulatorCWU():
     wcwu.stop()
-    print ("Watek regulator CWU...")
+
     if (c.getTrybAuto() != True):
-        if (c.getTempCO() >= konf_TRK.T_dolna_CWU):
-            if (c.getTempCWU() < konf_TRK.T_dolna_CWU):
-                if (c.getPompaCWU() == False):
-                    c.setPompaCWU(True);
-                    print ("*** CWU: ON")
-        elif (c.getTempCWU() >= konf_TRK.T_dolna_CWU):
+        print ("Regulator CWU...")
+        if (c.getTempCO() >= konf_TRK.tempZalaczeniaPomp) and (c.getTempCWU() < konf_TRK.T_dolna_CWU):
+            if (c.getPompaCWU() == False):
+                c.setPompaCWU(True);
+                print ("*** CWU: ON")
+        elif (c.getTempCO() < konf_TRK.tempZalaczeniaPomp - 5.0) or (c.getTempCWU() > konf_TRK.T_dolna_CWU):
             if (c.getPompaCWU() == True):
-             c.setPompaCWU(False);
-             print ("*** CWU: OFF")
+                c.setPompaCWU(False);
+                print ("*** CWU: OFF")
+
     wcwu.start()
+
+def regulatorCO():
+    wco.stop()
+
+    if (c.getTrybAuto() != True):
+        print ("Regulator CO...")
+        if c.getTempCO() >= konf_TRK.tempZalaczeniaPomp:
+            if konf_TRK.Tryb_autolato and c.getTempZew() > konf_TRK.T_zewnetrzna_lato:
+                if c.getPompaCO() == True:
+                   c.setPompaCO(False)
+                   print ("*** CO->OFF AUTOLATO")
+            else:
+                if c.getPompaCO() == False :
+                   c.setPompaCO(True)
+                   print ("*** CO->ON")
+        elif c.getTempCO() < konf_TRK.tempZalaczeniaPomp - 5.0:
+                   c.setPompaCO(False)
+                   print ("*** CO->OFF")
+    
+    wco.start()
 
 def uruchomBloki():
     wbl.stop()
@@ -284,6 +305,8 @@ wspaliny = RTimer(spaliny)
 wspaliny.startInterval(10) # co 10s.
 wcwu = RTimer(regulatorCWU)
 wcwu.startInterval(10)
+wco = RTimer(regulatorCO)
+wco.startInterval(10)
 kold = files_to_timestamp('.')
 wkonf = RTimer(konfig)
 wkonf.startInterval(10)
@@ -374,15 +397,6 @@ def pracaBloki():
             tZadGora = konf_TRK.tempZadanaGora
             tZadDol = konf_TRK.tempZadanaDol
             tempCO(tZadGora,tZadDol)
-            
-            if konf_TRK.Tryb_autolato and c.getTempZew() > konf_TRK.T_zewnetrzna_lato:
-                if c.getPompaCO() == True:
-                    print ("*** AUTOLATO: OFF")
-                    c.setPompaCO(False)
-            else:
-                if c.getPompaCO() == False:
-                    print ("*** AUTOLATO: ON")
-                    c.setPompaCO(True)
             
             #for l in range(0,ile_krokow):
             #    if konf_TRK.tryb[l] == 'stop':

@@ -7,6 +7,7 @@
 
 tempZadanaGora = 50.2;
 tempZadanaDol = 50;
+tempZalaczeniaPomp = 45.0
 # po spadku ponizej tempZadanejGora uruchamia bloki normal
 wymuszonahistereza = False
 
