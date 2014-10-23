@@ -45,8 +45,6 @@ global maxdelta
 maxdelta = 0
 global max_licznik
 max_licznik = 0
-global ostatni_stop
-ostatni_stop = 0
 global autodopalanie
 autodopalanie = False
 ts060 = 0
@@ -390,7 +388,6 @@ def tempCO(tZadGora,tZadDol):
 
 def pracaBloki():
     global razy_jeden
-    global ostatni_stop
     while True:
         licznik = 0
         if (c.getTrybAuto() != True):
@@ -398,10 +395,7 @@ def pracaBloki():
             tZadDol = konf_TRK.tempZadanaDol
             tempCO(tZadGora,tZadDol)
             
-            #for l in range(0,ile_krokow):
-            #    if konf_TRK.tryb[l] == 'stop':
-            #      ostatni_stop = l
-            ostatni_stop = ile_krokow - 1
+            ostatni_blok = ile_krokow - 1
             
             if praca == 1:
                 for licznik in range(0,ile_krokow):
@@ -426,7 +420,7 @@ def pracaBloki():
                         moNaw = 0
                     
                     if konf_TRK.tryb_autodopalania:
-                       asp = licznik == ostatni_stop
+                       asp = licznik == ostatni_blok
                     else:
                        asp = False
 
