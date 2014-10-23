@@ -410,7 +410,7 @@ def pracaBloki():
                         czPrz = 0
                     
                     if konf_TRK.czas_nawiewu[licznik] > 0:
-                        czNaw = konf_TRK.czas_nawiewu[licznik] + konf_TRK.czas_podawania[licznik] + konf_TRK.czasNawiewu + konf_TRK.czasPodawania
+                        czNaw = konf_TRK.czas_nawiewu[licznik] + konf_TRK.czasNawiewu
                     else:
                         czNaw = 0
                     
