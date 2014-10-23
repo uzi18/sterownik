@@ -21,6 +21,9 @@ try:
 except ImportError:
   raise ImportError('brak pliku konfiguracji parametrow pracy TRK: konf_TRK.py')
 
+poprzednitryb = c.getTrybAuto()
+if konf_TRK.autotrybmanual:
+   c.setTrybAuto(False)
 
 #===========================================================================================
 #                KOD PROGRAMU
@@ -483,4 +486,7 @@ finally:
     c.setPodajnik(False);
     c.setPompaCWU(False);
     c.setPompaCO(False);
+    if konf_TRK.autotrybmanual and poprzednitryb:
+       c.setTrybAuto(True)
+
     os.kill(os.getpid(), signal.SIGTERM)

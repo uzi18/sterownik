@@ -3,6 +3,9 @@
 #
 # Tutaj wpisz parametry globalne pracy
 #===============================================================================
+
+# automatycznie przelaczanie w tryb manual sterownika i w tryb auto po zatrzymaniu skryptu
+autotrybmanual = False
 #======== parametry CO ===============
 
 tempZadanaGora = 50.2;
