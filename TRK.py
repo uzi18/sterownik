@@ -67,9 +67,9 @@ razy_jeden = ile_krokow * [False];
 
 #========= WATKI ==============================================================
 class RTimer(object):
-    def __init__(self, function):
+    def __init__(self, function, interval=None):
         self._timer     = None
-        self.interval   = None
+        self.interval   = interval
         self.function   = function
         self.is_running = False
 
@@ -78,14 +78,9 @@ class RTimer(object):
         self.start()
         self.function()
 
-    def start(self):
-        if not self.is_running:
-            self._timer = threading.Timer(self.interval, self._run)
-            self._timer.start()
-            self.is_running = True
-
-    def startInterval(self, interval):
-        self.interval = interval
+    def start(self, interval=None):
+        if interval != None:
+            self.interval = interval
         if not self.is_running:
             self._timer = threading.Timer(self.interval, self._run)
             self._timer.start()
@@ -273,7 +268,7 @@ def podtrzymanie():
     #if tlo > 0:
     #    c.setDmuchawa(True);
     #    c.setDmuchawaMoc(konf_TRK.tlo);
-    wpod.startInterval(konf_TRK.podtrzymanie_postoj*60)
+    wpod.start(konf_TRK.podtrzymanie_postoj*60)
 
 def stopPodajnik():
     global p
@@ -300,17 +295,17 @@ x = c.getTempSpaliny()
 for y in range(60):
     daneTSpal.append(x) 
 
-wstatus = RTimer(status)
-wstatus.startInterval(2)
-wspaliny = RTimer(spaliny)
-wspaliny.startInterval(10) # co 10s.
-wcwu = RTimer(regulatorCWU)
-wcwu.startInterval(10)
-wco = RTimer(regulatorCO)
-wco.startInterval(10)
+wstatus = RTimer(status, 2)
+wstatus.start()
+wspaliny = RTimer(spaliny, 10) # co 10s
+wspaliny.start()
+wcwu = RTimer(regulatorCWU, 10)
+wcwu.start()
+wco = RTimer(regulatorCO, 10)
+wco.start()
 kold = files_to_timestamp('.')
-wkonf = RTimer(konfig)
-wkonf.startInterval(10)
+wkonf = RTimer(konfig, 10)
+wkonf.start()
 wbl = RTimer(uruchomBloki)
 wsp = RTimer(stopPodajnik)
 wsd = RTimer(stopDmuchawa)
@@ -336,7 +331,7 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
         c.setDmuchawaMoc(moNaw);
         d = 1
         print "== start dmuchawa na czas ", czNaw
-        wsd.startInterval(czNaw)
+        wsd.start(czNaw)
         autodopalanie = asp
 
     if czPod > 0:
@@ -344,7 +339,7 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
         tp = time.time()
         p = 1
         print "== start podajnik na czas ", czPod
-        wsp.startInterval(czPod)
+        wsp.start(czPod)
         
     while p != 0 or d != 0:
         time.sleep(0.01)
@@ -385,7 +380,7 @@ def tempCO(tZadGora,tZadDol):
            wpod.stop()
     else:
         if wpod.is_running != True:
-           wpod.startInterval(konf_TRK.podtrzymanie_postoj*60)
+           wpod.start(konf_TRK.podtrzymanie_postoj*60)
 
 #================ Przertwarzanie bloków ===============================================
 
@@ -464,7 +459,7 @@ def pracaBloki():
 #=================================================================================================
 praca = 0
 hist = 1
-wbl.startInterval(1)
+wbl.start(1)
 
 try:
     while True:
