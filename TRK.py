@@ -67,9 +67,9 @@ razy_jeden = ile_krokow * [False];
 
 #========= WATKI ==============================================================
 class RTimer(object):
-    def __init__(self, function):
+    def __init__(self, function, interval=None):
         self._timer     = None
-        self.interval   = None
+        self.interval   = interval
         self.function   = function
         self.is_running = False
 
@@ -295,17 +295,17 @@ x = c.getTempSpaliny()
 for y in range(60):
     daneTSpal.append(x) 
 
-wstatus = RTimer(status)
-wstatus.start(2)
-wspaliny = RTimer(spaliny)
-wspaliny.start(10) # co 10s.
-wcwu = RTimer(regulatorCWU)
-wcwu.start(10)
-wco = RTimer(regulatorCO)
-wco.start(10)
+wstatus = RTimer(status, 2)
+wstatus.start()
+wspaliny = RTimer(spaliny, 10) # co 10s
+wspaliny.start()
+wcwu = RTimer(regulatorCWU, 10)
+wcwu.start()
+wco = RTimer(regulatorCO, 10)
+wco.start()
 kold = files_to_timestamp('.')
-wkonf = RTimer(konfig)
-wkonf.start(10)
+wkonf = RTimer(konfig, 10)
+wkonf.start()
 wbl = RTimer(uruchomBloki)
 wsp = RTimer(stopPodajnik)
 wsd = RTimer(stopDmuchawa)
