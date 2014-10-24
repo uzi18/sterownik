@@ -454,10 +454,6 @@ def pracaBloki():
                             print ("uruchamiam blok JEDEN_STOP nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                    elif (tco >= konf_TRK.tempZadanaGora) or (tco <= konf_TRK.tempZadanaDol):
-                        if TRYB == 'oba':
-                            print ("uruchamiam blok OBA nr " + str(licznik))
-                            pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
                     
 #=================================================================================================
 #                  PROGRAM GŁÓWNY
