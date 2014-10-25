@@ -495,7 +495,7 @@ finally:
     c.setPodajnik(False);
     c.setPompaCWU(False);
     c.setPompaCO(False);
-    if konf_TRK.autotrybmanual and poprzednitryb:
-       c.setTrybAuto(True)
+    if konf_TRK.autotrybmanual:
+       c.setTrybAuto(poprzednitryb)
 
     os.kill(os.getpid(), signal.SIGTERM)
