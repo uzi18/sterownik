@@ -15,6 +15,7 @@ except ImportError:
   raise ImportError('brak pliku konfiguracji polaczenia ze sterownikiem: konf_polaczenie.py')
 
 c = sterownik(konf_polaczenie.ip, konf_polaczenie.login, konf_polaczenie.haslo);
+c.getStatus()
 
 try:
   import konf_TRK
