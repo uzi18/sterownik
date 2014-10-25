@@ -460,6 +460,8 @@ def pracaBloki():
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
                             if asp:
                               byl_stop = True
+                            else:
+                              byl_stop = False
                         elif TRYB == 'jeden_stop' and razy_jeden[licznik] == False:
                             print ("uruchamiam blok JEDEN_STOP nr " + str(licznik))
                             razy_jeden[licznik] = True
