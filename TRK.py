@@ -374,7 +374,7 @@ def tempCO(tZadGora,tZadDol):
         print ('warunek spełniony Todcz > Tzad górnej - zatrzymuję grzanie')
         print ("Temperatura CO: " + str(tco) + "°C")
         time.sleep(5);
-    elif (hist == 1 or konf_TRK.wymuszonahistereza == True) and (tco < tZadGora + 0.2):
+    elif (hist == 1 or konf_TRK.wymuszonahistereza == True) and (tco < tZadGora + konf_TRK.histerezaBlokuStop + 0.2):
         praca = 1
         print ('warunek spełniony Todcz < Tzad górnej - kontynuuję grzanie')
         print ("Temperatura CO: " + str(tco) + "°C")
