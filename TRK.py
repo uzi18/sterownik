@@ -209,7 +209,7 @@ def konfig():
     global kold
     global knew
     global nowakonfiguracja
-    knew = files_to_timestamp('.')
+    knew = files_to_timestamp(os.path.abspath(os.path.dirname(sys.argv[0])))
     added = [f for f in knew.keys() if not f in kold.keys()]
     removed = [f for f in kold.keys() if not f in knew.keys()]
     modified = []
@@ -221,7 +221,7 @@ def konfig():
        
     kold = knew
     for f in modified:
-        if f == './konf_TRK.py':
+        if os.path.isfile(f) and os.path.basename(f) == 'konf_TRK.py':
            nowakonfiguracja = True
     
     wkonf.start()
