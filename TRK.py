@@ -338,7 +338,7 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
         td = time.time()
         c.setDmuchawaMoc(moNaw);
         d = 1
-        print "== start dmuchawa na czas ", czNaw
+        print "== start dmuchawa na czas ", czNaw,"s", "moc:", moNaw,"%"
         wsd.startInterval(czNaw)
         autodopalanie = asp
 
