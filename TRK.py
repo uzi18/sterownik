@@ -282,7 +282,7 @@ def stopPodajnik():
     global p
     wsp.stop()
     c.setPodajnik(False);
-    print "== stop podajnik realny czas: ", time.time() - tp
+    print ("== stop podajnik realny czas: ", time.time() - tp)
     p = 0
 
 def stopDmuchawa():
@@ -293,7 +293,7 @@ def stopDmuchawa():
       time.sleep(0.01)
     
     c.setDmuchawa(False);
-    print "== stop dmuchawa realny czas: ", time.time() - td
+    print ("== stop dmuchawa realny czas: ", time.time() - td)
     d = 0
 
 c.getStatus()    
@@ -338,7 +338,7 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
         td = time.time()
         c.setDmuchawaMoc(moNaw);
         d = 1
-        print "== start dmuchawa na czas ", czNaw,"s", "moc:", moNaw,"%"
+        print ("== start dmuchawa na czas ", czNaw,"s", "moc:", moNaw,"%")
         wsd.startInterval(czNaw)
         autodopalanie = asp
 
@@ -346,7 +346,7 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
         c.setPodajnik(True);
         tp = time.time()
         p = 1
-        print "== start podajnik na czas ", czPod
+        print ("== start podajnik na czas ", czPod)
         wsp.startInterval(czPod)
         
     while p != 0 or d != 0:
