@@ -403,46 +403,48 @@ def tempCO(tZadGora,tZadDol):
 
     tco = c.getTempCO()
     
-    if ileSTART > 0 and (tco < tZadDol):
-        nowyBlok(blokSTART)
-        if blokiPoprzednie == blokNIC:
-           razy_jeden = ile_krokow * [False];
-           byl_stop = False
-        praca = 1
-        hist = 1
-        print ('warunek spełniony Todcz < Tzad dolnej - uruchamiam bloki START')
-        print ("Temperatura CO: " + str(tco) + "°C")
-        
-    elif ileNORMAL > 0 and (tco >= tZadDol) and (tco < tZadGora) \
-            and (blokiUruchomione == blokSTART \
-                 or (konf_TRK.wymuszonahistereza == True and ileNORMAL > 1)):
-        
-        nowyBlok(blokNORMAL)
-        if blokiPoprzednie == blokNIC:
-           byl_stop = False
-        praca = 1
-        print ('warunek spełniony Todcz < Tzad górnej - uruchamiam bloki NORMAL')
-        print ("Temperatura CO: " + str(tco) + "°C")
-    
-    elif ileSTOP > 0 and (tco >= tZadGora) and (tco < tZadGora + konf_TRK.histerezaBlokuStop) \
+    if ileSTOP > 0 and (tco >= tZadGora) and (tco < tZadGora + konf_TRK.histerezaBlokuStop or uruchomStop) \
             and ((blokiUruchomione == blokNORMAL or blokiUruchomione == blokSTART) and ileSTOP == 1 \
                  or (konf_TRK.wymuszonahistereza == True and ileSTOP > 1)):
         
+        uruchomStop = False
         nowyBlok(blokSTOP)
         if blokiPoprzednie == blokNIC:
            byl_stop = False
         praca = 0
         hist = 0
-        print ('warunek spełniony Todcz > Tzad górnej - uruchamiam bloki STOP')
-        print ("Temperatura CO: " + str(tco) + "°C")
+        print ('*** uruchamiam bloki STOP')
         
+    elif ileNORMAL > 0 and (tco >= tZadDol) and (tco < tZadGora or (ileSTOP == 0 and uruchomStop) ) \
+            and (blokiUruchomione == blokSTART \
+                 or (konf_TRK.wymuszonahistereza == True and ileNORMAL > 1)):
+        
+        nowyBlok(blokNORMAL)
+        uruchomStop = False
+        if ileSTOP > 0:
+           uruchomStop = True
+        if blokiPoprzednie == blokNIC:
+           byl_stop = False
+        praca = 1
+        print ('*** uruchamiam bloki NORMAL')
+
+    elif ileSTART > 0 and (tco < tZadDol):
+        nowyBlok(blokSTART)
+        if blokiPoprzednie == blokNIC:
+           razy_jeden = ile_krokow * [False];
+           byl_stop = False
+        
+        praca = 1
+        hist = 1
+        print ('*** uruchamiam bloki START')
+
     else:
         nowyBlok(blokNIC)
         praca = 0
-        print ("Temperatura CO: " + str(tco) + "°C. - Oczekiwanie.")
+        print ("*** Oczekiwanie...")
         time.sleep(5);
         
-    print ("START <"+ str(tZadDol)+"<= NORMAL <"+ str(tZadGora)+"<= STOP<"+str(tZadGora + konf_TRK.histerezaBlokuStop)+" - tCO ="+ str(tco) + "°C.")
+    print ("START <"+ str(tZadDol)+"<= NORMAL <"+ str(tZadGora)+"<= STOP <"+str(tZadGora + konf_TRK.histerezaBlokuStop)+"  tCO="+ str(tco) + "°C.")
 
     if blokiUruchomione == blokNIC:
         if wpod.is_running != True:
