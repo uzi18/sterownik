@@ -516,14 +516,17 @@ try:
     while True:
         if nowakonfiguracja == True:
            print ('Nowa konfiguracja')
+           stare_tryby = konf_TRK.tryb
            reload(sys.modules["konf_TRK"])
            nowakonfiguracja = False
            ile_krokow = len(konf_TRK.czas_podawania);
            if not len(konf_TRK.czas_podawania) == len(konf_TRK.czas_przerwy) == len(konf_TRK.czas_nawiewu) == len(konf_TRK.moc_nawiewu) == len(konf_TRK.tryb):
               print ("Błąd: Zła ilość elementów w blokach")
               sys.exit()
-
-           razy_jeden = ile_krokow * [False];
+           
+           if stare_tryby != konf_TRK.tryb:
+              razy_jeden = ile_krokow * [False];
+           
         time.sleep(0.2);
 
 finally:
