@@ -367,7 +367,7 @@ def nowyBlok(blok):
     global blokiUruchomione
     global blokiPoprzednie
     global blokiHistoria
-    if blokiHistoria[-2] != blok:
+    if blokiHistoria[-2] != blok or blokiHistoria[-1] != blok:
        blokiHistoria.pop(0)
        blokiHistoria.append(blok)
        blokiPoprzednie = blokiHistoria[-2]
