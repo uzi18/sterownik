@@ -245,15 +245,16 @@ def regulatorCWU():
 
     if (c.getTrybAuto() != True):
         print ("Regulator CWU...")
-        pompa = True
+        if (c.getTempCO() > konf_TRK.tempZalaczeniaPomp):
+            pompa = True
         if (c.getTempCO() < konf_TRK.tempZalaczeniaPomp - 5.0):
-          pompa = False
+            pompa = False
         
         if c.getTempCO() < c.getTempCWU():
-          pompa = False
+            pompa = False
           
         if (c.getTempCWU() > konf_TRK.T_dolna_CWU and not konf_TRK.CWU_jako_bufor):
-          pompa = False
+            pompa = False
         #elif (c.getTempCO() < konf_TRK.tempZalaczeniaPomp - 5.0) or (c.getTempCWU() > konf_TRK.T_dolna_CWU) or (c.getTempCO() < c.getTempCWU()):
         if (pompa and c.getPompaCWU() == False):
             c.setPompaCWU(True);
