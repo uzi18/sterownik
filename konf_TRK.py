@@ -52,4 +52,5 @@ tryb = ['start','start','jeden_normal','normal','normal','stop']
 Tryb_autolato = False
 T_zewnetrzna_lato = 15;
 T_dolna_CWU = 44;
+CWU_jako_bufor = False;
 
