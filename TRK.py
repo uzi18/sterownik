@@ -430,6 +430,8 @@ def tempCO(tZadGora,tZadDol):
 
     elif ileSTART > 0 and (tco < tZadDol):
         nowyBlok(blokSTART)
+        uruchomStop = True
+            
         if blokiPoprzednie == blokNIC:
            razy_jeden = ile_krokow * [False];
            byl_stop = False
@@ -440,6 +442,7 @@ def tempCO(tZadGora,tZadDol):
 
     else:
         nowyBlok(blokNIC)
+        uruchomStop = False
         praca = 0
         print ("*** Oczekiwanie...")
         time.sleep(5);
