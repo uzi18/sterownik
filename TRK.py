@@ -398,34 +398,54 @@ def tempCO(tZadGora,tZadDol):
           ileNORMAL += 1
 
     tco = c.getTempCO()
-    if (tco < tZadDol):
-        if praca != 1:
+    
+    if ileSTART > 0 and (tco < tZadDol):
+        nowyBlok(blokSTART)
+        if blokiPoprzednie == blokNIC:
            razy_jeden = ile_krokow * [False];
+           byl_stop = False
         praca = 1
         hist = 1
-        print ('warunek spełniony Todcz < Tzad dolnej - uruchamiam grzanie')
+        print ('warunek spełniony Todcz < Tzad dolnej - uruchamiam bloki START')
         print ("Temperatura CO: " + str(tco) + "°C")
-    elif (tco > tZadGora + 0.2):
+        
+    elif ileNORMAL > 0 and (tco >= tZadDol) and (tco < tZadGora) \
+            and (blokiUruchomione == blokSTART \
+                 or (konf_TRK.wymuszonahistereza == True and ileNORMAL > 1)):
+        
+        nowyBlok(blokNORMAL)
+        if blokiPoprzednie == blokNIC:
+           byl_stop = False
+        praca = 1
+        print ('warunek spełniony Todcz < Tzad górnej - uruchamiam bloki NORMAL')
+        print ("Temperatura CO: " + str(tco) + "°C")
+    
+    elif ileSTOP > 0 and (tco >= tZadGora) and (tco < tZadGora + konf_TRK.histerezaBlokuStop) \
+            and ((blokiUruchomione == blokNORMAL or blokiUruchomione == blokSTART) and ileSTOP == 1 \
+                 or (konf_TRK.wymuszonahistereza == True and ileSTOP > 1)):
+        
+        nowyBlok(blokSTOP)
+        if blokiPoprzednie == blokNIC:
+           byl_stop = False
         praca = 0
         hist = 0
-        print ('warunek spełniony Todcz > Tzad górnej - zatrzymuję grzanie')
+        print ('warunek spełniony Todcz > Tzad górnej - uruchamiam bloki STOP')
         print ("Temperatura CO: " + str(tco) + "°C")
-        time.sleep(5);
-    elif (hist == 1 or konf_TRK.wymuszonahistereza == True) and (tco < tZadGora + konf_TRK.histerezaBlokuStop + 0.2):
-        praca = 1
-        print ('warunek spełniony Todcz < Tzad górnej - kontynuuję grzanie')
-        print ("Temperatura CO: " + str(tco) + "°C")
+        
     else:
+        nowyBlok(blokNIC)
         praca = 0
-        print ("Temperatura CO: " + str(tco) + "°C. Oczekiwanie.")
+        print ("Temperatura CO: " + str(tco) + "°C. - Oczekiwanie.")
         time.sleep(5);
-    
-    if praca:
-        if wpod.is_running == True:
-           wpod.stop()
-    else:
+        
+    print ("START <"+ str(tZadDol)+"<= NORMAL <"+ str(tZadGora)+"<= STOP<"+str(tZadGora + konf_TRK.histerezaBlokuStop)+" - tCO ="+ str(tco) + "°C.")
+
+    if blokiUruchomione == blokNIC:
         if wpod.is_running != True:
            wpod.startInterval(konf_TRK.podtrzymanie_postoj*60)
+    else:
+        if wpod.is_running == True:
+           wpod.stop()
 
 #================ Przertwarzanie bloków ===============================================
 
@@ -441,7 +461,7 @@ def pracaBloki():
             
             ostatni_blok = ile_krokow - 1
             
-            if praca == 1:
+            if blokiUruchomione != blokNIC:
                 for licznik in range(0,ile_krokow):
                     if konf_TRK.czas_podawania[licznik] > 0:
                         czPod = konf_TRK.czas_podawania[licznik] + konf_TRK.czasPodawania
@@ -463,47 +483,40 @@ def pracaBloki():
                     else:
                         moNaw = 0
                     
-                    if konf_TRK.tryb_autodopalania:
+                    if konf_TRK.tryb_autodopalania and byl_stop == False:
                        asp = licznik == ostatni_blok
                     else:
                        asp = False
 
                     TRYB = konf_TRK.tryb[licznik]
-                    tco = c.getTempCO()
 
-                    if (tco <= konf_TRK.tempZadanaDol):
+                    if (blokiUruchomione == blokSTART):
                         if TRYB == 'start':
                             print ("uruchamiam blok START nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                            byl_stop = False
                         elif TRYB == 'jeden_start' and razy_jeden[licznik] == False:
                             print ("uruchamiam blok JEDEN_START nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                            byl_stop = False
-                    elif (tco < konf_TRK.tempZadanaGora) and (tco > konf_TRK.tempZadanaDol):
+                    elif (blokiUruchomione == blokNORMAL):
                         if TRYB == 'normal':
                             print ("uruchamiam blok NORMAL nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                            byl_stop = False
                         elif TRYB == 'jeden_normal' and razy_jeden[licznik] == False:
                             print ("uruchamiam blok JEDEN_NORMAL nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                            byl_stop = False
-                    elif (tco >= konf_TRK.tempZadanaGora):
-                        if TRYB == 'stop' and not (asp and byl_stop):
+                    elif (blokiUruchomione == blokSTOP):
+                        if TRYB == 'stop':
                             print ("uruchamiam blok STOP nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                            if asp:
-                              byl_stop = True
-                            else:
-                              byl_stop = False
                         elif TRYB == 'jeden_stop' and razy_jeden[licznik] == False:
                             print ("uruchamiam blok JEDEN_STOP nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                            byl_stop = False
+
+                    if asp:
+                      byl_stop = True
                     
 #=================================================================================================
 #                  PROGRAM GŁÓWNY
