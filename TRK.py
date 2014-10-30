@@ -385,6 +385,18 @@ def tempCO(tZadGora,tZadDol):
     global praca
     global hist
     global razy_jeden
+    
+    ileSTART = 0
+    ileSTOP = 0
+    ileNORMAL = 0
+    for t in konf_TRK.tryb:
+        if t == 'start' or t =='jeden_start':
+          ileSTART += 1
+        if t == 'stop' or t =='jeden_stop':
+          ileSTOP += 1
+        if t == 'normal' or t =='jeden_normal':
+          ileNORMAL += 1
+
     tco = c.getTempCO()
     if (tco < tZadDol):
         if praca != 1:
