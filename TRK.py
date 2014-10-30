@@ -26,7 +26,7 @@ poprzednitryb = c.getTrybAuto()
 if konf_TRK.autotrybmanual:
    c.setTrybAuto(False)
 
-#===========================================================================================
+#===============================================================================
 #                KOD PROGRAMU
 #===============================================================================
 global tp
@@ -271,7 +271,7 @@ def uruchomBloki():
 
 def podtrzymanie():
     wpod.stop()
-    print ("Podtrzymanie ...")
+    print ("*** Podtrzymanie ...")
     pracaPieca(konf_TRK.podtrzymanie_podajnik,konf_TRK.podtrzymanie_przerwa + konf_TRK.podtrzymanie_podajnik,konf_TRK.podtrzymanie_przerwa,konf_TRK.podtrzymanie_nadmuch,False)
     #if tlo > 0:
     #    c.setDmuchawa(True);
@@ -282,7 +282,7 @@ def stopPodajnik():
     global p
     wsp.stop()
     c.setPodajnik(False);
-    print ("== stop podajnik realny czas: ", time.time() - tp)
+    print ("== stop podajnik realny czas: "+ str(time.time() - tp))
     p = 0
 
 def stopDmuchawa():
@@ -293,7 +293,7 @@ def stopDmuchawa():
       time.sleep(0.01)
     
     c.setDmuchawa(False);
-    print ("== stop dmuchawa realny czas: ", time.time() - td)
+    print ("== stop dmuchawa realny czas: "+ str(time.time() - td))
     d = 0
 
 c.getStatus()    
