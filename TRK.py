@@ -34,7 +34,7 @@ blokSTART=1
 blokNORMAL=2
 blokSTOP=3
 blokiHistoria = []
-for y in range(6):
+for y in range(12):
     blokiHistoria.append(blokNIC) 
 blokiUruchomione=blokNIC
 blokiPoprzednie=blokNIC
