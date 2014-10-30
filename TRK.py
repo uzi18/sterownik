@@ -561,7 +561,9 @@ try:
            ile_krokow = len(konf_TRK.czas_podawania);
            if not len(konf_TRK.czas_podawania) == len(konf_TRK.czas_przerwy) == len(konf_TRK.czas_nawiewu) == len(konf_TRK.moc_nawiewu) == len(konf_TRK.tryb):
               print ("Błąd: Zła ilość elementów w blokach")
-              sys.exit()
+              if konf_TRK.autotrybmanual:
+                c.setTrybAuto(poprzednitryb)
+              os.kill(os.getpid(), signal.SIGTERM)
            
            if stare_tryby != konf_TRK.tryb:
               razy_jeden = ile_krokow * [False];
