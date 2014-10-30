@@ -352,6 +352,8 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,aspa):
         print ("== start dmuchawa na czas: " + str(czNaw) + "s moc:"+ str(moNaw) + "%")
         wsd.startInterval(czNaw)
         autodopalanie = aspa
+        if autodopalanie == True:
+           print ("=== Autodopalanie: ON")
 
     if czPod > 0:
         c.setPodajnik(True);
