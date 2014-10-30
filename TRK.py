@@ -271,18 +271,22 @@ def regulatorCO():
 
     if (c.getTrybAuto() != True):
         print ("Regulator CO...")
-        if c.getTempCO() >= konf_TRK.tempZalaczeniaPomp:
-            if konf_TRK.Tryb_autolato and c.getTempZew() > konf_TRK.T_zewnetrzna_lato:
-                if c.getPompaCO() == True:
-                   c.setPompaCO(False)
-                   print ("*** CO->OFF AUTOLATO")
-            else:
-                if c.getPompaCO() == False :
-                   c.setPompaCO(True)
-                   print ("*** CO->ON")
-        elif c.getTempCO() < konf_TRK.tempZalaczeniaPomp - 5.0:
-                   c.setPompaCO(False)
-                   print ("*** CO->OFF")
+        if (c.getTempCO() > konf_TRK.tempZalaczeniaPomp):
+            pompa = True
+        if (c.getTempCO() < konf_TRK.tempZalaczeniaPomp - 5.0):
+            pompa = False
+            
+        a = ''
+        if konf_TRK.Tryb_autolato and c.getTempZew() > konf_TRK.T_zewnetrzna_lato:
+            pompa = False
+            a = "AUTOLATO"
+           
+        if (pompa and c.getPompaCO() == False):
+            c.setPompaCO(True)
+            print ("*** CO->ON")
+        elif (not pompa and c.getPompaCO() == True):
+            c.setPompaCO(False)
+            print ("*** CO->OFF " + a)
     
     wco.start()
 
@@ -293,6 +297,8 @@ def uruchomBloki():
 def podtrzymanie():
     wpod.stop()
     print ("*** Podtrzymanie ...")
+    #konf_TRK.czas_tla = 20
+    #konf_TRK.tlo = 38
     pracaPieca(konf_TRK.podtrzymanie_podajnik,konf_TRK.podtrzymanie_przerwa + konf_TRK.podtrzymanie_podajnik,konf_TRK.podtrzymanie_przerwa,konf_TRK.podtrzymanie_nadmuch,False)
     #if tlo > 0:
     #    c.setDmuchawa(True);
