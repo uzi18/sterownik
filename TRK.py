@@ -330,7 +330,7 @@ wpod = RTimer(podtrzymanie)
 
 #========= FUNKCJA PRACA PIECA ==============================================================
 
-def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
+def pracaPieca(czPod,czPrz,czNaw,moNaw,aspa):
     global autodopalanie
     global tp
     global td
@@ -347,15 +347,15 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
         td = time.time()
         c.setDmuchawaMoc(moNaw);
         d = 1
-        print ("== start dmuchawa na czas ", czNaw,"s", "moc:", moNaw,"%")
+        print ("== start dmuchawa na czas: " + str(czNaw) + "s moc:"+ str(moNaw) + "%")
         wsd.startInterval(czNaw)
-        autodopalanie = asp
+        autodopalanie = aspa
 
     if czPod > 0:
         c.setPodajnik(True);
         tp = time.time()
         p = 1
-        print ("== start podajnik na czas ", czPod)
+        print ("== start podajnik na czas: " + str(czPod))
         wsp.startInterval(czPod)
         
     while p != 0 or d != 0:
