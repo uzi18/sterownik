@@ -69,6 +69,8 @@ global kold
 global knew
 global nowakonfiguracja
 nowakonfiguracja = False
+global uruchomStop
+uruchomStop = False
 global ile_krokow
 ile_krokow = len(konf_TRK.czas_podawania);
 if not len(konf_TRK.czas_podawania) == len(konf_TRK.czas_przerwy) == len(konf_TRK.czas_nawiewu) == len(konf_TRK.moc_nawiewu) == len(konf_TRK.tryb):
@@ -385,7 +387,7 @@ def tempCO(tZadGora,tZadDol):
     global praca
     global hist
     global razy_jeden
-    
+    global uruchomStop
     ileSTART = 0
     ileSTOP = 0
     ileNORMAL = 0
