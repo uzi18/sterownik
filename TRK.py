@@ -334,6 +334,7 @@ wpod = RTimer(podtrzymanie)
 
 def pracaPieca(czPod,czPrz,czNaw,moNaw,aspa):
     global autodopalanie
+    global byl_stop
     global tp
     global td
     global p
@@ -364,6 +365,9 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,aspa):
         
     while p != 0 or d != 0:
         time.sleep(0.01)
+    
+    if aspa:
+       byl_stop = True
     
     return
 
@@ -523,9 +527,6 @@ def pracaBloki():
                             print ("uruchamiam blok JEDEN_STOP nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-
-                    if asp:
-                      byl_stop = True
                     
 #=================================================================================================
 #                  PROGRAM GŁÓWNY
