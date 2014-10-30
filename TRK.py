@@ -29,6 +29,15 @@ if konf_TRK.autotrybmanual:
 #===============================================================================
 #                KOD PROGRAMU
 #===============================================================================
+blokNIC=0
+blokSTART=1
+blokNORMAL=2
+blokSTOP=3
+blokiHistoria = []
+for y in range(6):
+    blokiHistoria.append(blokNIC) 
+blokiUruchomione=blokNIC
+blokiPoprzednie=blokNIC
 global tp
 global td
 tp = 0
@@ -354,9 +363,25 @@ def pracaPieca(czPod,czPrz,czNaw,moNaw,asp):
     
     return
 
+def nowyBlok(blok):
+    global blokiUruchomione
+    global blokiPoprzednie
+    global blokiHistoria
+    if blokiHistoria[-2] != blok:
+       blokiHistoria.pop(0)
+       blokiHistoria.append(blok)
+       blokiPoprzednie = blokiHistoria[-2]
+       blokiUruchomione = blok
+       
+    print ("Historia blokow:"+str(blokiHistoria))
+
 #=========== FUNKCJA SPRAWDZENIA TMPERATURY CO ===============================================
 
 def tempCO(tZadGora,tZadDol):
+    global blokiUruchomione
+    global blokiPoprzednie
+    global blokiHistoria
+    global byl_stop
     global praca
     global hist
     global razy_jeden
