@@ -49,11 +49,18 @@ class SterownikIndicator:
                 sys.exit(0)
                 
         def refresh(self):
+            tekst = ""
             if (bool(self.c.getStatus())):
-                print ("CO: " + str(self.c.getTempCO()) + u"\u2103, Wew: " + str(self.c.getTempWew()) + u"\u2103, Zew: " + str(self.c.getTempZew()) + u"\u2103")
-                self.ind.set_label("CO: " + str(self.c.getTempCO()) + u"\u2103, Wew: " + str(self.c.getTempWew()) + u"\u2103, Zew: " + str(self.c.getTempZew()) + u"\u2103")
+                tekst = "CO: "  + str(self.c.getTempCO())  + u"\u2103,"
+                if self.c.getTempWew() < 150:
+                   tekst += " Wew: " + str(self.c.getTempWew()) + u"\u2103,"
+                if self.c.getTempZew() < 150:
+                   tekst += " Zew: " + str(self.c.getTempZew()) + u"\u2103"
             else:
-                self.ind.set_label("Błąd");
+                tekst = "Błąd";
+            
+            print (tekst)
+            self.ind.set_label(tekst);
                 
             gtk.timeout_add(5000, self.refresh)
 
