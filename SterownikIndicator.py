@@ -9,15 +9,16 @@ import gtk
 import appindicator
 import webbrowser
 
-g_address = '192.168.2.2'
-g_user = 'admin'
-g_pass = 'admin'
+try:
+  import konf_polaczenie
+except ImportError:
+  raise ImportError('brak pliku konfiguracji polaczenia ze sterownikiem: konf_polaczenie.py')
 
 class SterownikIndicator:
 
         def __init__(self):
                 
-                self.c = sterownik(g_address, g_user, g_pass);
+                self.c = sterownik(konf_polaczenie.ip, konf_polaczenie.login, konf_polaczenie.haslo);
                 
                 self.ind = appindicator.Indicator("SterownikIndicator", "emblem-web", appindicator.CATEGORY_APPLICATION_STATUS)
                 self.ind.set_status(appindicator.STATUS_ACTIVE)
