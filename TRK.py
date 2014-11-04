@@ -414,11 +414,11 @@ def tempCO(tZadGora,tZadDol):
     ileSTOP = 0
     ileNORMAL = 0
     for t in konf_TRK.tryb:
-        if t == 'start' or t =='jeden_start':
+        if t == 'start' or t =='1start':
           ileSTART += 1
-        if t == 'stop' or t =='jeden_stop':
+        if t == 'stop' or t =='1stop':
           ileSTOP += 1
-        if t == 'normal' or t =='jeden_normal':
+        if t == 'normal' or t =='1normal':
           ileNORMAL += 1
 
     tco = c.getTempCO()
@@ -523,24 +523,24 @@ def pracaBloki():
                         if TRYB == 'start':
                             print ("uruchamiam blok START nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                        elif TRYB == 'jeden_start' and razy_jeden[licznik] == False:
-                            print ("uruchamiam blok JEDEN_START nr " + str(licznik))
+                        elif TRYB == '1start' and razy_jeden[licznik] == False:
+                            print ("uruchamiam blok 1START nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
                     elif (blokiUruchomione == blokNORMAL):
                         if TRYB == 'normal':
                             print ("uruchamiam blok NORMAL nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                        elif TRYB == 'jeden_normal' and razy_jeden[licznik] == False:
-                            print ("uruchamiam blok JEDEN_NORMAL nr " + str(licznik))
+                        elif TRYB == '1normal' and razy_jeden[licznik] == False:
+                            print ("uruchamiam blok 1NORMAL nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
                     elif (blokiUruchomione == blokSTOP):
                         if TRYB == 'stop':
                             print ("uruchamiam blok STOP nr " + str(licznik))
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                        elif TRYB == 'jeden_stop' and razy_jeden[licznik] == False:
-                            print ("uruchamiam blok JEDEN_STOP nr " + str(licznik))
+                        elif TRYB == '1stop' and razy_jeden[licznik] == False:
+                            print ("uruchamiam blok 1STOP nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
                     

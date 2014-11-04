@@ -39,7 +39,7 @@ czasNawiewu   = 0;
 mocNawiewu    = 0;
 
 #========== Parametry blokow ===================================================
-# mozliwe tryby to - start, stop, normal, jeden_start, jeden_normal, jeden_stop
+# mozliwe tryby to - start, stop, normal, 1start, 1normal, 1stop
 
 czas_podawania = [ 5 ,  0,  0,  3,  0,  0]
 czas_przerwy   = [ 20, 30, 60, 13, 20,100]
