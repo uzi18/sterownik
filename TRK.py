@@ -190,17 +190,17 @@ def spaliny():
        if delta < 0:
           delta = delta / 2
        moc = c.getDmuchawaMoc()
-       if ts060 != 0:
-          nowamoc = int(moc + delta/abs(ts060))
-       else:
+       if ts060 == 0 or konf_TRK.staly_nadmuch:
           nowamoc = moc
+       else:
+          nowamoc = int(moc + delta/abs(ts060))
        
        if nowamoc > konf_TRK.max_obr_dmuchawy:
           nowamoc = konf_TRK.max_obr_dmuchawy
 
        if nowamoc < konf_TRK.min_obr_dmuchawy:
           nowamoc = konf_TRK.min_obr_dmuchawy
-        
+       
        print ("autodopalanie TSpal: " + str(x) + " delta: "+ str(delta) +" moc: "+ str(moc) + " nowamoc: "+ str(nowamoc))
        c.setDmuchawaMoc(nowamoc)
     else:

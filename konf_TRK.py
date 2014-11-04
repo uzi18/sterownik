@@ -30,6 +30,7 @@ max_obr_dmuchawy = 52
 tryb_autodopalania = False
 opoznienie = 3
 max_temp_podajnika = 50
+staly_nadmuch = True
 
 #======== Korekta grupowa =============
 
