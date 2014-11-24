@@ -543,7 +543,9 @@ def pracaBloki():
                             print ("uruchamiam blok 1STOP nr " + str(licznik))
                             razy_jeden[licznik] = True
                             pracaPieca(czPod,czPrz,czNaw,moNaw,asp)
-                    
+        else:
+          time.sleep(0.5);
+
 #=================================================================================================
 #                  PROGRAM GŁÓWNY
 #=================================================================================================
