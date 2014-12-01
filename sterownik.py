@@ -31,6 +31,7 @@ class sterownik:
         last_content = None
         testuj = False
         ile_razy_testuj = 20
+        __temp=lambda self,hi,lo:((hi<<8|lo)-(hi>>7<<16))/10.0
 
         def __init__(self, address, user, password):
                 """Konstruktor. Podajemy adres sterownika (adres ip), login i hasło"""
@@ -114,31 +115,31 @@ class sterownik:
         #Temperatury
         def getTempWew(self):
                 if (bool(self.s_statusdata)):
-                        return (self.s_statusdata[19] << 8 | self.s_statusdata[18]) / 10.0;
+                        return self.__temp(self.s_statusdata[19],self.s_statusdata[18]);
 
         def getTempZew(self):
                 if (bool(self.s_statusdata)):
-                        return (self.s_statusdata[21] << 8 | self.s_statusdata[20]) / 10.0;
+                        return self.__temp(self.s_statusdata[21],self.s_statusdata[20]);
                         
         def getTempCWU(self):
                 if (bool(self.s_statusdata)):
-                        return (self.s_statusdata[23] << 8 | self.s_statusdata[22]) / 10.0;
+                        return self.__temp(self.s_statusdata[23],self.s_statusdata[22]);
                         
         def getTempPowrot(self):
                 if (bool(self.s_statusdata)):
-                        return (self.s_statusdata[25] << 8 | self.s_statusdata[24]) / 10.0;
+                        return self.__temp(self.s_statusdata[25],self.s_statusdata[24]);
                         
         def getTempPodajnik(self):
                 if (bool(self.s_statusdata)):
-                        return (self.s_statusdata[27] << 8 | self.s_statusdata[26]) / 10.0;
+                        return self.__temp(self.s_statusdata[27],self.s_statusdata[26]);
 
         def getTempCO(self):
                 if (bool(self.s_statusdata)):
-                        return (self.s_statusdata[29] << 8 | self.s_statusdata[28]) / 10.0;
+                        return self.__temp(self.s_statusdata[29],self.s_statusdata[28]);
                 
         def getTempSpaliny(self):
                 if (bool(self.s_statusdata)):
-                        return (self.s_statusdata[31] << 8 | self.s_statusdata[30]) / 10.0;
+                        return self.__temp(self.s_statusdata[31],self.s_statusdata[30]);
 
         # Pompa CO
         def getPompaCO(self):
