@@ -42,7 +42,9 @@ mocNawiewu    = 0;
 #========== Parametry blokow ===================================================
 # mozliwe tryby to - start, stop, normal, 1start, 1normal, 1stop
 
-czas_podawania = [ 5 ,  0,  0,  3,  0,  0]
+t_min          = [  0,  0,  0,  0,  0,  0]
+t_max          = [  0,  0,  0,  0,  0,  0]
+czas_podawania = [  5,  0,  0,  3,  0,  0]
 czas_przerwy   = [ 20, 30, 60, 13, 20,100]
 czas_nawiewu   = [ 20, 30, 60, 13, 20,100]
 moc_nawiewu    = [ 46, 43, 40, 43, 40, 40]

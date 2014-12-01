@@ -73,7 +73,7 @@ global uruchomStop
 uruchomStop = False
 global ile_krokow
 ile_krokow = len(konf_TRK.czas_podawania);
-if not len(konf_TRK.czas_podawania) == len(konf_TRK.czas_przerwy) == len(konf_TRK.czas_nawiewu) == len(konf_TRK.moc_nawiewu) == len(konf_TRK.tryb):
+if not len(konf_TRK.t_min) == len(konf_TRK.t_max) == len(konf_TRK.czas_podawania) == len(konf_TRK.czas_przerwy) == len(konf_TRK.czas_nawiewu) == len(konf_TRK.moc_nawiewu) == len(konf_TRK.tryb):
    print ("Błąd: Zła ilość elementów w blokach")
    sys.exit()
 
@@ -492,6 +492,12 @@ def pracaBloki():
             
             if blokiUruchomione != blokNIC:
                 for licznik in range(0,ile_krokow):
+                    tMin = konf_TRK.t_min[licznik]
+                    tMax = konf_TRK.t_max[licznik]
+                    tCO = c.getTempCO()
+                    if (tMin > 0) and (tCO<= tMin): continue;
+                    if (tMax > 0) and (tMax < tCO): continue;
+                    
                     if konf_TRK.czas_podawania[licznik] > 0:
                         czPod = konf_TRK.czas_podawania[licznik] + konf_TRK.czasPodawania
                     else:
@@ -561,7 +567,7 @@ try:
            reload(sys.modules["konf_TRK"])
            nowakonfiguracja = False
            ile_krokow = len(konf_TRK.czas_podawania);
-           if not len(konf_TRK.czas_podawania) == len(konf_TRK.czas_przerwy) == len(konf_TRK.czas_nawiewu) == len(konf_TRK.moc_nawiewu) == len(konf_TRK.tryb):
+           if not len(konf_TRK.t_min) == len(konf_TRK.t_max) == len(konf_TRK.czas_podawania) == len(konf_TRK.czas_przerwy) == len(konf_TRK.czas_nawiewu) == len(konf_TRK.moc_nawiewu) == len(konf_TRK.tryb):
               print ("Błąd: Zła ilość elementów w blokach")
               if konf_TRK.autotrybmanual:
                 c.setTrybAuto(poprzednitryb)
