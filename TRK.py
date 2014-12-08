@@ -73,6 +73,12 @@ global uruchomStop
 uruchomStop = False
 global ile_krokow
 ile_krokow = len(konf_TRK.czas_podawania);
+if not 't_min' in dir(konf_TRK):
+  konf_TRK.t_min = [0] * ile_krokow
+  print ('== Konfiguracja: brak sekcji t_min')
+if not 't_max' in dir(konf_TRK):
+  konf_TRK.t_max = [0] * ile_krokow
+  print ('== Konfiguracja: brak sekcji t_max')
 if not len(konf_TRK.t_min) == len(konf_TRK.t_max) == len(konf_TRK.czas_podawania) == len(konf_TRK.czas_przerwy) == len(konf_TRK.czas_nawiewu) == len(konf_TRK.moc_nawiewu) == len(konf_TRK.tryb):
    print ("Błąd: Zła ilość elementów w blokach")
    sys.exit()
@@ -562,11 +568,17 @@ wbl.startInterval(1)
 try:
     while True:
         if nowakonfiguracja == True:
-           print ('Nowa konfiguracja')
+           print ('== Konfiguracja: Wczytywanie ...')
            stare_tryby = konf_TRK.tryb
            reload(sys.modules["konf_TRK"])
            nowakonfiguracja = False
            ile_krokow = len(konf_TRK.czas_podawania);
+           if not 't_min' in dir(konf_TRK):
+              konf_TRK.t_min = [0] * ile_krokow
+              print ('== Konfiguracja: brak sekcji t_min')
+           if not 't_max' in dir(konf_TRK):
+              konf_TRK.t_max = [0] * ile_krokow
+              print ('== Konfiguracja: brak sekcji t_max')
            if not len(konf_TRK.t_min) == len(konf_TRK.t_max) == len(konf_TRK.czas_podawania) == len(konf_TRK.czas_przerwy) == len(konf_TRK.czas_nawiewu) == len(konf_TRK.moc_nawiewu) == len(konf_TRK.tryb):
               print ("Błąd: Zła ilość elementów w blokach")
               if konf_TRK.autotrybmanual:
