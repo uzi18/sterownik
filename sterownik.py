@@ -16,7 +16,7 @@ import httplib2
 import struct
 import sys
 import threading
-import time;
+import time
 
 from base64 import b64encode
 
@@ -107,7 +107,7 @@ class sterownik:
                     test = self._getRequest("020100020033020001006503");
                 else:
                     test = self._getRequest("020100020033020000009103");
-                if (self.last_res == 200 ):
+                if (self.last_res.status == 200 ):
                     break
             
             return test
@@ -153,7 +153,7 @@ class sterownik:
                     test = self._getRequest("02010005000D0100018D03");
                 else:
                     test = self._getRequest("02010005000D010000BC03");
-                if (self.last_res == 200 ):
+                if (self.last_res.status == 200 ):
                     break
             return test
 
@@ -170,7 +170,7 @@ class sterownik:
                 else:
                     test = self._getRequest("02010005000E0100002003");
                     
-                if (self.last_res == 200 ):
+                if (self.last_res.status == 200 ):
                     break
             return test
 
@@ -195,7 +195,7 @@ class sterownik:
                     test = self._getRequest("02010005000C0100011603");
                 else:
                     test = self._getRequest("02010005000C0100002703");
-                if (self.last_res == 200 ):
+                if (self.last_res.status == 200 ):
                     break
             
             return test
@@ -220,7 +220,7 @@ class sterownik:
                         test = self._getRequest("02010005000B0100018403");
                 else:
                         test = self._getRequest("02010005000B010000B503");
-                if (self.last_res == 200 ):
+                if (self.last_res.status == 200 ):
                     break
             
             return test
@@ -239,7 +239,7 @@ class sterownik:
                 test = False
                 for x in range(self.ile_razy_testuj):
                   test = self._getRequest(cmd);
-                  if (self.last_res == 200 ):
+                  if (self.last_res.status == 200 ):
                       break
                     
                 return test
