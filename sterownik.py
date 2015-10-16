@@ -26,6 +26,7 @@ class sterownik:
         s_user = 'admin';
         s_password = 'admin';
         s_statusdata = None;
+        s_typ_kotla = None
         h = None;
         last_res = None
         last_content = None
@@ -243,6 +244,35 @@ class sterownik:
                       break
                     
                 return test
+
+
+        def getTypKotla(self):
+            test = False
+            for x in range(self.ile_razy_testuj):
+                test = self._getRequest("02010001005000006C03");
+                if (self.last_res.status == 200 ):
+                    break
+
+            if (self.last_res.status == 200 ):
+                txt = str(self.last_content);
+                txt = txt[txt.index('[') + 1:txt.index(']')]
+                data = list(map(int, txt.split(',')));
+               
+                if   (data[8] == 0):
+                  self.s_typ_kotla = "RETORTOWY-RECZNY"
+                elif (data[8] == 1):
+                  self.s_typ_kotla = "RETORTOWY-GRUPOWY"
+                elif (data[8] == 2):
+                  self.s_typ_kotla = "TLOKOWY-RECZNY"
+                elif (data[8] == 3):
+                  self.s_typ_kotla = "TLOKOWY-AUTO"
+                elif (data[8] == 4):
+                  self.s_typ_kotla = "ZASYPOWY"
+                else:
+                  self.s_typ_kotla = None
+
+            return self.s_typ_kotla
+
 
         def crc(self, msg):
                 runningCRC = 0
