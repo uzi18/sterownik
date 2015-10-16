@@ -273,6 +273,50 @@ class sterownik:
 
             return self.s_typ_kotla
 
+        def setRetRecznyPodawanie(self, value):
+                tab = [0x01, 0x00, 0x02, 0x00, 0x22, 0x02, 0x00, value & 0xff, (value>>8) & 0xff];
+                crc = self.crc(tab);
+                tab.insert(0, 0x02);
+                tab.append(crc);
+                tab.append(0x03);
+                cmd = ''.join('{:02x}'.format(x) for x in tab);
+                test = False
+                for x in range(self.ile_razy_testuj):
+                  test = self._getRequest(cmd);
+                  if (self.last_res.status == 200 ):
+                      break
+                    
+                return test
+
+        def setRetRecznyPostoj(self, value):
+                tab = [0x01, 0x00, 0x02, 0x00, 0x23, 0x02, 0x00, value & 0xff, (value>>8) & 0xff];
+                crc = self.crc(tab);
+                tab.insert(0, 0x02);
+                tab.append(crc);
+                tab.append(0x03);
+                cmd = ''.join('{:02x}'.format(x) for x in tab);
+                test = False
+                for x in range(self.ile_razy_testuj):
+                  test = self._getRequest(cmd);
+                  if (self.last_res.status == 200 ):
+                      break
+                    
+                return test
+
+        def setRetRecznyDmuchawa(self, value):
+                tab = [0x01, 0x00, 0x02, 0x00, 0x0F, 0x02, 0x00, value & 0xff, 0x00];
+                crc = self.crc(tab);
+                tab.insert(0, 0x02);
+                tab.append(crc);
+                tab.append(0x03);
+                cmd = ''.join('{:02x}'.format(x) for x in tab);
+                test = False
+                for x in range(self.ile_razy_testuj):
+                  test = self._getRequest(cmd);
+                  if (self.last_res.status == 200 ):
+                      break
+                    
+                return test
 
         def crc(self, msg):
                 runningCRC = 0
