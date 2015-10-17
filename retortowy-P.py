@@ -35,7 +35,7 @@ c.getStatus()
 poprzednia_co = c.getTempCO()
 
 while (c.getStatus()):
-  if (c.getTrybAuto() && c.getTypKotla() == "RETORTOWY-RECZNY"):
+  if (c.getTrybAuto() and c.getTypKotla() == "RETORTOWY-RECZNY"):
     delta = int(zadana_co - c.getTempCO() +0.5)
     delta_poprzednia = int(poprzednia_co - c.getTempCO() +0.5)
     
