@@ -34,7 +34,7 @@ czas_cyklu = 60
 from sterownik import *
 import time
 
-c = sterownik(ip,login,password);
+c = sterownik(ip,login,password)
 c.getStatus()
 poprzednia_co = c.getTempCO()
 
