@@ -53,7 +53,7 @@ while (c.getStatus()):
     elif (delta_poprzednia > 0):
       c.setRetRecznyDmuchawa(start_dmuchawa)
       c.setRetRecznyPostoj(start_postoj)
-      c.setRetRecznyPodawani(start_podawanie)
+      c.setRetRecznyPodawanie(start_podawanie)
       print("POWROT Delta:"+ str(delta)+" dmuchanie:" + str(start_dmuchawa) + " podawanie:" + str(start_podawanie) + " postoj:" + str(start_postoj))
     else:
       print("Delta:"+ str(delta)+" Poprzednia:" + str(delta_poprzednia))
