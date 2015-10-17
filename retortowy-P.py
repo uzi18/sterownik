@@ -52,6 +52,8 @@ while (c.getStatus()):
       c.setRetRecznyPostoj(start_postoj)
       c.setRetRecznyPodawani(start_podawanie)
       print("POWROT Delta:"+ str(delta)+" dmuchanie:" + str(start_dmuchawa) + " podawanie:" + str(start_podawanie) + " postoj:" + str(start_postoj))
+    else:
+      print("Delta:"+ str(delta)+" Poprzednia:" + str(delta_poprzednia))
       
   poprzednia_co = c.getTempCO()
   time.sleep(czas_cyklu)
