@@ -17,8 +17,8 @@ password = 'admin'
 zadana_co = 65
 
 korekcja_podawania = 1.0
-korekcja_postoju =  -1.0
-korekcja_dmuchania = 1.0
+korekcja_postoju =  10.0
+korekcja_dmuchania = 0.5
 
 start_podawanie = 15
 start_postoj = 35
