@@ -24,6 +24,10 @@ start_podawanie = 15
 start_postoj = 35
 start_dmuchawa = 43
 
+rozped_podawanie= 20
+rozped_postoj   = 60
+rozped_dmuchawa = 45
+
 czas_cyklu = 60
 
 # PROGRAM GLOWNY
@@ -50,11 +54,11 @@ while (c.getStatus()):
       c.setRetRecznyPostoj(nowe_postoj)
       c.setRetRecznyPodawanie(nowe_podawanie)
       print("NOWE   Delta:"+ str(delta)+" dmuchanie:" + str(nowe_dmuchanie) + " podawanie:" + str(nowe_podawanie) + " postoj:" + str(nowe_postoj))
-    elif (delta_poprzednia > 0):
-      c.setRetRecznyDmuchawa(start_dmuchawa)
-      c.setRetRecznyPostoj(start_postoj)
-      c.setRetRecznyPodawani(start_podawanie)
-      print("POWROT Delta:"+ str(delta)+" dmuchanie:" + str(start_dmuchawa) + " podawanie:" + str(start_podawanie) + " postoj:" + str(start_postoj))
+    elif (delta_poprzednia >= 0):
+      c.setRetRecznyDmuchawa(rozped_dmuchawa)
+      c.setRetRecznyPostoj(rozped_postoj)
+      c.setRetRecznyPodawanie(rozped_podawanie)
+      print("POWROT Delta:"+ str(delta)+" dmuchanie:" + str(rozped_dmuchawa) + " podawanie:" + str(rozped_podawanie) + " postoj:" + str(rozped_postoj))
     else:
       print("Delta:"+ str(delta)+" Poprzednia:" + str(delta_poprzednia))
       
