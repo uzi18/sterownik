@@ -43,6 +43,9 @@ while (c.getStatus()):
       nowe_podawanie = int(delta * korekcja_podawania + start_podawanie)
       nowe_postoj    = int(delta * korekcja_postoju   + start_postoj)
       nowe_dmuchanie = int(delta * korekcja_dmuchania + start_dmuchawa)
+      if (nowe_podawanie <= 0): nowe_podawanie = 1
+      if (nowe_postoj    <= 0): nowe_postoj = 1
+      if (nowe_dmuchanie <=25): nowe_dmuchanie = 25
       c.setRetRecznyDmuchawa(nowe_dmuchanie)
       c.setRetRecznyPostoj(nowe_postoj)
       c.setRetRecznyPodawanie(nowe_podawanie)
