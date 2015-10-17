@@ -231,7 +231,8 @@ class sterownik:
                         return self.s_statusdata[39];
                 
         def setDmuchawaMoc(self, value):
-                tab = [0x01, 0x00, 0x02, 0x00, 0x08, 0x02, 0x00, value & 0xff, 0x00];
+                v = int(value)
+                tab = [0x01, 0x00, 0x02, 0x00, 0x08, 0x02, 0x00, v & 0xff, 0x00];
                 crc = self.crc(tab);
                 tab.insert(0, 0x02);
                 tab.append(crc);
@@ -274,7 +275,8 @@ class sterownik:
             return self.s_typ_kotla
 
         def setRetRecznyPodawanie(self, value):
-                tab = [0x01, 0x00, 0x02, 0x00, 0x22, 0x02, 0x00, value & 0xff, (value>>8) & 0xff];
+                v = int(value)
+                tab = [0x01, 0x00, 0x02, 0x00, 0x22, 0x02, 0x00, v & 0xff, (v>>8) & 0xff];
                 crc = self.crc(tab);
                 tab.insert(0, 0x02);
                 tab.append(crc);
@@ -289,7 +291,8 @@ class sterownik:
                 return test
 
         def setRetRecznyPostoj(self, value):
-                tab = [0x01, 0x00, 0x02, 0x00, 0x23, 0x02, 0x00, value & 0xff, (value>>8) & 0xff];
+                v = int(value)
+                tab = [0x01, 0x00, 0x02, 0x00, 0x23, 0x02, 0x00, v & 0xff, (v>>8) & 0xff];
                 crc = self.crc(tab);
                 tab.insert(0, 0x02);
                 tab.append(crc);
@@ -304,7 +307,8 @@ class sterownik:
                 return test
 
         def setRetRecznyDmuchawa(self, value):
-                tab = [0x01, 0x00, 0x02, 0x00, 0x0F, 0x02, 0x00, value & 0xff, 0x00];
+                v = int(value)
+                tab = [0x01, 0x00, 0x02, 0x00, 0x0F, 0x02, 0x00, v & 0xff, 0x00];
                 crc = self.crc(tab);
                 tab.insert(0, 0x02);
                 tab.append(crc);
@@ -327,7 +331,4 @@ class sterownik:
         def crcByte(self, oldCrc, byte):
                 res = self.crcTable[oldCrc & 0xFF ^ byte & 0xFF];
                 return res
-
-
-                        
 
