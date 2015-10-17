@@ -24,9 +24,9 @@ start_podawanie = 15
 start_postoj = 35
 start_dmuchawa = 43
 
-rozped_podawanie= 20
-rozped_postoj   = 60
-rozped_dmuchawa = 45
+rozped_podawanie= start_podawanie
+rozped_postoj   = start_postoj
+rozped_dmuchawa = start_dmuchawa
 
 czas_cyklu = 60
 
