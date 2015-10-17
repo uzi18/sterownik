@@ -40,9 +40,9 @@ while (c.getStatus()):
     delta_poprzednia = int(poprzednia_co - c.getTempCO() +0.5)
     
     if (c.getTempCO() < zadana_co - 1):
-      nowe_podawanie = delta * korekcja_podawania + start_podawanie
-      nowe_postoj    = delta * korekcja_postoju   + start_postoj
-      nowe_dmuchanie = delta * korekcja_dmuchania + start_dmuchawa
+      nowe_podawanie = int(delta * korekcja_podawania + start_podawanie)
+      nowe_postoj    = int(delta * korekcja_postoju   + start_postoj)
+      nowe_dmuchanie = int(delta * korekcja_dmuchania + start_dmuchawa)
       c.setRetRecznyDmuchawa(nowe_dmuchanie)
       c.setRetRecznyPostoj(nowe_postoj)
       c.setRetRecznyPodawanie(nowe_podawanie)
