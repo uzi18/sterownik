@@ -20,6 +20,8 @@ import time
 
 from base64 import b64encode
 
+#httplib2.debuglevel=4
+
 class sterownik:
         
         s_address = '127.0.0.';
