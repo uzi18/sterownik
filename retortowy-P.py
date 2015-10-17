@@ -5,7 +5,7 @@
 # Algorytm proporcjonalnej korekcji pracy (auto) w trybie retortowym-recznym
 # z zalozenia nalezy dobrac tak parametry aby nie wychodzic w podtrzymanie
 #
-# pomysl kol. janusz z forum http://esterownik.pl/forum
+# pomysl algorytmu kol. janusz z forum http://esterownik.pl/forum
 # pomysl z korekcjami kol. mark3k
 #==================================================================================
 
