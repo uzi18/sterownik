@@ -65,6 +65,9 @@ while (c.getStatus()):
     else:
       print("Delta:"+ str(delta)+" Poprzednia:" + str(delta_poprzednia))
 
+  else:
+    print("Sterownik nie jest w trybie auto lub nie ma wlaczonego trybu RETORTOWY-RECZNY")
+
   if (nowe_dmuchanie <> poprzednie_dmuchanie):
     c.setRetRecznyDmuchawa(nowe_dmuchanie)
     poprzednie_dmuchanie = nowe_dmuchanie
