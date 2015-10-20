@@ -361,7 +361,13 @@ class sterownik:
 
         def setRetRecznyDmuchawa(self, value):
                 v = int(value)
-                tab = [0x01, 0x00, 0x02, 0x00, 0x0F, 0x02, 0x00, v & 0xff, 0x00];
+                tab = []
+                if   (self.version == "BRULI"):
+                  tab = [0x01, 0x00, 0x02, 0x00, 0x0F, 0x02, 0x00, v & 0xff, 0x00]
+                elif (self.version == "ECOAL"):
+                  tab = [0x01, 0x00, 0x02, 0x00, 0x61, 0x02, 0x00, v & 0xff, 0x00]
+                else:
+                  return None
                 crc = self.crc(tab);
                 tab.insert(0, 0x02);
                 tab.append(crc);
