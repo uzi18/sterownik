@@ -30,6 +30,7 @@ class sterownik:
         s_statusdata = None;
         s_typ_kotla = None
         h = None;
+        version = None
         last_res = None
         last_content = None
         testuj = False
@@ -248,6 +249,26 @@ class sterownik:
                     
                 return test
 
+        def getVersion(self):
+            test = False
+            for x in range(self.ile_razy_testuj):
+                test = self._getRequest("0201000500020000A903");
+                if (self.last_res.status == 200 ):
+                    break
+
+            if (self.last_res.status == 200 ):
+                txt = str(self.last_content);
+                txt = txt[txt.index('[') + 1:txt.index(']')]
+                data = list(map(int, txt.split(',')));
+               
+                if   (data[8:11] == [48, 46, 49]):
+                  self.version = "BRULI"
+                elif (data[8:11] == [48, 46, 51]):
+                  self.version = "ECOAL"
+                else:
+                  self.version = None
+
+            return self.version
 
         def getTypKotla(self):
             test = False
