@@ -59,6 +59,7 @@ class sterownik:
                 self.h.add_credentials(self.s_user, self.s_password)
                 self.testuj = False;
                 self.lock = threading.RLock()
+                self.getVersion()
                 
         def setIleProb(self, potw):
                 self.testuj = potw
