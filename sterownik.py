@@ -273,7 +273,12 @@ class sterownik:
         def getTypKotla(self):
             test = False
             for x in range(self.ile_razy_testuj):
-                test = self._getRequest("02010001005000006C03");
+                if (self.version == "BRULI"):
+                  test = self._getRequest("02010001005000006C03");
+                elif (self.version == "ECOAL"):
+                  test = self._getRequest("0201000100770000F603");
+                else:
+                  return None
                 if (self.last_res.status == 200 ):
                     break
 
@@ -281,17 +286,30 @@ class sterownik:
                 txt = str(self.last_content);
                 txt = txt[txt.index('[') + 1:txt.index(']')]
                 data = list(map(int, txt.split(',')));
-               
-                if   (data[8] == 0):
-                  self.s_typ_kotla = "RETORTOWY-RECZNY"
-                elif (data[8] == 1):
-                  self.s_typ_kotla = "RETORTOWY-GRUPOWY"
-                elif (data[8] == 2):
-                  self.s_typ_kotla = "TLOKOWY-RECZNY"
-                elif (data[8] == 3):
-                  self.s_typ_kotla = "TLOKOWY-AUTO"
-                elif (data[8] == 4):
-                  self.s_typ_kotla = "ZASYPOWY"
+                if   (self.version == "BRULI"):
+                  if   (data[8] == 0):
+                    self.s_typ_kotla = "RETORTOWY-RECZNY"
+                  elif (data[8] == 1):
+                    self.s_typ_kotla = "RETORTOWY-GRUPOWY"
+                  elif (data[8] == 2):
+                    self.s_typ_kotla = "TLOKOWY-RECZNY"
+                  elif (data[8] == 3):
+                    self.s_typ_kotla = "TLOKOWY-AUTO"
+                  elif (data[8] == 4):
+                    self.s_typ_kotla = "ZASYPOWY"
+                  else:
+                    self.s_typ_kotla = None
+                elif (self.version == "ECOAL"):
+                  if   (data[8] == 0):
+                    self.s_typ_kotla = "RETORTOWY-RECZNY"
+                  elif (data[8] == 1):
+                    self.s_typ_kotla = "RETORTOWY-GRUPOWY"
+                  elif (data[8] == 2):
+                    self.s_typ_kotla = "RETORTOWY-ECOAL"
+                  elif (data[8] == 3):
+                    self.s_typ_kotla = "ZASYPOWY"
+                  else:
+                    self.s_typ_kotla = None
                 else:
                   self.s_typ_kotla = None
 
