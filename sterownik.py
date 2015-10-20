@@ -339,7 +339,13 @@ class sterownik:
 
         def setRetRecznyPostoj(self, value):
                 v = int(value)
-                tab = [0x01, 0x00, 0x02, 0x00, 0x23, 0x02, 0x00, v & 0xff, (v>>8) & 0xff];
+                tab = []
+                if   (self.version == "BRULI"):
+                  tab = [0x01, 0x00, 0x02, 0x00, 0x23, 0x02, 0x00, v & 0xff, (v>>8) & 0xff]
+                elif (self.version == "ECOAL"):
+                  tab = [0x01, 0x00, 0x02, 0x00, 0x76, 0x02, 0x00, v & 0xff, (v>>8) & 0xff]
+                else:
+                  return None
                 crc = self.crc(tab);
                 tab.insert(0, 0x02);
                 tab.append(crc);
