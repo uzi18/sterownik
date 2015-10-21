@@ -28,12 +28,12 @@ rozped_podawanie= start_podawanie
 rozped_postoj   = start_postoj
 rozped_dmuchawa = start_dmuchawa
 
-czas_cyklu = 60
 
 # PROGRAM GLOWNY
 from sterownik import *
 import time
 
+rozped = True
 c = sterownik(ip,login,password)
 c.getStatus()
 c.setRetRecznyDmuchawa(rozped_dmuchawa)
@@ -49,18 +49,20 @@ while (c.getStatus()):
     delta = int(zadana_co - c.getTempCO() +0.5)
     delta_poprzednia = int(poprzednia_co - c.getTempCO() +0.5)
     
-    if (c.getTempCO() < zadana_co - 1):
+    if (c.getTempCO() < zadana_co or rozped == False):
       nowe_podawanie = int(delta * korekcja_podawania + start_podawanie)
       nowe_postoj    = int(delta * korekcja_postoju   + start_postoj)
       nowe_dmuchanie = int(delta * korekcja_dmuchania + start_dmuchawa)
       if (nowe_podawanie <= 0): nowe_podawanie = 1
       if (nowe_postoj    <= 0): nowe_postoj = 1
       if (nowe_dmuchanie <=25): nowe_dmuchanie = 25
+      rozped = True
       print("NOWE   Delta:"+ str(delta)+" dmuchanie:" + str(nowe_dmuchanie) + " podawanie:" + str(nowe_podawanie) + " postoj:" + str(nowe_postoj))
-    elif (delta_poprzednia >= 0 and delta <= 0):
+    elif (delta_poprzednia >= 0 and delta <= 0 and rozped == True):
       nowe_dmuchanie = rozped_dmuchawa
       nowe_postoj = rozped_postoj
       nowe_podawanie =rozped_podawanie
+      rozped = False
       print("ROZPED Delta:"+ str(delta)+" dmuchanie:" + str(rozped_dmuchawa) + " podawanie:" + str(rozped_podawanie) + " postoj:" + str(rozped_postoj))
     else:
       print("Delta:"+ str(delta)+" Poprzednia:" + str(delta_poprzednia))
