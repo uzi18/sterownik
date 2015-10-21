@@ -81,6 +81,6 @@ while (c.getStatus()):
   if (nowe_podawanie <> poprzednie_podawanie):
     c.setRetRecznyPodawanie(nowe_podawanie)
     poprzednie_podawanie = nowe_podawanie
-
+  
   poprzednia_co = c.getTempCO()
-  time.sleep(czas_cyklu)
+  time.sleep(int(nowe_postoj+nowe_podawanie-2))
