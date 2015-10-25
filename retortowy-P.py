@@ -14,6 +14,7 @@ ip = '192.168.2.2'
 login = 'admin'
 password = 'admin'
 
+moc_100 = 1.0/1.0
 zadana_co = 65
 
 korekcja_podawania = 1.0
@@ -96,17 +97,25 @@ while (c.getStatus()):
       tryb_info = True
       print("Sterownik nie jest w trybie auto lub nie ma wlaczonego trybu RETORTOWY-RECZNY")
 
+  nowe_dane = False
   if (nowe_dmuchanie != poprzednie_dmuchanie):
     c.setRetRecznyDmuchawa(nowe_dmuchanie)
     poprzednie_dmuchanie = nowe_dmuchanie
+    nowe_dane = True
 
   if (nowe_postoj != poprzednie_postoj):
     c.setRetRecznyPostoj(nowe_postoj)
     poprzednie_postoj = nowe_postoj
+    nowe_dane = True
 
   if (nowe_podawanie != poprzednie_podawanie):
     c.setRetRecznyPodawanie(nowe_podawanie)
     poprzednie_podawanie = nowe_podawanie
+    nowe_dane = True
+
+  if (nowe_dane == True):
+    print("Nowa moc: " +str(moc_100*nowe_podawanie/nowe_postoj))
+    nowe_dane = False
   
   poprzednia_co = c.getTempCO()
   opoznienie = int(nowe_postoj+nowe_podawanie-2)
