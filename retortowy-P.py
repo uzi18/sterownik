@@ -37,9 +37,9 @@ import time
 rozped = True
 c = sterownik(ip,login,password)
 c.getStatus()
-c.setRetRecznyDmuchawa(rozped_dmuchawa)
-c.setRetRecznyPostoj(rozped_postoj)
-c.setRetRecznyPodawanie(rozped_podawanie)
+#c.setRetRecznyDmuchawa(rozped_dmuchawa)
+#c.setRetRecznyPostoj(rozped_postoj)
+#c.setRetRecznyPodawanie(rozped_podawanie)
 poprzednia_co = c.getTempCO()
 poprzednie_dmuchanie = nowe_dmuchanie = rozped_dmuchawa
 poprzednie_postoj = nowe_postoj = rozped_postoj
@@ -65,7 +65,7 @@ while (c.getStatus()):
     delta = int(zadana_co - c.getTempCO() +0.5)
     delta_poprzednia = int(poprzednia_co - c.getTempCO() +0.5)
     
-    if (c.getTempCO() < zadana_co or rozped == False):
+    if (c.getTempCO() < zadana_co):
       nowe_podawanie = delta * korekcja_podawania + start_podawanie
       nowe_postoj    = delta * korekcja_postoju   + start_postoj
       nowe_dmuchanie = delta * korekcja_dmuchania + start_dmuchawa
@@ -84,12 +84,12 @@ while (c.getStatus()):
       rozped = True
       rozped = False
       print("NOWE   Delta:"+ str(delta)+" dmuchanie:" + str(nowe_dmuchanie) + " podawanie:" + str(nowe_podawanie) + " postoj:" + str(nowe_postoj))
-    elif (delta_poprzednia >= 0 and delta <= 0 and rozped == True):
-      nowe_dmuchanie = rozped_dmuchawa
-      nowe_postoj = rozped_postoj
-      nowe_podawanie =rozped_podawanie
-      rozped = False
-      print("ROZPED Delta:"+ str(delta)+" dmuchanie:" + str(rozped_dmuchawa) + " podawanie:" + str(rozped_podawanie) + " postoj:" + str(rozped_postoj))
+    #elif (delta_poprzednia >= 0 and delta <= 0 and rozped == True):
+    #  nowe_dmuchanie = rozped_dmuchawa
+    #  nowe_postoj = rozped_postoj
+    #  nowe_podawanie =rozped_podawanie
+    #  rozped = False
+    #  print("ROZPED Delta:"+ str(delta)+" dmuchanie:" + str(rozped_dmuchawa) + " podawanie:" + str(rozped_podawanie) + " postoj:" + str(rozped_postoj))
     else:
       print("Delta:"+ str(delta)+" Poprzednia:" + str(delta_poprzednia))
 
