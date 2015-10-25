@@ -82,6 +82,7 @@ while (c.getStatus()):
       if (nowe_dmuchanie < dmu_min): nowe_dmuchanie = dmu_min
       if (nowe_dmuchanie > dmu_max): nowe_dmuchanie = dmu_max
       rozped = True
+      rozped = False
       print("NOWE   Delta:"+ str(delta)+" dmuchanie:" + str(nowe_dmuchanie) + " podawanie:" + str(nowe_podawanie) + " postoj:" + str(nowe_postoj))
     elif (delta_poprzednia >= 0 and delta <= 0 and rozped == True):
       nowe_dmuchanie = rozped_dmuchawa
