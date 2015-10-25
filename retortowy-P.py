@@ -44,8 +44,12 @@ poprzednie_dmuchanie = nowe_dmuchanie = rozped_dmuchawa
 poprzednie_postoj = nowe_postoj = rozped_postoj
 poprzednie_podawanie = nowe_podawanie = rozped_podawanie
 
+
+tryb_info = False
+
 while (c.getStatus()):
   if (c.getTrybAuto() and c.getTypKotla() == "RETORTOWY-RECZNY"):
+    tryb_info = False
     delta = int(zadana_co - c.getTempCO() +0.5)
     delta_poprzednia = int(poprzednia_co - c.getTempCO() +0.5)
     
@@ -68,7 +72,9 @@ while (c.getStatus()):
       print("Delta:"+ str(delta)+" Poprzednia:" + str(delta_poprzednia))
 
   else:
-    print("Sterownik nie jest w trybie auto lub nie ma wlaczonego trybu RETORTOWY-RECZNY")
+    if (tryb_info == False):
+      tryb_info = True
+      print("Sterownik nie jest w trybie auto lub nie ma wlaczonego trybu RETORTOWY-RECZNY")
 
   if (nowe_dmuchanie <> poprzednie_dmuchanie):
     c.setRetRecznyDmuchawa(nowe_dmuchanie)
