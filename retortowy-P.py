@@ -44,6 +44,17 @@ poprzednie_dmuchanie = nowe_dmuchanie = rozped_dmuchawa
 poprzednie_postoj = nowe_postoj = rozped_postoj
 poprzednie_podawanie = nowe_podawanie = rozped_podawanie
 
+if (c.version == "BRULI"):
+  pod_min = 2
+  pod_max = 180
+else:
+  pod_min = 3
+  pod_max = 20
+
+pos_min = 1
+pos_max = 600
+dmu_min = 25
+dmu_max = 100
 
 tryb_info = False
 
@@ -54,12 +65,21 @@ while (c.getStatus()):
     delta_poprzednia = int(poprzednia_co - c.getTempCO() +0.5)
     
     if (c.getTempCO() < zadana_co or rozped == False):
-      nowe_podawanie = int(delta * korekcja_podawania + start_podawanie)
-      nowe_postoj    = int(delta * korekcja_postoju   + start_postoj)
-      nowe_dmuchanie = int(delta * korekcja_dmuchania + start_dmuchawa)
-      if (nowe_podawanie <= 0): nowe_podawanie = 1
-      if (nowe_postoj    <= 0): nowe_postoj = 1
-      if (nowe_dmuchanie <=25): nowe_dmuchanie = 25
+      nowe_podawanie = delta * korekcja_podawania + start_podawanie
+      nowe_postoj    = delta * korekcja_postoju   + start_postoj
+      nowe_dmuchanie = delta * korekcja_dmuchania + start_dmuchawa
+      if (nowe_podawanie < pod_min):
+        moc = nowe_postoj/nowe_podawanie
+        nowe_podawanie = pod_min
+        nowe_postoj = pod_min*moc
+      if (nowe_podawanie > pod_max):
+        moc = nowe_postoj/nowe_podawanie
+        nowe_podawanie = pod_max
+        nowe_postoj = pod_max*moc
+      if (nowe_postoj    < pod_min): nowe_postoj = pos_min
+      if (nowe_postoj    > pod_max): nowe_postoj = pos_max
+      if (nowe_dmuchanie < dmu_min): nowe_dmuchanie = dmu_min
+      if (nowe_dmuchanie > dmu_max): nowe_dmuchanie = dmu_max
       rozped = True
       print("NOWE   Delta:"+ str(delta)+" dmuchanie:" + str(nowe_dmuchanie) + " podawanie:" + str(nowe_podawanie) + " postoj:" + str(nowe_postoj))
     elif (delta_poprzednia >= 0 and delta <= 0 and rozped == True):
