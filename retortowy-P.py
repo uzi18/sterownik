@@ -76,15 +76,15 @@ while (c.getStatus()):
       tryb_info = True
       print("Sterownik nie jest w trybie auto lub nie ma wlaczonego trybu RETORTOWY-RECZNY")
 
-  if (nowe_dmuchanie <> poprzednie_dmuchanie):
+  if (nowe_dmuchanie != poprzednie_dmuchanie):
     c.setRetRecznyDmuchawa(nowe_dmuchanie)
     poprzednie_dmuchanie = nowe_dmuchanie
 
-  if (nowe_postoj <> poprzednie_postoj):
+  if (nowe_postoj != poprzednie_postoj):
     c.setRetRecznyPostoj(nowe_postoj)
     poprzednie_postoj = nowe_postoj
 
-  if (nowe_podawanie <> poprzednie_podawanie):
+  if (nowe_podawanie != poprzednie_podawanie):
     c.setRetRecznyPodawanie(nowe_podawanie)
     poprzednie_podawanie = nowe_podawanie
   
