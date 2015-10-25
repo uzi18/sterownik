@@ -109,4 +109,7 @@ while (c.getStatus()):
     poprzednie_podawanie = nowe_podawanie
   
   poprzednia_co = c.getTempCO()
-  time.sleep(int(nowe_postoj+nowe_podawanie-2))
+  opoznienie = int(nowe_postoj+nowe_podawanie-2)
+  if (opoznienie <= 0):
+    opoznienie = 1
+  time.sleep(opoznienie)
