@@ -141,4 +141,5 @@ while (c.getStatus()):
   opoznienie = int(nowe_postoj+nowe_podawanie-2)/2
   if (opoznienie <= 0):
     opoznienie = 1
+  print(" opoznienie: " + str(opoznienie))
   time.sleep(opoznienie)
