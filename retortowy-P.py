@@ -106,8 +106,8 @@ while (c.getStatus()):
     #  nowe_podawanie =rozped_podawanie
     #  rozped = False
     #  print("ROZPED Delta:"+ str(delta)+" dmuchanie:" + str(rozped_dmuchawa) + " podawanie:" + str(rozped_podawanie) + " postoj:" + str(rozped_postoj))
-    else:
-      print("Delta:"+ str(delta)+" Poprzednia:" + str(delta_poprzednia))
+    #else:
+    #  print("Delta:"+ str(delta)+" Poprzednia:" + str(delta_poprzednia))
 
   else:
     if (tryb_info == False):
