@@ -99,7 +99,6 @@ while (c.getStatus()):
       if (nowe_dmuchanie > dmu_max): nowe_dmuchanie = dmu_max
       rozped = True
       rozped = False
-      print("NOWE   Delta:"+ str(delta)+" dmuchanie:" + str(nowe_dmuchanie) + " podawanie:" + str(nowe_podawanie) + " postoj:" + str(nowe_postoj))
     #elif (delta_poprzednia >= 0 and delta <= 0 and rozped == True):
     #  nowe_dmuchanie = rozped_dmuchawa
     #  nowe_postoj = rozped_postoj
@@ -117,21 +116,25 @@ while (c.getStatus()):
   nowe_dane = False
   if (nowe_dmuchanie != poprzednie_dmuchanie):
     c.setRetRecznyDmuchawa(nowe_dmuchanie)
+    print(" dmuchanie:" + str(poprzednie_dmuchanie)+"->" + str(nowe_dmuchanie))
     poprzednie_dmuchanie = nowe_dmuchanie
     nowe_dane = True
 
   if (nowe_postoj != poprzednie_postoj):
     c.setRetRecznyPostoj(nowe_postoj)
+    print(" postoj:" + str(poprzednie_postoj)+"->" + str(nowe_postoj))
     poprzednie_postoj = nowe_postoj
     nowe_dane = True
 
   if (nowe_podawanie != poprzednie_podawanie):
     c.setRetRecznyPodawanie(nowe_podawanie)
+    print(" podawanie: " + str(poprzednie_podawanie)+"->" + str(nowe_podawanie))
     poprzednie_podawanie = nowe_podawanie
     nowe_dane = True
 
   if (nowe_dane == True):
     print("Nowa moc: " +str(int(100*(float(nowe_podawanie)/float(nowe_postoj))/moc_100))+"%")
+    print("Delta:"+ str(delta)+" dmuchanie:" + str(nowe_dmuchanie) + " podawanie:" + str(nowe_podawanie) + " postoj:" + str(nowe_postoj))
     nowe_dane = False
   
   poprzednia_co = c.getTempCO()
