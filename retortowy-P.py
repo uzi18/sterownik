@@ -14,6 +14,13 @@ ip = '192.168.2.2'
 login = 'admin'
 password = 'admin'
 
+podawanie_min = 0
+podawanie_max = 0
+postoj_min = 0
+postoj_max = 0
+dmuchanie_min = 0
+dmuchanie_max = 0
+
 praca_ciagla = True
 moc_100 = 1.0/1.0
 zadana_co = 65
@@ -57,6 +64,13 @@ pos_min = 1
 pos_max = 600
 dmu_min = 25
 dmu_max = 100
+
+if (podawanie_min > 0 and podawanie_min > pod_min): pod_min = podawanie_min
+if (podawanie_max > 0 and podawanie_max < pod_max): pod_max = podawanie_max
+if (postoj_min > 0    and postoj_min > pos_min):    pos_min = postoj_min
+if (postoj_max > 0    and postoj_max < pos_max):    pos_max = postoj_max
+if (dmuchanie_min > 0 and dmuchanie_min > dmu_min): dmu_min = dmuchanie_min
+if (dmuchanie_max > 0 and dmuchanie_max < dmu_max): dmu_max = dmuchanie_max
 
 tryb_info = False
 
