@@ -85,13 +85,13 @@ while (c.getStatus()):
       nowe_postoj    = delta * korekcja_postoju   + start_postoj
       nowe_dmuchanie = delta * korekcja_dmuchania + start_dmuchawa
       if (nowe_podawanie < pod_min):
-        moc = nowe_postoj/nowe_podawanie
+        moc = float(nowe_postoj)/float(nowe_podawanie)
         nowe_podawanie = pod_min
-        nowe_postoj = pod_min*moc
+        nowe_postoj = int(moc*pod_min)
       if (nowe_podawanie > pod_max):
-        moc = nowe_postoj/nowe_podawanie
+        moc = float(nowe_postoj)/float(nowe_podawanie)
         nowe_podawanie = pod_max
-        nowe_postoj = pod_max*moc
+        nowe_postoj = int(moc*pod_max)
       if (nowe_postoj    < pod_min): nowe_postoj = pos_min
       if (nowe_postoj    > pod_max): nowe_postoj = pos_max
       if (nowe_dmuchanie < dmu_min): nowe_dmuchanie = dmu_min
