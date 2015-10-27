@@ -130,7 +130,7 @@ while (c.getStatus()):
     nowe_dane = True
 
   if (nowe_dane == True):
-    print("Nowa moc: " +str(int(100*moc_100*nowe_podawanie/nowe_postoj))+"%")
+    print("Nowa moc: " +str(int(100*(float(nowe_podawanie)/float(nowe_postoj))/moc_100))+"%")
     nowe_dane = False
   
   poprzednia_co = c.getTempCO()
