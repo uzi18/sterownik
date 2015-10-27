@@ -52,6 +52,7 @@ poprzednia_co = c.getTempCO()
 poprzednie_dmuchanie = nowe_dmuchanie = rozped_dmuchawa
 poprzednie_postoj = nowe_postoj = rozped_postoj
 poprzednie_podawanie = nowe_podawanie = rozped_podawanie
+poprzednie_opoznienie = 0
 
 if (c.version == "BRULI"):
   pod_min = 2
@@ -141,5 +142,6 @@ while (c.getStatus()):
   opoznienie = int(nowe_postoj+nowe_podawanie-2)/2
   if (opoznienie <= 0):
     opoznienie = 1
-  print(" opoznienie: " + str(opoznienie))
+  if (poprzednie_opoznienie != opoznienie):
+    print(" opoznienie: " + str(poprzednie_opoznienie) + "->" + str(opoznienie))
   time.sleep(opoznienie)
