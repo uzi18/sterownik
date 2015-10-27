@@ -14,6 +14,7 @@ ip = '192.168.2.2'
 login = 'admin'
 password = 'admin'
 
+praca_ciagla = True
 moc_100 = 1.0/1.0
 zadana_co = 65
 
@@ -65,7 +66,7 @@ while (c.getStatus()):
     delta = int(zadana_co - c.getTempCO() +0.5)
     delta_poprzednia = int(poprzednia_co - c.getTempCO() +0.5)
     
-    if (c.getTempCO() < zadana_co):
+    if (c.getTempCO() < zadana_co or praca_ciagla == True):
       nowe_podawanie = delta * korekcja_podawania + start_podawanie
       nowe_postoj    = delta * korekcja_postoju   + start_postoj
       nowe_dmuchanie = delta * korekcja_dmuchania + start_dmuchawa
