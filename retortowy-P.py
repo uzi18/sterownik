@@ -45,9 +45,9 @@ import time
 rozped = True
 c = sterownik(ip,login,password)
 c.getStatus()
-#c.setRetRecznyDmuchawa(rozped_dmuchawa)
-#c.setRetRecznyPostoj(rozped_postoj)
-#c.setRetRecznyPodawanie(rozped_podawanie)
+c.setRetRecznyDmuchawa(rozped_dmuchawa)
+c.setRetRecznyPostoj(rozped_postoj)
+c.setRetRecznyPodawanie(rozped_podawanie)
 poprzednia_co = c.getTempCO()
 poprzednie_dmuchanie = nowe_dmuchanie = rozped_dmuchawa
 poprzednie_postoj = nowe_postoj = rozped_postoj
