@@ -144,4 +144,6 @@ while (c.getStatus()):
     opoznienie = 1
   if (poprzednie_opoznienie != opoznienie):
     print(" opoznienie: " + str(poprzednie_opoznienie) + "->" + str(opoznienie))
+    poprzednie_opoznienie = opoznienie
+
   time.sleep(opoznienie)
