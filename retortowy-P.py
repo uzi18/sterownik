@@ -93,8 +93,8 @@ while (c.getStatus()):
       if (nowe_podawanie > pod_max):
         nowe_podawanie = pod_max
         nowe_postoj = int(nowe_moc*pod_max)
-      if (nowe_postoj    < pod_min): nowe_postoj = pos_min
-      if (nowe_postoj    > pod_max): nowe_postoj = pos_max
+      if (nowe_postoj    < pos_min): nowe_postoj = pos_min
+      if (nowe_postoj    > pos_max): nowe_postoj = pos_max
       if (nowe_dmuchanie < dmu_min): nowe_dmuchanie = dmu_min
       if (nowe_dmuchanie > dmu_max): nowe_dmuchanie = dmu_max
       rozped = True
