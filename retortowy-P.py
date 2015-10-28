@@ -21,6 +21,7 @@ postoj_max = 0
 dmuchanie_min = 0
 dmuchanie_max = 0
 
+kg_na_minute = 0.240
 praca_ciagla = True
 moc_100 = 1.0/1.0
 zadana_co = 65
@@ -53,6 +54,8 @@ poprzednie_dmuchanie = nowe_dmuchanie = rozped_dmuchawa
 poprzednie_postoj = nowe_postoj = rozped_postoj
 poprzednie_podawanie = nowe_podawanie = rozped_podawanie
 poprzednie_opoznienie = 0
+start_czas_podajnika = c.getCzasPodajnika()
+start_czas = time.time()
 
 if (c.version == "BRULI"):
   pod_min = 2
@@ -133,7 +136,11 @@ while (c.getStatus()):
     nowe_dane = True
 
   if (nowe_dane == True):
-    print("Nowa moc: " +str(int(100*(float(nowe_podawanie)/float(nowe_postoj))/moc_100))+"%")
+    ile_min = (time.time() - start_czas)/60
+    ile_kg = (c.getCzasPodajnika()-start_czas_podajnika)*kg_na_minute
+    ile_kg_min = ile_kg / ile_min
+    print("Nowa moc: " +str(int(100*(float(nowe_podawanie)/float(nowe_postoj))/moc_100))+"% "\
+      + "%0.3f kg " % (ile_kg) + "%0.3f kg/min" % (ile_kg_min) + " %0.3f kg/24h" % (ile_kg_min*60*24))
     print("Delta:"+ str(delta)+" dmuchanie:" + str(nowe_dmuchanie) + " podawanie:" + str(nowe_podawanie) + " postoj:" + str(nowe_postoj))
     nowe_dane = False
   
