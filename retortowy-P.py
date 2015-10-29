@@ -82,6 +82,7 @@ if (dmuchanie_min > 0 and dmuchanie_min > dmu_min): dmu_min = dmuchanie_min
 if (dmuchanie_max > 0 and dmuchanie_max < dmu_max): dmu_max = dmuchanie_max
 
 tryb_info = False
+delta_ujemna = False
 
 while (c.getStatus()):
   if (c.getTrybAuto() and c.getTypKotla() == "RETORTOWY-RECZNY"):
@@ -89,7 +90,9 @@ while (c.getStatus()):
     delta = int(zadana_co - c.getTempCO() +0.5)
     delta_poprzednia = int(poprzednia_co - c.getTempCO() +0.5)
     
-    if (c.getTempCO() < zadana_co or praca_ciagla == True):
+    if (delta > 0 or praca_ciagla == True):
+      if (delta_ujemna == True and praca_ciagla == True): c.setZadanaCO(zadana_co+5)
+      delta_ujemna = False
       nowe_podawanie = delta * korekcja_podawania + start_podawanie
       nowe_postoj    = delta * korekcja_postoju   + start_postoj
       nowe_dmuchanie = delta * korekcja_dmuchania + start_dmuchawa
@@ -107,7 +110,10 @@ while (c.getStatus()):
       if (nowe_dmuchanie > dmu_max): nowe_dmuchanie = dmu_max
       rozped = True
       rozped = False
-    #elif (delta_poprzednia >= 0 and delta <= 0 and rozped == True):
+    elif (delta < 0 and praca_ciagla == True):
+      if (delta_ujemna == False): c.setZadanaCO(zadana_co)
+      delta_ujemna = True
+        
     #  nowe_dmuchanie = rozped_dmuchawa
     #  nowe_postoj = rozped_postoj
     #  nowe_podawanie =rozped_podawanie
