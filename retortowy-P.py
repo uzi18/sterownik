@@ -57,6 +57,11 @@ poprzednie_opoznienie = 0
 start_czas_podajnika = c.getCzasPodajnika()
 start_czas = time.time()
 
+if (praca_ciagla == True):
+  c.setZadanaCO(zadana_co+5)
+else:
+  c.setZadanaCO(zadana_co)
+
 if (c.version == "BRULI"):
   pod_min = 2
   pod_max = 180
