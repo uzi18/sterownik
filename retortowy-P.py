@@ -91,7 +91,7 @@ while (c.getStatus()):
     delta_poprzednia = int(poprzednia_co - c.getTempCO() +0.5)
     
     if (delta > 0 or praca_ciagla == True):
-      if (delta_ujemna == True and praca_ciagla == True): c.setZadanaCO(zadana_co+5)
+      #if (delta_ujemna == True and praca_ciagla == True): c.setZadanaCO(zadana_co+5)
       delta_ujemna = False
       nowe_podawanie = delta * korekcja_podawania + start_podawanie
       nowe_postoj    = delta * korekcja_postoju   + start_postoj
@@ -110,8 +110,8 @@ while (c.getStatus()):
       if (nowe_dmuchanie > dmu_max): nowe_dmuchanie = dmu_max
       rozped = True
       rozped = False
-    elif (delta < 0 and praca_ciagla == True):
-      if (delta_ujemna == False): c.setZadanaCO(zadana_co)
+    elif (delta < 0 and praca_ciagla == False):
+      #if (delta_ujemna == False): c.setZadanaCO(zadana_co)
       delta_ujemna = True
         
     #  nowe_dmuchanie = rozped_dmuchawa
