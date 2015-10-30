@@ -26,13 +26,13 @@ praca_ciagla = True
 moc_100 = 1.0/1.0
 zadana_co = 65
 
-korekcja_podawania = 1.0
-korekcja_postoju =  10.0
-korekcja_dmuchania = 0.5
+korekcja_podawania=  2.5
+korekcja_postoju  =-10.0
+korekcja_dmuchania=  1.0
 
-start_podawanie = 15
-start_postoj = 35
-start_dmuchawa = 43
+start_podawanie=  5
+start_postoj   =105
+start_dmuchawa = 38
 
 rozped_podawanie= start_podawanie
 rozped_postoj   = start_postoj
