@@ -96,8 +96,14 @@ while (c.getStatus()):
       nowe_podawanie = delta * korekcja_podawania + start_podawanie
       nowe_postoj    = delta * korekcja_postoju   + start_postoj
       nowe_dmuchanie = delta * korekcja_dmuchania + start_dmuchawa
-      if (nowe_podawanie == 0): nowe_podawanie = 1
+      
+      if (nowe_podawanie < 1):
+        x = 1-nowe_podawanie
+        nowe_podawanie = 1
+        nowe_postoj = nowe_postoj + x
+      
       nowe_moc = float(nowe_postoj)/float(nowe_podawanie)
+      
       if (nowe_podawanie < pod_min):
         nowe_podawanie = pod_min
         nowe_postoj = int(nowe_moc*pod_min)
