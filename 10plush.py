@@ -8,50 +8,7 @@ import signal, os
 
 # AUTOR Mark3k. na bazie RECZNY "PLUS" by VERB + fragmenty kodu: Stan & uzi18 
 
-# PARAMETRY CO
-tempZadana = 50.0           # TEMPERATURA CO
-#tempZadana1 = 48.4;        # TEMP Zadana CO
-#tempMIN = 47.0;             
-histereza = 0.3             # HISTEREZA
-korektaDmuchawy = 10        # KOREKTA DMUCHAWY
-korektaPodawania = 0        # KOREKTA PODAWANIA
-
-tempZalaczeniaPomp = 35.0
-
-# PARAMETRY ROZRUCHU
-mocDmuchawaRozruch = 60;    # MOC DMUCHAWY W ROZRUCHU
-czasDmuchawaRozruch = 6;    # CZAS PRACY DMUCHAWY W ROZRUCHU
-czasPodajnikRozruch = 2;    # DODATKOWY CZAS PRACY PODAJNIKA W ROZRUCHU (CzasPodawania + czasPodajnikRozruch)
-
-# PARAMETRY PRACY
-mocDmuchawaPraca = 31;      # MOC DMUCHAWY W CZASIE PRACY
-mocDmuchawaPrzedmuch = 34;  # MOC DMUCHAWY W CZASIE PRZEDMUCHU
-czasPrzedmuchPlus = 5;      # PRACA DMUCHAWY PO ZAKOŃCZENIU PRACY PODAJNIKA
-CzasPodawania = 3;          # CZAS PRACY PODAJNIKA
-CzasNawiewu = 100;          # CZAS POSTOJU PODAJNIKA
-
-# PARAMETRY DOPALANIA
-mocDmuchawaDopalanie = 31;  # MOC DMUCHAWY W CZASIE DOPALANIA
-czasDopalanie = 30;         # CZAS PRACY DMUCHAWY W CZASIE DOPALANIA
-
-# PARAMETRY TŁA
-mocDmuchawaTlo = 30
-
-# PARAMETRY CWU
-T_dolna_CWU = 38;            # TEMPERATURA MIN CWU
-
-# TRYB AUTOLATO
-T_zewnetrzna_lato = 16.5
-Tryb_autolato = True
-
-#PODTRZYMANIE
-podtrzymanie_postoj = 7 #w minutach
-podtrzymanie_podajnik = 3
-podtrzymanie_przerwa = 60
-podtrzymanie_nadmuch = 60
-podtrzymanie_mocNawiewu = 42
-
-global praca
+# PARAMETRY  w pliku konf_10plush.py
 
 try:
   import konf_polaczenie
@@ -67,6 +24,8 @@ except ImportError:
   raise ImportError('brak pliku konfiguracji parametrow pracy 10plush: konf_10plush.py')
 
 from timer import *
+
+global praca
 
 def status():   # Ok. Działa
     wstatus.stop()
@@ -90,196 +49,196 @@ def work():
                     while c.getTrybAuto(): # jesli tryb auto wlaczony to czekamy ...
                         c.getStatus()
                         time.sleep(5);
-                    if (c.getTempCO() <= tempZadana):
+                    if (c.getTempCO() <= konf.tempZadana):
                         if (i == 2):
                         # ROZRUCH
                             i = 1;
                             print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. * Rozruch *");
                             print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
-                            print ("  Czas podawania rozruch: " + str(czasPodajnikRozruch+CzasPodawania)+"s"+"   Moc dmuchawy: "+ str(mocDmuchawaPraca+11)+"%")
-                            print ("  Czas nawiewu: " + str(CzasNawiewu - 40 + czasPrzedmuchPlus * 2) + "s"  + "   1:14")
+                            print ("  Czas podawania rozruch: " + str(konf.czasPodajnikRozruch+konf.CzasPodawania)+"s"+"   Moc dmuchawy: "+ str(konf.mocDmuchawaPraca+11)+"%")
+                            print ("  Czas nawiewu: " + str(konf.CzasNawiewu - 40 + konf.czasPrzedmuchPlus * 2) + "s"  + "   1:14")
                             c.setDmuchawa(True);
-                            c.setDmuchawaMoc(mocDmuchawaRozruch);
-                            time.sleep(czasDmuchawaRozruch);
-                            c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 11);
+                            c.setDmuchawaMoc(konf.mocDmuchawaRozruch);
+                            time.sleep(konf.czasDmuchawaRozruch);
+                            c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 11);
                             c.setPodajnik(True);
-                            time.sleep(czasPodajnikRozruch);
-                            time.sleep(CzasPodawania + korektaPodawania);
+                            time.sleep(konf.czasPodajnikRozruch);
+                            time.sleep(konf.CzasPodawania + konf.korektaPodawania);
                             c.setPodajnik(False);
-                            c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 11);
-                            time.sleep(czasPrzedmuchPlus);
-                            c.setDmuchawaMoc(mocDmuchawaPraca + 11);
-                            time.sleep(CzasNawiewu - korektaDmuchawy * 4);
+                            c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 11);
+                            time.sleep(konf.czasPrzedmuchPlus);
+                            c.setDmuchawaMoc(konf.mocDmuchawaPraca + 11);
+                            time.sleep(konf.CzasNawiewu - konf.korektaDmuchawy * 4);
                             k = 1;
                             
-                        if (c.getTempCO() <= tempZadana):             # 49.0 MOC-1  1:37
-                            if (c.getTempCO() > tempZadana - histereza):   # 48.7
+                        if (c.getTempCO() <= konf.tempZadana):             # 49.0 MOC-1  1:37
+                            if (c.getTempCO() > konf.tempZadana - konf.histereza):   # 48.7
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MIN POWER *");
                                 print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
-                                print ("  Czas podawania: " + str(CzasPodawania) + "s" + "   Moc dmuchawy: " + str(mocDmuchawaPraca) + "%")
-                                print ("  Czas nawiewu: " + str(CzasNawiewu + czasPrzedmuchPlus * 2) + "s   1:37")
+                                print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca) + "%")
+                                print ("  Czas nawiewu: " + str(konf.CzasNawiewu + konf.czasPrzedmuchPlus * 2) + "s   1:37")
 				c.setDmuchawa(True);	
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch);
-                                time.sleep(czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch);
+                                time.sleep(konf.czasPrzedmuchPlus);
                                 c.setPodajnik(True);
-                                time.sleep(CzasPodawania + korektaPodawania);
+                                time.sleep(konf.CzasPodawania + konf.korektaPodawania);
                                 c.setPodajnik(False);
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch);
-                                time.sleep(czasPrzedmuchPlus);
-                                c.setDmuchawaMoc(mocDmuchawaPraca);
-                                time.sleep(CzasNawiewu);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch);
+                                time.sleep(konf.czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPraca);
+                                time.sleep(konf.CzasNawiewu);
                                 k = 1;
-                        if (c.getTempCO() <= tempZadana - histereza):         # 48.7   MOC-2 1:33
-                            if (c.getTempCO() > tempZadana - histereza * 2):  # 48.4
+                        if (c.getTempCO() <= konf.tempZadana - konf.histereza):         # 48.7   MOC-2 1:33
+                            if (c.getTempCO() > konf.tempZadana - konf.histereza * 2):  # 48.4
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MOC-2 *");
                                 print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
-                                print ("  Czas podawania: " + str(CzasPodawania) + "s" + "   Moc dmuchawy: " + str(mocDmuchawaPraca + 1) + "%")
-                                print ("  Czas nawiewu: " + str(CzasNawiewu - korektaDmuchawy * 1 + czasPrzedmuchPlus * 2) + "s   1:33")
+                                print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 1) + "%")
+                                print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 1 + konf.czasPrzedmuchPlus * 2) + "s   1:33")
 				c.setDmuchawa(True);	
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 1);
-                                time.sleep(czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 1);
+                                time.sleep(konf.czasPrzedmuchPlus);
                                 c.setPodajnik(True);
-                                time.sleep(CzasPodawania + korektaPodawania);
+                                time.sleep(konf.CzasPodawania + konf.korektaPodawania);
                                 c.setPodajnik(False);
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 1);
-                                time.sleep(czasPrzedmuchPlus);
-                                c.setDmuchawaMoc(mocDmuchawaPraca + 1);
-                                time.sleep(CzasNawiewu - korektaDmuchawy * 1);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 1);
+                                time.sleep(konf.czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPraca + 1);
+                                time.sleep(konf.CzasNawiewu - konf.korektaDmuchawy * 1);
                                 k = 1;
-                        if (c.getTempCO() <= tempZadana - histereza * 2):     # 48.4  MOC-3 1:30
-                            if (c.getTempCO() > tempZadana - histereza * 3):  # 48.1
+                        if (c.getTempCO() <= konf.tempZadana - konf.histereza * 2):     # 48.4  MOC-3 1:30
+                            if (c.getTempCO() > konf.tempZadana - konf.histereza * 3):  # 48.1
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MOC-3 *");
                                 print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
-                                print ("  Czas podawania: " + str(CzasPodawania) + "s" + "   Moc dmuchawy: " + str(mocDmuchawaPraca + 2) + "%")
-                                print ("  Czas nawiewu: " + str(CzasNawiewu - korektaDmuchawy * 2 + czasPrzedmuchPlus * 2) + "s   1:30")
+                                print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 2) + "%")
+                                print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 2 + konf.czasPrzedmuchPlus * 2) + "s   1:30")
 				c.setDmuchawa(True);	
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 2);
-                                time.sleep(czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 2);
+                                time.sleep(konf.czasPrzedmuchPlus);
                                 c.setPodajnik(True);
-                                time.sleep(CzasPodawania + korektaPodawania);
+                                time.sleep(konf.CzasPodawania + konf.korektaPodawania);
                                 c.setPodajnik(False);
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 2);
-                                time.sleep(czasPrzedmuchPlus);
-                                c.setDmuchawaMoc(mocDmuchawaPraca + 2);
-                                time.sleep(CzasNawiewu - korektaDmuchawy * 2);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 2);
+                                time.sleep(konf.czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPraca + 2);
+                                time.sleep(konf.CzasNawiewu - konf.korektaDmuchawy * 2);
                                 k = 1;
-                        if (c.getTempCO() <= tempZadana - histereza * 3):      # 48.1  MOC-4  1:27
-                            if (c.getTempCO() > tempZadana - histereza * 4):   # 47.8
+                        if (c.getTempCO() <= konf.tempZadana - konf.histereza * 3):      # 48.1  MOC-4  1:27
+                            if (c.getTempCO() > konf.tempZadana - konf.histereza * 4):   # 47.8
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MOC-4 *");
                                 print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
-                                print ("  Czas podawania: " + str(CzasPodawania) + "s" + "   Moc dmuchawy: " + str(mocDmuchawaPraca + 3) + "%")
-                                print ("  Czas nawiewu: " + str(CzasNawiewu - korektaDmuchawy * 3 + czasPrzedmuchPlus * 2) + "s   1:27")
+                                print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 3) + "%")
+                                print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 3 + konf.czasPrzedmuchPlus * 2) + "s   1:27")
 				c.setDmuchawa(True);	
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 3);
-                                time.sleep(czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 3);
+                                time.sleep(konf.czasPrzedmuchPlus);
                                 c.setPodajnik(True);
-                                time.sleep(CzasPodawania + korektaPodawania);
+                                time.sleep(konf.CzasPodawania + konf.korektaPodawania);
                                 c.setPodajnik(False);
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 3);
-                                time.sleep(czasPrzedmuchPlus);
-                                c.setDmuchawaMoc(mocDmuchawaPraca + 3);
-                                time.sleep(CzasNawiewu - korektaDmuchawy * 3);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 3);
+                                time.sleep(konf.czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPraca + 3);
+                                time.sleep(konf.CzasNawiewu - konf.korektaDmuchawy * 3);
                                 k = 1;
-                        if (c.getTempCO() <= tempZadana - histereza * 4):        # 47.8  MOC-5  1:23
-                            if (c.getTempCO() > tempZadana - histereza * 5):     # 47.5
+                        if (c.getTempCO() <= konf.tempZadana - konf.histereza * 4):        # 47.8  MOC-5  1:23
+                            if (c.getTempCO() > konf.tempZadana - konf.histereza * 5):     # 47.5
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MOC-5 *");
                                 print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
-                                print ("  Czas podawania: " + str(CzasPodawania) + "s" + "   Moc dmuchawy: " + str(mocDmuchawaPraca + 4) + "%")
-                                print ("  Czas nawiewu: " + str(CzasNawiewu - korektaDmuchawy * 4 + czasPrzedmuchPlus * 2) + "s   1:23")
+                                print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 4) + "%")
+                                print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 4 + konf.czasPrzedmuchPlus * 2) + "s   1:23")
 				c.setDmuchawa(True);	
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 4);
-                                time.sleep(czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 4);
+                                time.sleep(konf.czasPrzedmuchPlus);
                                 c.setPodajnik(True);
-                                time.sleep(CzasPodawania + korektaPodawania);
+                                time.sleep(konf.CzasPodawania + konf.korektaPodawania);
                                 c.setPodajnik(False);
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 4);
-                                time.sleep(czasPrzedmuchPlus);
-                                c.setDmuchawaMoc(mocDmuchawaPraca + 4);
-                                time.sleep(CzasNawiewu - korektaDmuchawy * 4);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 4);
+                                time.sleep(konf.czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPraca + 4);
+                                time.sleep(konf.CzasNawiewu - konf.korektaDmuchawy * 4);
                                 k = 1;
-                        if (c.getTempCO() <= tempZadana - histereza * 5):         # 47.5  MOC-6  1:20
-                            if (c.getTempCO() > tempZadana - histereza * 6):      # 47.2
+                        if (c.getTempCO() <= konf.tempZadana - konf.histereza * 5):         # 47.5  MOC-6  1:20
+                            if (c.getTempCO() > konf.tempZadana - konf.histereza * 6):      # 47.2
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MOC-6 *");
                                 print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
-                                print ("  Czas podawania: " + str(CzasPodawania) + "s" + "   Moc dmuchawy: " + str(mocDmuchawaPraca + 5) + "%")
-                                print ("  Czas nawiewu: " + str(CzasNawiewu - korektaDmuchawy * 4.8 + czasPrzedmuchPlus * 2) + "s   1:20")
+                                print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 5) + "%")
+                                print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 4.8 + konf.czasPrzedmuchPlus * 2) + "s   1:20")
 				c.setDmuchawa(True);	
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch +5);
-                                time.sleep(czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch +5);
+                                time.sleep(konf.czasPrzedmuchPlus);
                                 c.setPodajnik(True);
-                                time.sleep(CzasPodawania + korektaPodawania);
+                                time.sleep(konf.CzasPodawania + konf.korektaPodawania);
                                 c.setPodajnik(False);
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 5);
-                                time.sleep(czasPrzedmuchPlus);
-                                c.setDmuchawaMoc(mocDmuchawaPraca + 5);
-                                time.sleep(CzasNawiewu - korektaDmuchawy * 4.8);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 5);
+                                time.sleep(konf.czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPraca + 5);
+                                time.sleep(konf.CzasNawiewu - konf.korektaDmuchawy * 4.8);
                                 k = 1;
-                        if (c.getTempCO() <= tempZadana - histereza * 7):         # 47.2  MOC-7  1:17
-                            if (c.getTempCO() > tempZadana - histereza * 8):      # 46.9
+                        if (c.getTempCO() <= konf.tempZadana - konf.histereza * 7):         # 47.2  MOC-7  1:17
+                            if (c.getTempCO() > konf.tempZadana - konf.histereza * 8):      # 46.9
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MOC-7 *");
                                 print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
-                                print ("  Czas podawania: " + str(CzasPodawania) + "s" + "   Moc dmuchawy: " + str(mocDmuchawaPraca + 6) + "%")
-                                print ("  Czas nawiewu: " + str(CzasNawiewu - korektaDmuchawy * 5.6 + czasPrzedmuchPlus * 2) + "s   1:17")
+                                print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 6) + "%")
+                                print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 5.6 + konf.czasPrzedmuchPlus * 2) + "s   1:17")
 				c.setDmuchawa(True);	
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 6);
-                                time.sleep(czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 6);
+                                time.sleep(konf.czasPrzedmuchPlus);
                                 c.setPodajnik(True);
-                                time.sleep(CzasPodawania + korektaPodawania);
+                                time.sleep(konf.CzasPodawania + konf.korektaPodawania);
                                 c.setPodajnik(False);
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 6);
-                                time.sleep(czasPrzedmuchPlus);
-                                c.setDmuchawaMoc(mocDmuchawaPraca + 6);
-                                time.sleep(CzasNawiewu - korektaDmuchawy * 5.6);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 6);
+                                time.sleep(konf.czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPraca + 6);
+                                time.sleep(konf.CzasNawiewu - konf.korektaDmuchawy * 5.6);
                                 k = 1;
-                        if (c.getTempCO() <= tempZadana - histereza * 8):         # 46.9  MOC-8  1:14
-                            if (c.getTempCO() > tempZadana - histereza * 9):      # 46.6
+                        if (c.getTempCO() <= konf.tempZadana - konf.histereza * 8):         # 46.9  MOC-8  1:14
+                            if (c.getTempCO() > konf.tempZadana - konf.histereza * 9):      # 46.6
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MOC-8 *");
                                 print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
-                                print ("  Czas podawania: " + str(CzasPodawania) + "s" + "   Moc dmuchawy: " + str(mocDmuchawaPraca + 7) + "%")
-                                print ("  Czas nawiewu: " + str(CzasNawiewu - korektaDmuchawy * 6.4 + czasPrzedmuchPlus * 2) + "s   1:14")
+                                print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 7) + "%")
+                                print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 6.4 + konf.czasPrzedmuchPlus * 2) + "s   1:14")
 				c.setDmuchawa(True);	
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 7);
-                                time.sleep(czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 7);
+                                time.sleep(konf.czasPrzedmuchPlus);
                                 c.setPodajnik(True);
-                                time.sleep(CzasPodawania + korektaPodawania);
+                                time.sleep(konf.CzasPodawania + konf.korektaPodawania);
                                 c.setPodajnik(False);
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 7);
-                                time.sleep(czasPrzedmuchPlus);
-                                c.setDmuchawaMoc(mocDmuchawaPraca + 7);
-                                time.sleep(CzasNawiewu - korektaDmuchawy * 6.2);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 7);
+                                time.sleep(konf.czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPraca + 7);
+                                time.sleep(konf.CzasNawiewu - konf.korektaDmuchawy * 6.2);
                                 k = 1;
-                        if (c.getTempCO() <= tempZadana - histereza * 9):         # 46.6  MOC-9  1:12
-                            if (c.getTempCO() > tempZadana - histereza * 10):      # 46.3
+                        if (c.getTempCO() <= konf.tempZadana - konf.histereza * 9):         # 46.6  MOC-9  1:12
+                            if (c.getTempCO() > konf.tempZadana - konf.histereza * 10):      # 46.3
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MOC-9 *");
                                 print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
-                                print ("  Czas podawania: " + str(CzasPodawania) + "s" + "   Moc dmuchawy: " + str(mocDmuchawaPraca + 8) + "%")
-                                print ("  Czas nawiewu: " + str(CzasNawiewu - korektaDmuchawy * 7.2 + czasPrzedmuchPlus * 2) + "s   1:12")
+                                print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 8) + "%")
+                                print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 7.2 + konf.czasPrzedmuchPlus * 2) + "s   1:12")
 				c.setDmuchawa(True);	
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 8);
-                                time.sleep(czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 8);
+                                time.sleep(konf.czasPrzedmuchPlus);
                                 c.setPodajnik(True);
-                                time.sleep(CzasPodawania + korektaPodawania);
+                                time.sleep(konf.CzasPodawania + konf.korektaPodawania);
                                 c.setPodajnik(False);
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 8);
-                                time.sleep(czasPrzedmuchPlus);
-                                c.setDmuchawaMoc(mocDmuchawaPraca + 8);
-                                time.sleep(CzasNawiewu - korektaDmuchawy * 6.8);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 8);
+                                time.sleep(konf.czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPraca + 8);
+                                time.sleep(konf.CzasNawiewu - konf.korektaDmuchawy * 6.8);
                                 k = 1;
-                        if (c.getTempCO() <= tempZadana - histereza * 10):          # 46.3  MOC-10  1:10
+                        if (c.getTempCO() <= konf.tempZadana - konf.histereza * 10):          # 46.3  MOC-10  1:10
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MAX POWER *");
                                 print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
-                                print ("  Czas podawania: " + str(CzasPodawania) + "s" + "   Moc dmuchawy: " + str(mocDmuchawaPraca + 10) + "%")
-                                print ("  Czas nawiewu: " + str(CzasNawiewu - korektaDmuchawy * 8 + czasPrzedmuchPlus * 2) + "s   1:10")
+                                print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 10) + "%")
+                                print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 8 + konf.czasPrzedmuchPlus * 2) + "s   1:10")
 				c.setDmuchawa(True);	
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 11);
-                                time.sleep(czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 11);
+                                time.sleep(konf.czasPrzedmuchPlus);
                                 c.setPodajnik(True);
-                                time.sleep(CzasPodawania + korektaPodawania);
+                                time.sleep(konf.CzasPodawania + konf.korektaPodawania);
                                 c.setPodajnik(False);
-                                c.setDmuchawaMoc(mocDmuchawaPrzedmuch + 11);
-                                time.sleep(czasPrzedmuchPlus);
-                                c.setDmuchawaMoc(mocDmuchawaPraca + 12);
-                                time.sleep(CzasNawiewu - korektaDmuchawy * 7.5);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPrzedmuch + 11);
+                                time.sleep(konf.czasPrzedmuchPlus);
+                                c.setDmuchawaMoc(konf.mocDmuchawaPraca + 12);
+                                time.sleep(konf.CzasNawiewu - konf.korektaDmuchawy * 7.5);
                                 k = 1;
                     else:
                         c.setPodajnik(False);
@@ -288,27 +247,27 @@ def work():
                             # DOPALANIE
                             print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C.  * * DOPALANIE * *")
                             print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
-                            print ("  Czas dopalania: " +  str(czasDopalanie) + "s" + "   Moc dmuchawy: " + str(mocDmuchawaDopalanie) + "%")
-                            #c.setDmuchawaMoc(mocDmuchawaTlo);
-                            c.setDmuchawaMoc(mocDmuchawaDopalanie);
-                            time.sleep(czasDopalanie);
+                            print ("  Czas dopalania: " +  str(konf.czasDopalanie) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaDopalanie) + "%")
+                            #c.setDmuchawaMoc(konf.mocDmuchawaTlo);
+                            c.setDmuchawaMoc(konf.mocDmuchawaDopalanie);
+                            time.sleep(konf.czasDopalanie);
                             k = 0;
                         c.setDmuchawa(False);
                         while True:
                             if (bool(c.getStatus())):
-                                if (c.getTempCO() > tempZadana and c.getTempCO() < (tempZadana + 8)):
+                                if (c.getTempCO() > konf.tempZadana and c.getTempCO() < (konf.tempZadana + 8)):
                                     # ODSTAWIENIE + TLO
                                     print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. * TLO - ODSTAWIENIE *");
                                     print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
-                                    print ("  * TLO *   Moc dmuchawy: " + str(mocDmuchawaTlo) + "%")
+                                    print ("  * TLO *   Moc dmuchawy: " + str(konf.mocDmuchawaTlo) + "%")
                                     c.setDmuchawa(True);
-                                    c.setDmuchawaMoc(mocDmuchawaTlo);
+                                    c.setDmuchawaMoc(konf.mocDmuchawaTlo);
                                     time.sleep(10);
-                                #elif (c.getTempCO() <= tempZadana):
+                                #elif (c.getTempCO() <= konf.tempZadana):
                                     #c.setDmuchawa(False);
                                     #time.sleep(10);
                                     if wpod.is_running != True:
-                                        wpod.startInterval(podtrzymanie_postoj*60);
+                                        wpod.startInterval(konf.podtrzymanie_postoj*60);
                                 else:
                                     if wpod.is_running == True:
                                         wpod.stop()
@@ -327,13 +286,13 @@ def regulatorCWU():
 
     if (c.getTrybAuto() != True):
         #print ("Regulator CWU...")
-        if (c.getTempCO() > tempZalaczeniaPomp):
+        if (c.getTempCO() > konf.tempZalaczeniaPomp):
             pompa = True
-        if (c.getTempCO() < tempZalaczeniaPomp - 1):
+        if (c.getTempCO() < konf.tempZalaczeniaPomp - 1):
             pompa = False       
         if c.getTempCO() < c.getTempCWU():
             pompa = False          
-        if (c.getTempCWU() > T_dolna_CWU):
+        if (c.getTempCWU() > konf.T_dolna_CWU):
             pompa = False
         if (pompa and c.getPompaCWU() == False):
             c.setPompaCWU(True);
@@ -350,12 +309,12 @@ def regulatorCO():
     if (c.getTrybAuto() != True):
         #print ("Regulator CO...")
         #print time.strftime("%Y:%m:%d__%H:%M:%S")
-        if (c.getTempCO() > tempZalaczeniaPomp):
+        if (c.getTempCO() > konf.tempZalaczeniaPomp):
             pompa = True
-        if (c.getTempCO() < tempZalaczeniaPomp):
+        if (c.getTempCO() < konf.tempZalaczeniaPomp):
             pompa = False      
         a = ''
-        if Tryb_autolato and c.getTempZew() > T_zewnetrzna_lato and c.getTempWew() > 22.8:
+        if konf.Tryb_autolato and c.getTempZew() > konf.T_zewnetrzna_lato and c.getTempWew() > 22.8:
             pompa = False
             a = "AUTOLATO"           
         if (pompa and c.getPompaCO() == False):
@@ -373,16 +332,16 @@ def podtrzymanie():
     print ("*** PODTRZYMANIE ***")
     print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
     #c.setDmuchawa(True);
-    #c.setDmuchawaMoc(mocDmuchawaRozruch + 2);
-    #time.sleep(czasDmuchawaRozruch);
-    #c.setDmuchawaMoc(podtrzymanie_mocNawiewu);
+    #c.setDmuchawaMoc(konf.mocDmuchawaRozruch + 2);
+    #time.sleep(konf.czasDmuchawaRozruch);
+    #c.setDmuchawaMoc(konf.podtrzymanie_mocNawiewu);
     c.setPodajnik(True);
-    time.sleep(podtrzymanie_podajnik);
+    time.sleep(konf.podtrzymanie_podajnik);
     c.setPodajnik(False);
-    print (" *&*  Start podajnik DOKARMIANIE: " + str(podtrzymanie_podajnik) + "s")
-    #time.sleep(podtrzymanie_nadmuch);
+    print (" *&*  Start podajnik DOKARMIANIE: " + str(konf.podtrzymanie_podajnik) + "s")
+    #time.sleep(konf.podtrzymanie_nadmuch);
     #c.setDmuchawa(False);
-    wpod.startInterval(podtrzymanie_postoj*60);
+    wpod.startInterval(konf.podtrzymanie_postoj*60);
 
 
 wstatus = RTimer(status)
