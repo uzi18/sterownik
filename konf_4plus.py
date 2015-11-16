@@ -13,7 +13,7 @@ czasPodajnikRozruch = 2;    # DODATKOWY CZAS PRACY PODAJNIKA W ROZRUCHU (CzasPod
 # PARAMETRY PRACY
 mocDmuchawaPraca = 40;      # MOC DMUCHAWY W CZASIE PRACY
 mocDmuchawaPrzedmuch = 43;  # MOC DMUCHAWY W CZASIE PRZEDMUCHU
-czasPrzedmuchPlus = 5;      # PRACA DMUCHAWY PO ZAKOŃCZENIU PRACY PODAJNIKA
+czasPrzedmuchPlus = 5;      # PRACA DMUCHAWY PO ZAKONCZENIU PRACY PODAJNIKA
 CzasPodawania = 3;          # CZAS PRACY PODAJNIKA
 CzasNawiewu = 47;           # CZAS POSTOJU PODAJNIKA
 
