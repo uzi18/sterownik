@@ -48,6 +48,12 @@ except ImportError:
 
 c = sterownik(konf_polaczenie.ip, konf_polaczenie.login, konf_polaczenie.haslo);
 c.getStatus()
+
+try:
+  import konf_retortowy_p as konf
+except ImportError:
+  raise ImportError('brak pliku konfiguracji parametrow pracy retortowy-P: konf_retortowy_p.py')
+
 c.setRetRecznyDmuchawa(rozped_dmuchawa)
 c.setRetRecznyPostoj(rozped_postoj)
 c.setRetRecznyPodawanie(rozped_podawanie)

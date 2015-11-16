@@ -61,6 +61,11 @@ except ImportError:
 c = sterownik(konf_polaczenie.ip, konf_polaczenie.login, konf_polaczenie.haslo);
 c.getStatus()
 
+try:
+  import konf_10plush as konf
+except ImportError:
+  raise ImportError('brak pliku konfiguracji parametrow pracy 10plush: konf_10plush.py')
+
 class RTimer(object):
     def __init__(self, function):
         self._timer     = None

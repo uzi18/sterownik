@@ -58,6 +58,11 @@ except ImportError:
 c = sterownik(konf_polaczenie.ip, konf_polaczenie.login, konf_polaczenie.haslo);
 c.getStatus()
 
+try:
+  import konf_4plus as konf
+except ImportError:
+  raise ImportError('brak pliku konfiguracji parametrow pracy 4plus: konf_4plus.py')
+
 class RTimer(object):
     def __init__(self, function):
         self._timer     = None
