@@ -10,9 +10,6 @@
 #==================================================================================
 
 # PARAMETRY
-ip = '192.168.2.2'
-login = 'admin'
-password = 'admin'
 
 podawanie_min = 0
 podawanie_max = 0
@@ -44,7 +41,12 @@ from sterownik import *
 import time
 
 rozped = True
-c = sterownik(ip,login,password)
+try:
+  import konf_polaczenie
+except ImportError:
+  raise ImportError('brak pliku konfiguracji polaczenia ze sterownikiem: konf_polaczenie.py')
+
+c = sterownik(konf_polaczenie.ip, konf_polaczenie.login, konf_polaczenie.haslo);
 c.getStatus()
 c.setRetRecznyDmuchawa(rozped_dmuchawa)
 c.setRetRecznyPostoj(rozped_postoj)

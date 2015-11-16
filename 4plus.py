@@ -8,9 +8,6 @@ import signal, os
 
 # AUTOR Mark3k. na bazie RECZNY "PLUS" by VERB + fragmenty kodu: Stan & uzi18 
 
-c = sterownik('192.168.1.115', 'admin', 'admin');
-
-
 # PARAMETRY CO
 tempMAX = 48.5
 tempZadana = 47.4;          # TEMPERATURA CO
@@ -52,6 +49,14 @@ podtrzymanie_nadmuch = 60
 podtrzymanie_mocNawiewu = 42
 
 global praca
+
+try:
+  import konf_polaczenie
+except ImportError:
+  raise ImportError('brak pliku konfiguracji polaczenia ze sterownikiem: konf_polaczenie.py')
+
+c = sterownik(konf_polaczenie.ip, konf_polaczenie.login, konf_polaczenie.haslo);
+c.getStatus()
 
 class RTimer(object):
     def __init__(self, function):
@@ -296,9 +301,6 @@ def podtrzymanie():
     #c.setDmuchawa(False);
     wpod.startInterval(podtrzymanie_postoj*60);
 
-
-
-c.getStatus()
 
 wstatus = RTimer(status)
 wstatus.startInterval(2)
