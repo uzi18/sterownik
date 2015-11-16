@@ -66,34 +66,7 @@ try:
 except ImportError:
   raise ImportError('brak pliku konfiguracji parametrow pracy 10plush: konf_10plush.py')
 
-class RTimer(object):
-    def __init__(self, function):
-        self._timer     = None
-        self.interval   = None
-        self.function   = function
-        self.is_running = False
-
-    def _run(self):
-        self.is_running = False
-        self.start()
-        self.function()
-
-    def start(self):
-        if not self.is_running:
-            self._timer = threading.Timer(self.interval, self._run)
-            self._timer.start()
-            self.is_running = True
-
-    def startInterval(self, interval):
-        self.interval = interval
-        if not self.is_running:
-            self._timer = threading.Timer(self.interval, self._run)
-            self._timer.start()
-            self.is_running = True
-
-    def stop(self):
-        self._timer.cancel()
-        self.is_running = False
+from timer import *
 
 def status():   # Ok. Działa
     wstatus.stop()

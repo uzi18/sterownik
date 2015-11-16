@@ -86,34 +86,7 @@ if not len(konf_TRK.t_min) == len(konf_TRK.t_max) == len(konf_TRK.czas_podawania
 razy_jeden = ile_krokow * [False];
 
 #========= WATKI ==============================================================
-class RTimer(object):
-    def __init__(self, function):
-        self._timer     = None
-        self.interval   = None
-        self.function   = function
-        self.is_running = False
-
-    def _run(self):
-        self.is_running = False
-        self.start()
-        self.function()
-
-    def start(self):
-        if not self.is_running:
-            self._timer = threading.Timer(self.interval, self._run)
-            self._timer.start()
-            self.is_running = True
-
-    def startInterval(self, interval):
-        self.interval = interval
-        if not self.is_running:
-            self._timer = threading.Timer(self.interval, self._run)
-            self._timer.start()
-            self.is_running = True
-
-    def stop(self):
-        self._timer.cancel()
-        self.is_running = False
+from timer import *
 
 def spaliny():
     global maxdelta
