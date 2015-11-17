@@ -9,32 +9,7 @@
 # pomysl z korekcjami kol. mark3k
 #==================================================================================
 
-# PARAMETRY
-
-podawanie_min = 0
-podawanie_max = 0
-postoj_min = 0
-postoj_max = 0
-dmuchanie_min = 0
-dmuchanie_max = 0
-
-kg_na_minute = 0.240
-praca_ciagla = True
-moc_100 = 1.0/1.0
-zadana_co = 65
-
-korekcja_podawania=  2.5
-korekcja_postoju  =-10.0
-korekcja_dmuchania=  1.0
-
-start_podawanie=  5
-start_postoj   =105
-start_dmuchawa = 38
-
-rozped_podawanie= start_podawanie
-rozped_postoj   = start_postoj
-rozped_dmuchawa = start_dmuchawa
-
+# PARAMETRY w pliku konf_retortowy_p.py
 
 # PROGRAM GLOWNY
 from sterownik import *
@@ -54,21 +29,21 @@ try:
 except ImportError:
   raise ImportError('brak pliku konfiguracji parametrow pracy retortowy-P: konf_retortowy_p.py')
 
-c.setRetRecznyDmuchawa(rozped_dmuchawa)
-c.setRetRecznyPostoj(rozped_postoj)
-c.setRetRecznyPodawanie(rozped_podawanie)
+c.setRetRecznyDmuchawa(konf.rozped_dmuchawa)
+c.setRetRecznyPostoj(konf.rozped_postoj)
+c.setRetRecznyPodawanie(konf.rozped_podawanie)
 poprzednia_co = c.getTempCO()
-poprzednie_dmuchanie = nowe_dmuchanie = rozped_dmuchawa
-poprzednie_postoj = nowe_postoj = rozped_postoj
-poprzednie_podawanie = nowe_podawanie = rozped_podawanie
+poprzednie_dmuchanie = nowe_dmuchanie = konf.rozped_dmuchawa
+poprzednie_postoj = nowe_postoj = konf.rozped_postoj
+poprzednie_podawanie = nowe_podawanie = konf.rozped_podawanie
 poprzednie_opoznienie = 0
 start_czas_podajnika = c.getCzasPodajnika()
 start_czas = time.time()
 
-if (praca_ciagla == True):
-  c.setZadanaCO(zadana_co+5)
+if (konf.praca_ciagla == True):
+  c.setZadanaCO(konf.zadana_co+5)
 else:
-  c.setZadanaCO(zadana_co)
+  c.setZadanaCO(konf.zadana_co)
 
 if (c.version == "BRULI"):
   pod_min = 2
@@ -82,12 +57,12 @@ pos_max = 600
 dmu_min = 25
 dmu_max = 100
 
-if (podawanie_min > 0 and podawanie_min > pod_min): pod_min = podawanie_min
-if (podawanie_max > 0 and podawanie_max < pod_max): pod_max = podawanie_max
-if (postoj_min > 0    and postoj_min > pos_min):    pos_min = postoj_min
-if (postoj_max > 0    and postoj_max < pos_max):    pos_max = postoj_max
-if (dmuchanie_min > 0 and dmuchanie_min > dmu_min): dmu_min = dmuchanie_min
-if (dmuchanie_max > 0 and dmuchanie_max < dmu_max): dmu_max = dmuchanie_max
+if (konf.podawanie_min > 0 and konf.podawanie_min > pod_min): pod_min = konf.podawanie_min
+if (konf.podawanie_max > 0 and konf.podawanie_max < pod_max): pod_max = konf.podawanie_max
+if (konf.postoj_min > 0    and konf.postoj_min > pos_min):    pos_min = konf.postoj_min
+if (konf.postoj_max > 0    and konf.postoj_max < pos_max):    pos_max = konf.postoj_max
+if (konf.dmuchanie_min > 0 and konf.dmuchanie_min > dmu_min): dmu_min = konf.dmuchanie_min
+if (konf.dmuchanie_max > 0 and konf.dmuchanie_max < dmu_max): dmu_max = konf.dmuchanie_max
 
 tryb_info = False
 delta_ujemna = False
@@ -95,15 +70,15 @@ delta_ujemna = False
 while (c.getStatus()):
   if (c.getTrybAuto() and c.getTypKotla() == "RETORTOWY-RECZNY"):
     tryb_info = False
-    delta = int(zadana_co - c.getTempCO() +0.5)
+    delta = int(konf.zadana_co - c.getTempCO() +0.5)
     delta_poprzednia = int(poprzednia_co - c.getTempCO() +0.5)
     
-    if (delta > 0 or praca_ciagla == True):
-      #if (delta_ujemna == True and praca_ciagla == True): c.setZadanaCO(zadana_co+5)
+    if (delta > 0 or konf.praca_ciagla == True):
+      #if (delta_ujemna == True and konf.praca_ciagla == True): c.setZadanaCO(konf.zadana_co+5)
       delta_ujemna = False
-      nowe_podawanie = delta * korekcja_podawania + start_podawanie
-      nowe_postoj    = delta * korekcja_postoju   + start_postoj
-      nowe_dmuchanie = delta * korekcja_dmuchania + start_dmuchawa
+      nowe_podawanie = delta * konf.korekcja_podawania + konf.start_podawanie
+      nowe_postoj    = delta * konf.korekcja_postoju   + konf.start_postoj
+      nowe_dmuchanie = delta * konf.korekcja_dmuchania + konf.start_dmuchawa
       
       if (nowe_podawanie < 1):
         x = 1-nowe_podawanie
@@ -124,15 +99,15 @@ while (c.getStatus()):
       if (nowe_dmuchanie > dmu_max): nowe_dmuchanie = dmu_max
       rozped = True
       rozped = False
-    elif (delta < 0 and praca_ciagla == False):
-      #if (delta_ujemna == False): c.setZadanaCO(zadana_co)
+    elif (delta < 0 and konf.praca_ciagla == False):
+      #if (delta_ujemna == False): c.setZadanaCO(konf.zadana_co)
       delta_ujemna = True
         
-    #  nowe_dmuchanie = rozped_dmuchawa
-    #  nowe_postoj = rozped_postoj
-    #  nowe_podawanie =rozped_podawanie
+    #  nowe_dmuchanie = konf.rozped_dmuchawa
+    #  nowe_postoj = konf.rozped_postoj
+    #  nowe_podawanie =konf.rozped_podawanie
     #  rozped = False
-    #  print("ROZPED Delta:"+ str(delta)+" dmuchanie:" + str(rozped_dmuchawa) + " podawanie:" + str(rozped_podawanie) + " postoj:" + str(rozped_postoj))
+    #  print("ROZPED Delta:"+ str(delta)+" dmuchanie:" + str(konf.rozped_dmuchawa) + " podawanie:" + str(konf.rozped_podawanie) + " postoj:" + str(konf.rozped_postoj))
     #else:
     #  print("Delta:"+ str(delta)+" Poprzednia:" + str(delta_poprzednia))
 
@@ -162,7 +137,7 @@ while (c.getStatus()):
 
   if (nowe_dane == True):
     ile_min = (time.time() - start_czas)/60
-    ile_kg = (c.getCzasPodajnika()-start_czas_podajnika)*kg_na_minute
+    ile_kg = (c.getCzasPodajnika()-start_czas_podajnika)*konf.kg_na_minute
     ile_kg_min = ile_kg / ile_min
     print("Nowa moc: " +str(int(100*(float(nowe_podawanie)/float(nowe_postoj))/moc_100))+"% "\
       + "%0.3f kg " % (ile_kg) + "%0.3f kg/min" % (ile_kg_min) + " %0.3f kg/24h" % (ile_kg_min*60*24))
