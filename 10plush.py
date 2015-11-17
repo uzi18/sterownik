@@ -27,21 +27,56 @@ from timer import *
 
 global praca
 
+global kold
+global knew
+global nowakonfiguracja
+nowakonfiguracja = False
+
+def files_to_timestamp(path):
+    files = [os.path.join(path, f) for f in os.listdir(path)]
+    return dict ([(f, os.path.getmtime(f)) for f in files])
+
+def konfig():
+    wkonf.stop()
+    global kold
+    global knew
+    global nowakonfiguracja
+    knew = files_to_timestamp(os.path.abspath(os.path.dirname(sys.argv[0])))
+    added = [f for f in knew.keys() if not f in kold.keys()]
+    removed = [f for f in kold.keys() if not f in knew.keys()]
+    modified = []
+
+    for f in kold.keys():
+        if not f in removed:
+           if os.path.getmtime(f) != kold.get(f):
+              modified.append(f)
+       
+    kold = knew
+    for f in modified:
+        if os.path.isfile(f) and os.path.basename(f) == 'konf_10plush.py':
+           nowakonfiguracja = True
+
+    for f in added:
+        if os.path.isfile(f) and os.path.basename(f) == 'konf_10plush.py':
+           nowakonfiguracja = True
+
 def status():   # Ok. Działa
     wstatus.stop()
     c.getStatus()
     if c.getTrybAuto() == True:
        print ("*** UWAGA! sterownik w trybie AUTO")
     wstatus.start()
-		
+
+global k
+global i
+
+# URUCHOMIENIE
+k = 0
+i = 2
+
 # WORK
 def work():
-    if (bool(c.getStatus())):
-        if (c.getTrybAuto() != True):
-            # URUCHOMIENIE
-            k = 0;
-            i = 2;
-            #c.setPompaCO(True);
+            wwork.stop();
             # PRACA
             while True:
                 #c.setPompaCO(True);
@@ -351,6 +386,26 @@ wcwu.startInterval(60)
 wco = RTimer(regulatorCO)
 wco.startInterval(30)
 wpod = RTimer(podtrzymanie)
+wwork = RTimer(work)
+wwork.startInterval(2)
+kold = files_to_timestamp(os.path.abspath(os.path.dirname(sys.argv[0])))
+wkonf = RTimer(konfig)
+wkonf.startInterval(10)
 
-work();
+try:
+  while True:
+    if nowakonfiguracja == True:
+        print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
+        print ('== Konfiguracja: Wczytywanie ...')
+        reload(sys.modules["konf_10plush"])
+        nowakonfiguracja = False
+    time.sleep(0.2);
+
+finally:
+    print ("Kończę działanie ...")
+    c.setDmuchawa(False);
+    c.setPodajnik(False);
+    c.setPompaCWU(False);
+    c.setPompaCO(False);
+    os.kill(os.getpid(), signal.SIGTERM)
 
