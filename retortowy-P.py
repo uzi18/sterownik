@@ -13,6 +13,7 @@
 
 # PROGRAM GLOWNY
 from sterownik import *
+import signal, os, sys
 import time
 
 rozped = True
