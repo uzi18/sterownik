@@ -217,6 +217,10 @@ def konfig():
     for f in modified:
         if os.path.isfile(f) and os.path.basename(f) == 'konf_TRK.py':
            nowakonfiguracja = True
+
+    for f in added:
+        if os.path.isfile(f) and os.path.basename(f) == 'konf_TRK.py':
+           nowakonfiguracja = True
     
     wkonf.start()
 
