@@ -66,6 +66,7 @@ if (konf.dmuchanie_max > 0 and konf.dmuchanie_max < dmu_max): dmu_max = konf.dmu
 
 tryb_info = False
 delta_ujemna = False
+nowa_moc = 0
 
 while (c.getStatus()):
   if (c.getTrybAuto() and c.getTypKotla() == "RETORTOWY-RECZNY"):
@@ -111,6 +112,7 @@ while (c.getStatus()):
     #else:
     #  print("Delta:"+ str(delta)+" Poprzednia:" + str(delta_poprzednia))
 
+    nowa_moc = 100*(float(nowe_podawanie)/float(nowe_postoj))/konf.moc_100
   else:
     if (tryb_info == False):
       tryb_info = True
@@ -139,7 +141,7 @@ while (c.getStatus()):
     ile_min = (time.time() - start_czas)/60
     ile_kg = (c.getCzasPodajnika()-start_czas_podajnika)*konf.kg_na_minute
     ile_kg_min = ile_kg / ile_min
-    print("Nowa moc: " +str(int(100*(float(nowe_podawanie)/float(nowe_postoj))/moc_100))+"% "\
+    print("Nowa moc: " +str(int(nowa_moc))+"% "\
       + "%0.3f kg " % (ile_kg) + "%0.3f kg/min" % (ile_kg_min) + " %0.3f kg/24h" % (ile_kg_min*60*24))
     print("Delta:"+ str(delta)+" dmuchanie:" + str(nowe_dmuchanie) + " podawanie:" + str(nowe_podawanie) + " postoj:" + str(nowe_postoj))
     nowe_dane = False
