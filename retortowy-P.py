@@ -29,6 +29,73 @@ try:
 except ImportError:
   raise ImportError('brak pliku konfiguracji parametrow pracy retortowy-P: konf_retortowy_p.py')
 
+from timer import *
+
+def sprawdz_dane():
+  global pod_min,pod_max,pos_min,pos_max,dmu_min,dmu_max
+
+  if (konf.praca_ciagla == True):
+    c.setZadanaCO(konf.zadana_co+5)
+  else:
+    c.setZadanaCO(konf.zadana_co)
+
+  if (c.version == "BRULI"):
+    pod_min = 2
+    pod_max = 180
+  else:
+    pod_min = 3
+    pod_max = 20
+
+  pos_min = 1
+  pos_max = 600
+  dmu_min = 25
+  dmu_max = 100
+
+  if (konf.podawanie_min > 0 and konf.podawanie_min > pod_min): pod_min = konf.podawanie_min
+  if (konf.podawanie_max > 0 and konf.podawanie_max < pod_max): pod_max = konf.podawanie_max
+  if (konf.postoj_min > 0    and konf.postoj_min > pos_min):    pos_min = konf.postoj_min
+  if (konf.postoj_max > 0    and konf.postoj_max < pos_max):    pos_max = konf.postoj_max
+  if (konf.dmuchanie_min > 0 and konf.dmuchanie_min > dmu_min): dmu_min = konf.dmuchanie_min
+  if (konf.dmuchanie_max > 0 and konf.dmuchanie_max < dmu_max): dmu_max = konf.dmuchanie_max
+
+global kold
+global knew
+global nowakonfiguracja
+nowakonfiguracja = False
+
+def files_to_timestamp(path):
+    files = [os.path.join(path, f) for f in os.listdir(path)]
+    return dict ([(f, os.path.getmtime(f)) for f in files])
+
+def konfig():
+    wkonf.stop()
+    global kold
+    global knew
+    global nowakonfiguracja
+    knew = files_to_timestamp(os.path.abspath(os.path.dirname(sys.argv[0])))
+    added = [f for f in knew.keys() if not f in kold.keys()]
+    removed = [f for f in kold.keys() if not f in knew.keys()]
+    modified = []
+
+    for f in kold.keys():
+        if not f in removed:
+           if os.path.getmtime(f) != kold.get(f):
+              modified.append(f)
+       
+    kold = knew
+    for f in modified:
+        print modified
+        if os.path.isfile(f) and os.path.basename(f) == 'konf_retortowy_p.py':
+           nowakonfiguracja = True
+
+    for f in added:
+        print added
+        if os.path.isfile(f) and os.path.basename(f) == 'konf_retortowy_p.py':
+           nowakonfiguracja = True
+    
+    wkonf.start()
+
+
 c.setRetRecznyDmuchawa(konf.rozped_dmuchawa)
 c.setRetRecznyPostoj(konf.rozped_postoj)
 c.setRetRecznyPodawanie(konf.rozped_podawanie)
@@ -40,35 +107,18 @@ poprzednie_opoznienie = 0
 start_czas_podajnika = c.getCzasPodajnika()
 start_czas = time.time()
 
-if (konf.praca_ciagla == True):
-  c.setZadanaCO(konf.zadana_co+5)
-else:
-  c.setZadanaCO(konf.zadana_co)
-
-if (c.version == "BRULI"):
-  pod_min = 2
-  pod_max = 180
-else:
-  pod_min = 3
-  pod_max = 20
-
-pos_min = 1
-pos_max = 600
-dmu_min = 25
-dmu_max = 100
-
-if (konf.podawanie_min > 0 and konf.podawanie_min > pod_min): pod_min = konf.podawanie_min
-if (konf.podawanie_max > 0 and konf.podawanie_max < pod_max): pod_max = konf.podawanie_max
-if (konf.postoj_min > 0    and konf.postoj_min > pos_min):    pos_min = konf.postoj_min
-if (konf.postoj_max > 0    and konf.postoj_max < pos_max):    pos_max = konf.postoj_max
-if (konf.dmuchanie_min > 0 and konf.dmuchanie_min > dmu_min): dmu_min = konf.dmuchanie_min
-if (konf.dmuchanie_max > 0 and konf.dmuchanie_max < dmu_max): dmu_max = konf.dmuchanie_max
+global pod_min,pod_max,pos_min,pos_max,dmu_min,dmu_max
+pod_min=pod_max=pos_min=pos_max=dmu_min=dmu_max=0
+sprawdz_dane()
 
 tryb_info = False
 delta_ujemna = False
 nowa_moc = 0
 
-while (c.getStatus()):
+def work():
+ wwork.stop();
+ while (True):
+  c.getStatus()
   if (c.getTrybAuto() and c.getTypKotla() == "RETORTOWY-RECZNY"):
     tryb_info = False
     delta = int(konf.zadana_co - c.getTempCO() +0.5)
@@ -155,3 +205,24 @@ while (c.getStatus()):
     poprzednie_opoznienie = opoznienie
 
   time.sleep(opoznienie)
+
+wwork = RTimer(work)
+wwork.startInterval(2)
+kold = files_to_timestamp(os.path.abspath(os.path.dirname(sys.argv[0])))
+wkonf = RTimer(konfig)
+wkonf.startInterval(10)
+
+try:
+  while True:
+    if nowakonfiguracja == True:
+        print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
+        print ('== Konfiguracja: Wczytywanie ...')
+        reload(sys.modules["konf_retortowy_p"])
+        sprawdz_dane()
+        nowakonfiguracja = False
+    time.sleep(0.2);
+
+finally:
+    print ("Kończę działanie ...")
+    os.kill(os.getpid(), signal.SIGTERM)
+
