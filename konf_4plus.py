@@ -1,4 +1,4 @@
-# PARAMETRY CO
+﻿# PARAMETRY CO
 tempMAX = 48.5
 tempZadana = 47.4;          # TEMPERATURA CO
 tempMIN = 46.6;             # HISTEREZA
