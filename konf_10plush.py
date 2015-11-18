@@ -1,4 +1,4 @@
-# PARAMETRY CO
+﻿# PARAMETRY CO
 tempZadana = 50.0           # TEMPERATURA CO
 #tempZadana1 = 48.4;        # TEMP Zadana CO
 #tempMIN = 47.0;             
@@ -16,7 +16,7 @@ czasPodajnikRozruch = 2;    # DODATKOWY CZAS PRACY PODAJNIKA W ROZRUCHU (CzasPod
 # PARAMETRY PRACY
 mocDmuchawaPraca = 31;      # MOC DMUCHAWY W CZASIE PRACY
 mocDmuchawaPrzedmuch = 34;  # MOC DMUCHAWY W CZASIE PRZEDMUCHU
-czasPrzedmuchPlus = 5;      # PRACA DMUCHAWY PO ZAKONCZENIU PRACY PODAJNIKA
+czasPrzedmuchPlus = 5;      # PRACA DMUCHAWY PO ZAKOŃCZENIU PRACY PODAJNIKA
 CzasPodawania = 3;          # CZAS PRACY PODAJNIKA
 CzasNawiewu = 100;          # CZAS POSTOJU PODAJNIKA
 
