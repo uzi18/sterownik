@@ -67,16 +67,12 @@ def status():   # Ok. Działa
        print ("*** UWAGA! sterownik w trybie AUTO")
     wstatus.start()
 
-global k
-global i
-
-# URUCHOMIENIE
-k = 0
-i = 2
-
 # WORK
 def work():
             wwork.stop();
+            # URUCHOMIENIE
+            k = 0
+            i = 2
             # PRACA
             while True:
                 #c.setPompaCO(True);
