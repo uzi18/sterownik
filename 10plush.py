@@ -59,6 +59,8 @@ def konfig():
     for f in added:
         if os.path.isfile(f) and os.path.basename(f) == 'konf_10plush.py':
            nowakonfiguracja = True
+    
+    wkonf.start()
 
 def status():   # Ok. Działa
     wstatus.stop()
