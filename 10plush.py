@@ -4,7 +4,7 @@
 # IMPORT BIBLIOTEKI
 from sterownik import *
 import threading, time
-import signal, os
+import signal, os, sys
 
 # AUTOR Mark3k. na bazie RECZNY "PLUS" by VERB + fragmenty kodu: Stan & uzi18 
 
