@@ -59,9 +59,7 @@ def sprawdz_dane():
   if (konf.dmuchanie_min > 0 and konf.dmuchanie_min > dmu_min): dmu_min = konf.dmuchanie_min
   if (konf.dmuchanie_max > 0 and konf.dmuchanie_max < dmu_max): dmu_max = konf.dmuchanie_max
 
-global kold
-global knew
-global nowakonfiguracja
+global kold,knew,nowakonfiguracja
 nowakonfiguracja = False
 
 def files_to_timestamp(path):
@@ -70,9 +68,7 @@ def files_to_timestamp(path):
 
 def konfig():
     wkonf.stop()
-    global kold
-    global knew
-    global nowakonfiguracja
+    global kold,knew,nowakonfiguracja
     knew = files_to_timestamp(os.path.abspath(os.path.dirname(sys.argv[0])))
     added = [f for f in knew.keys() if not f in kold.keys()]
     removed = [f for f in kold.keys() if not f in knew.keys()]
@@ -100,24 +96,26 @@ def konfig():
 c.setRetRecznyDmuchawa(konf.rozped_dmuchawa)
 c.setRetRecznyPostoj(konf.rozped_postoj)
 c.setRetRecznyPodawanie(konf.rozped_podawanie)
-poprzednia_co = c.getTempCO()
-poprzednie_dmuchanie = nowe_dmuchanie = konf.rozped_dmuchawa
-poprzednie_postoj = nowe_postoj = konf.rozped_postoj
-poprzednie_podawanie = nowe_podawanie = konf.rozped_podawanie
-poprzednie_opoznienie = 0
-start_czas_podajnika = c.getCzasPodajnika()
-start_czas = time.time()
 
 global pod_min,pod_max,pos_min,pos_max,dmu_min,dmu_max
 pod_min=pod_max=pos_min=pos_max=dmu_min=dmu_max=0
 sprawdz_dane()
 
-tryb_info = False
-delta_ujemna = False
-nowa_moc = 0
-
 def work():
  wwork.stop();
+
+ tryb_info = False
+ delta_ujemna = False
+ za_mala_moc = False
+ nowa_moc = 0
+ poprzednia_co = c.getTempCO()
+ poprzednie_dmuchanie = nowe_dmuchanie = konf.rozped_dmuchawa
+ poprzednie_postoj = nowe_postoj = konf.rozped_postoj
+ poprzednie_podawanie = nowe_podawanie = konf.rozped_podawanie
+ poprzednie_opoznienie = 0
+ start_czas_podajnika = c.getCzasPodajnika()
+ start_czas = time.time()
+
  while (True):
   c.getStatus()
   if (c.getTrybAuto() and c.getTypKotla() == "RETORTOWY-RECZNY"):
