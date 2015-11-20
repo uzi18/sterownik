@@ -7,8 +7,11 @@
 
 # Import bibliotek
 from sterownik import *
-import threading, time
-import signal, os
+import threading
+import signal, os, sys, time
+if sys.version_info[0] == 3:
+  import importlib
+
 try:
   import konf_polaczenie
 except ImportError:
@@ -548,7 +551,10 @@ try:
         if nowakonfiguracja == True:
            print ('== Konfiguracja: Wczytywanie ...')
            stare_tryby = konf_TRK.tryb
-           reload(sys.modules["konf_TRK"])
+           if sys.version_info[0] == 3:
+             importlib.reload(sys.modules["konf_TRK"])
+           else:
+             reload(sys.modules["konf_TRK"])
            nowakonfiguracja = False
            ile_krokow = len(konf_TRK.czas_podawania);
            if not 't_min' in dir(konf_TRK):
