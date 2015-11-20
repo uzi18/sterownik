@@ -13,8 +13,9 @@
 
 # PROGRAM GLOWNY
 from sterownik import *
-import signal, os, sys
-import time
+import signal, os, sys, time
+if sys.version_info[0] == 3:
+  import importlib
 
 rozped = True
 try:
@@ -216,7 +217,10 @@ try:
     if nowakonfiguracja == True:
         print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
         print ('== Konfiguracja: Wczytywanie ...')
-        reload(sys.modules["konf_retortowy_p"])
+        if sys.version_info[0] == 3:
+          importlib.reload(sys.modules["konf_retortowy_p"])
+        else:
+          reload(sys.modules["konf_retortowy_p"])
         sprawdz_dane()
         nowakonfiguracja = False
     time.sleep(0.2);
