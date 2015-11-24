@@ -1,0 +1,58 @@
+Arduino Mega 2560 + Ethernet Shield z karta uSD
+Zasilony z zasilacza 6-12VDC
+Podpięty kabelkiem USB (typ A-typ B tzw. drukarkowy) z RPi (programowanie i komunikacja z python/www)
+
+Lista połączeń:
+
+komunikacja z bruli/ecoal:
+arduino - moduł RS232-TTL
++5V     - VCC
+18      - TXD
+19      - RXD
+GND     - GND
+
+kabelek RS232 - null modem oba gniazda meskie (oryginalny przewód do prgramowania to tylko przedluzacz):
+DB9M    - DB9M
+5       - 5
+3       - 2
+2       - 3
+
+czujnik spalin (opcjonalny):
+arduino - moduł max31855 + termopara typ K
++3.3V   - VCC
+GND     - GND
+50      - DO
+52      - CLK
+A7      - CS
+
+moduł przekaźników (do arduino) lub triaków (AVT1679):
+arduino - moduł
+A15     - CWU1 (CWU bruli/ecoal)
+A14     - CWU2 (CWU dodatkowe)
+A13     - dmuchawa AC
+A12     - 4D zamykanie
+A11     - 4D otwieranie
+A10     - podajnik
+...
+GND     - GND
+
+wentylator DC z wejsciem PWM:
+arduino - moduł
+13      - szeregowo przez rezystor 4k7 ohm podpiąć do +5V
+13      - wejscie PWM wentylatora - zolty przewod
++12V    - czerowny przewod
+GND     - czarny przewod
+zasilacz 12V 1.5A wystarcza do takiej dmuchawy
+
+wentylator AC:
+w AVT1679 wymienic jeden optotriak (biały/kremowy element) na MOC 3020,3021 lub 3022
+lub zmontowac sobie na płytce uniwersalnej 1 kanał podobny do tego w module z optotriakiem podanym wyzej
+
+detektor przejścia przez 0 sieci (wymagany tylko dla dmuchawy AC):
+arduino - moduł
++5V     - +5V
+2       - sygnał
+GND     - GND
+
+UWAGA!
+Z czasem rozwoju sterownika podłączenia (piny) mogą ulec zmianie ...
