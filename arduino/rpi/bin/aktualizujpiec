@@ -1,0 +1,4 @@
+#!/bin/sh
+wget -O /tmp/piec.hex https://raw.githubusercontent.com/uzi18/sterownik/master/arduino/sterownik_ac_plus_dc_fan.hex
+avrdude -patmega2560 -cwiring -P/dev/ttyACM0 -b115200 -D -Uflash:w:/tmp/piec.hex:i
+
