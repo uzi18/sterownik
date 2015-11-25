@@ -87,7 +87,7 @@ def work():
                         # ROZRUCH
                             i = 1;
                             print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. * Rozruch *");
-                            print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
+                            print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")+"   Temp.zewn: " + str(c.getTempZew()) + "°C"
                             print ("  Czas podawania rozruch: " + str(konf.czasPodajnikRozruch+konf.CzasPodawania)+"s"+"   Moc dmuchawy: "+ str(konf.mocDmuchawaPraca+11)+"%")
                             print ("  Czas nawiewu: " + str(konf.CzasNawiewu - 40 + konf.czasPrzedmuchPlus * 2) + "s"  + "   1:14")
                             c.setDmuchawa(True);
@@ -107,7 +107,7 @@ def work():
                         if (c.getTempCO() <= konf.tempZadana):             # 49.0 MOC-1  1:37
                             if (c.getTempCO() > konf.tempZadana - konf.histereza):   # 48.7
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MIN POWER *");
-                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
+                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")+"   Temp.zewn: " + str(c.getTempZew()) + "°C"
                                 print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca) + "%")
                                 print ("  Czas nawiewu: " + str(konf.CzasNawiewu + konf.czasPrzedmuchPlus * 2) + "s   1:37")
 				c.setDmuchawa(True);	
@@ -124,7 +124,7 @@ def work():
                         if (c.getTempCO() <= konf.tempZadana - konf.histereza):         # 48.7   MOC-2 1:33
                             if (c.getTempCO() > konf.tempZadana - konf.histereza * 2):  # 48.4
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MOC-2 *");
-                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
+                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")+"   Temp.zewn: " + str(c.getTempZew()) + "°C"
                                 print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 1) + "%")
                                 print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 1 + konf.czasPrzedmuchPlus * 2) + "s   1:33")
 				c.setDmuchawa(True);	
@@ -141,7 +141,7 @@ def work():
                         if (c.getTempCO() <= konf.tempZadana - konf.histereza * 2):     # 48.4  MOC-3 1:30
                             if (c.getTempCO() > konf.tempZadana - konf.histereza * 3):  # 48.1
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MOC-3 *");
-                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
+                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")+"   Temp.zewn: " + str(c.getTempZew()) + "°C"
                                 print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 2) + "%")
                                 print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 2 + konf.czasPrzedmuchPlus * 2) + "s   1:30")
 				c.setDmuchawa(True);	
@@ -158,7 +158,7 @@ def work():
                         if (c.getTempCO() <= konf.tempZadana - konf.histereza * 3):      # 48.1  MOC-4  1:27
                             if (c.getTempCO() > konf.tempZadana - konf.histereza * 4):   # 47.8
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MOC-4 *");
-                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
+                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")+"   Temp.zewn: " + str(c.getTempZew()) + "°C"
                                 print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 3) + "%")
                                 print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 3 + konf.czasPrzedmuchPlus * 2) + "s   1:27")
 				c.setDmuchawa(True);	
@@ -175,7 +175,7 @@ def work():
                         if (c.getTempCO() <= konf.tempZadana - konf.histereza * 4):        # 47.8  MOC-5  1:23
                             if (c.getTempCO() > konf.tempZadana - konf.histereza * 5):     # 47.5
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MOC-5 *");
-                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
+                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")+"   Temp.zewn: " + str(c.getTempZew()) + "°C"
                                 print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 4) + "%")
                                 print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 4 + konf.czasPrzedmuchPlus * 2) + "s   1:23")
 				c.setDmuchawa(True);	
@@ -192,7 +192,7 @@ def work():
                         if (c.getTempCO() <= konf.tempZadana - konf.histereza * 5):         # 47.5  MOC-6  1:20
                             if (c.getTempCO() > konf.tempZadana - konf.histereza * 6):      # 47.2
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MOC-6 *");
-                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
+                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")+"   Temp.zewn: " + str(c.getTempZew()) + "°C"
                                 print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 5) + "%")
                                 print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 4.8 + konf.czasPrzedmuchPlus * 2) + "s   1:20")
 				c.setDmuchawa(True);	
@@ -209,7 +209,7 @@ def work():
                         if (c.getTempCO() <= konf.tempZadana - konf.histereza * 7):         # 47.2  MOC-7  1:17
                             if (c.getTempCO() > konf.tempZadana - konf.histereza * 8):      # 46.9
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MOC-7 *");
-                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
+                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")+"   Temp.zewn: " + str(c.getTempZew()) + "°C"
                                 print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 6) + "%")
                                 print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 5.6 + konf.czasPrzedmuchPlus * 2) + "s   1:17")
 				c.setDmuchawa(True);	
@@ -226,7 +226,7 @@ def work():
                         if (c.getTempCO() <= konf.tempZadana - konf.histereza * 8):         # 46.9  MOC-8  1:14
                             if (c.getTempCO() > konf.tempZadana - konf.histereza * 9):      # 46.6
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MOC-8 *");
-                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
+                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")+"   Temp.zewn: " + str(c.getTempZew()) + "°C"
                                 print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 7) + "%")
                                 print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 6.4 + konf.czasPrzedmuchPlus * 2) + "s   1:14")
 				c.setDmuchawa(True);	
@@ -243,7 +243,7 @@ def work():
                         if (c.getTempCO() <= konf.tempZadana - konf.histereza * 9):         # 46.6  MOC-9  1:12
                             if (c.getTempCO() > konf.tempZadana - konf.histereza * 10):      # 46.3
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MOC-9 *");
-                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
+                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")+"   Temp.zewn: " + str(c.getTempZew()) + "°C"
                                 print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 8) + "%")
                                 print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 7.2 + konf.czasPrzedmuchPlus * 2) + "s   1:12")
 				c.setDmuchawa(True);	
@@ -259,7 +259,7 @@ def work():
                                 k = 1;
                         if (c.getTempCO() <= konf.tempZadana - konf.histereza * 10):          # 46.3  MOC-10  1:10
                                 print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C. Praca * MAX POWER *");
-                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
+                                print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")+"   Temp.zewn: " + str(c.getTempZew()) + "°C"
                                 print ("  Czas podawania: " + str(konf.CzasPodawania) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaPraca + 10) + "%")
                                 print ("  Czas nawiewu: " + str(konf.CzasNawiewu - konf.korektaDmuchawy * 8 + konf.czasPrzedmuchPlus * 2) + "s   1:10")
 				c.setDmuchawa(True);	
@@ -279,7 +279,7 @@ def work():
                         if (k == 1):
                             # DOPALANIE
                             print ("CO: " + str(c.getTempCO()) + "°C." + "   Spaliny: " + str(c.getTempSpaliny()) + "°C.  * * DOPALANIE * *")
-                            print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
+                            print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")+"   Temp.zewn: " + str(c.getTempZew()) + "°C"
                             print ("  Czas dopalania: " +  str(konf.czasDopalanie) + "s" + "   Moc dmuchawy: " + str(konf.mocDmuchawaDopalanie) + "%")
                             #c.setDmuchawaMoc(konf.mocDmuchawaTlo);
                             c.setDmuchawaMoc(konf.mocDmuchawaDopalanie);
@@ -363,7 +363,7 @@ def regulatorCO():
 def podtrzymanie():
     wpod.stop();
     print ("*** PODTRZYMANIE ***")
-    print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")
+    print time.strftime("Data: %Y.%m.%d  Czas: %H.%M:%S")+"   Temp.zewn: " + str(c.getTempZew()) + "°C"
     #c.setDmuchawa(True);
     #c.setDmuchawaMoc(konf.mocDmuchawaRozruch + 2);
     #time.sleep(konf.czasDmuchawaRozruch);
