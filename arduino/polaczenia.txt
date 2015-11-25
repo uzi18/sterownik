@@ -33,13 +33,14 @@ A13     - dmuchawa AC
 A12     - 4D zamykanie
 A11     - 4D otwieranie
 A10     - podajnik
+13      - Heartbeat (wolno brak polaczenia rs232, szybko - polaczenie OK)
 ...
 GND     - GND
 
 wentylator DC z wejsciem PWM:
 arduino - moduł
-13      - szeregowo przez rezystor 4k7 ohm podpiąć do +5V
-13      - wejscie PWM wentylatora - zolty przewod
+12      - szeregowo przez rezystor 4k7 ohm podpiąć do +5V
+12      - wejscie PWM wentylatora - zolty przewod
 +12V    - czerowny przewod
 GND     - czarny przewod
 zasilacz 12V 1.5A wystarcza do takiej dmuchawy
