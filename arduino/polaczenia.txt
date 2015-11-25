@@ -27,12 +27,13 @@ A7      - CS
 
 moduł przekaźników (do arduino) lub triaków (AVT1679):
 arduino - moduł
-A15     - CWU1 (CWU bruli/ecoal)
-A14     - CWU2 (CWU dodatkowe)
+A15     - pompa CWU1 (CWU bruli/ecoal)
+A14     - pompa CWU2 (CWU dodatkowe)
 A13     - dmuchawa AC
 A12     - 4D zamykanie
 A11     - 4D otwieranie
 A10     - podajnik
+A9      - pompa CO
 13      - Heartbeat (wolno brak polaczenia rs232, szybko - polaczenie OK)
 ...
 GND     - GND
