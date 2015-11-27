@@ -5,7 +5,7 @@ Podpięty kabelkiem USB (typ A-typ B tzw. drukarkowy) z RPi (programowanie i kom
 Lista połączeń:
 
 komunikacja z bruli/ecoal:
-arduino - moduł RS232-TTL
+arduino - moduł RS232-TTL (szukać moduł MAX3232 DB9)
 +5V     - VCC
 18      - TXD
 19      - RXD
