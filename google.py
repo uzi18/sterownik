@@ -22,20 +22,18 @@ m = {}
 
 while True:
   for plik in konf.lista_plikow:
+    print ("Sprawdzam arkusz: "+plik)
     try:
       wks = gc.open(plik).worksheet("konfiguracja")
-      #sheet1
-    except SpreadsheetNotFound:
+    except gspread.exceptions.SpreadsheetNotFound:
       print ("Brak arkusza "+ plik +" lub brak dostepu do arkusza dla uzytkownika: "+json_key['client_email']) 
-      break
+      continue
 
     if not m.has_key(plik):
       m.update({plik:wks.updated})
     
     if m[plik] == wks.updated:
-      break
-    
-    m.update({plik:wks.updated})
+      continue
     
     do_aktualizacji = False
     parametry = wks.get_all_values()
@@ -45,43 +43,87 @@ while True:
           do_aktualizacji = True
     
     if do_aktualizacji != True:
-      break
+      continue
 
+    print ("Arkusz zaktualizowano")
     zakladka = None
     for x in parametry:
       if x[0] == 'zakladka':
         zakladka = x[1]
 
     if zakladka == None:
-      break
+      continue
+
+    print ("Wybrano zakładkę: " + zakladka)
 
     try:
       wks = wks.spreadsheet.worksheet(zakladka)
     except:
       print ("Brak zakladki "+ zakladka) 
       m.update({plik:wks.updated})
-      break
+      continue
     
     nowe = wks.get_all_values()
+    
+    dane = []
+    try:
+      p = open("konf_"+plik+".py")
+      dane = p.readlines()
+      p.close()
+    except:
+      print ("Problem z odczytem pliku konfiguracji: konf_"+plik+".py")
+      continue
+
+    koniec = ''
+    if dane[0].endswith("\r\n"):
+      koniec = "\r\n"
+    else:
+      koniec = "\n"
+
+    print ("\nStare dane:")
+    print (dane)
+
+    print ("\nNowe dane:")
     print (nowe)
     
-    p = open("konf_"+plik+".py")
-    dane = p.readlines()
-    p.close()
     
-    for x in nowe:
-      for t in dane:
-        if t.startswith(x[0]):
-          print t
-          
-    #p = open("konf_"+plik+".py","w")
-    #p.writelines(dane)
-    #p.close()
+    for x in range(len(nowe)):
+      nowa_linia = nowe[x][0] +" = "+nowe[x][1]+koniec
+      znalezione = False
+      
+      for y in range(len(dane)):
+         if dane[y].startswith(nowe[x][0]):
+            dane[y] = nowa_linia
+            znalezione = True
+      
+      #if znalezione == False:
+      #   dane.append(nowa_linia)
     
-    wks = gc.open(plik).sheet1
-    a = wks.find("aktualizacja")
-    wks.update_cell(a.row,a.col+1,'OK')
-    print ("zaktualizowano plik: "+plik+" "+wks.updated)
+    print ("\nZaktualizowane dane:")
+    print (dane)
+    
+    if konf.modyfikuj_pliki == True:
+      print ("\nZapisuje dane !!")
+      try:
+        p = open("konf_"+plik+".py","w")
+        p.writelines(dane)
+        p.close()
+      except:
+        print ("Problem z zapisem do pliku konfiguracji: konf_"+plik+".py")
+        continue
+    else:
+      print ("Plik nie został zaktualizowany - opcja: modyfikuj_pliki")
+    
+    try:
+      wks = gc.open(plik).worksheet("konfiguracja")
+      a = wks.find("aktualizacja")
+      wks.update_cell(a.row,a.col+1,'OK')
+      print ("Zaktualizowano arkusz: "+plik+" "+wks.updated)
+    except:
+      print ("Problem z aktualizacją arkusza")
+      continue
+    
     m.update({plik:wks.updated})
     
   time.sleep(10)
+
