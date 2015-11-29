@@ -88,6 +88,9 @@ while True:
     
     
     for x in range(len(nowe)):
+      if len(x) != 2:
+        continue
+      
       nowa_linia = nowe[x][0] +" = "+nowe[x][1]+koniec
       znalezione = False
       
