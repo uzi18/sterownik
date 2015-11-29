@@ -90,7 +90,7 @@ while True:
     
     
     for x in range(len(nowe)):
-      if type(x) is not list or len(x) != 2:
+      if type(nowe[x]) is not list or len(nowe[x]) != 2:
         continue
       
       nowa_linia = nowe[x][0] +" = "+nowe[x][1]+koniec
