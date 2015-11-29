@@ -11,7 +11,8 @@ import json
 import gspread
 from oauth2client.client import SignedJwtAssertionCredentials
 
-json_key = json.load(open(os.path.abspath(os.path.dirname(sys.argv[0]))+os.sep+konf.certyfikat))
+katalog = os.path.abspath(os.path.dirname(sys.argv[0]))+os.sep
+json_key = json.load(open(katalog+konf.certyfikat))
 scope = ['https://spreadsheets.google.com/feeds']
 credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'].encode(), scope)
 
@@ -68,7 +69,7 @@ while True:
     
     dane = []
     try:
-      p = open("konf_"+plik+".py")
+      p = open(katalog+"konf_"+plik+".py")
       dane = p.readlines()
       p.close()
     except:
@@ -109,7 +110,7 @@ while True:
     if konf.modyfikuj_pliki == True:
       print ("\nZapisuje dane !!")
       try:
-        p = open("konf_"+plik+".py","w")
+        p = open(katalog+"konf_"+plik+".py","w")
         p.writelines(dane)
         p.close()
       except:
