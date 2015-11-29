@@ -6,11 +6,12 @@ try:
 except ImportError:
   raise ImportError('brak pliku konfiguracji polaczenia z google: konf_google.py')
 
-import time
+import os,sys,time
 import json
 import gspread
 from oauth2client.client import SignedJwtAssertionCredentials
-json_key = json.load(open(konf.certyfikat))
+
+json_key = json.load(open(os.path.abspath(os.path.dirname(sys.argv[0]))+os.sep+konf.certyfikat))
 scope = ['https://spreadsheets.google.com/feeds']
 credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'].encode(), scope)
 
