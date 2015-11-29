@@ -10,6 +10,8 @@ import os,sys,time
 import json
 import gspread
 from oauth2client.client import SignedJwtAssertionCredentials
+from requests.packages.urllib3 import disable_warnings
+disable_warnings()
 
 katalog = os.path.abspath(os.path.dirname(sys.argv[0]))+os.sep
 json_key = json.load(open(katalog+konf.certyfikat))
