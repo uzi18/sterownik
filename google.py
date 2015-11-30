@@ -95,6 +95,9 @@ while True:
       if type(nowe[x]) is not list or len(nowe[x]) != 2:
         continue
       
+      if len(nowe[x][0])==0 or len(nowe[x][1])==0:
+        continue
+      
       nowa_linia = nowe[x][0] +" = "+nowe[x][1]+koniec
       znalezione = False
       
