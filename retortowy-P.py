@@ -211,7 +211,7 @@ def work():
     nowe_dane = False
   
   poprzednia_co = c.getTempCO()
-  opoznienie = int(nowe_postoj+nowe_podawanie-2)/2
+  opoznienie = int(nowe_postoj+nowe_podawanie)/4
   if (opoznienie <= 0):
     opoznienie = 1
   if (poprzednie_opoznienie != opoznienie):
