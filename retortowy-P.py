@@ -162,7 +162,10 @@ def work():
     #else:
     #  print("Delta:"+ str(delta)+" Poprzednia:" + str(delta_poprzednia))
 
-    nowa_moc = 100*(float(nowe_podawanie)/float(nowe_postoj))/konf.moc_100
+    nowa_moc = 100*(float(nowe_podawanie)/float(nowe_postoj))
+    if konf.moc_100 > 0:
+      nowa_moc /= konf.moc_100
+
   else:
     if (tryb_info == False):
       tryb_info = True
