@@ -125,7 +125,8 @@ def work():
     delta_poprzednia = int(poprzednia_co - c.getTempCO() +0.5)
     
     if (delta > 0 or konf.praca_ciagla == True):
-      #if (delta_ujemna == True and konf.praca_ciagla == True): c.setZadanaCO(konf.zadana_co+5)
+      if (delta_ujemna == True and konf.praca_ciagla == True):
+        c.setZadanaCO(konf.zadana_co+5)
       delta_ujemna = False
       nowe_podawanie = delta * konf.korekcja_podawania + konf.start_podawanie
       nowe_postoj    = delta * konf.korekcja_postoju   + konf.start_postoj
@@ -151,8 +152,9 @@ def work():
       rozped = True
       rozped = False
     elif (delta < 0 and konf.praca_ciagla == False):
-      #if (delta_ujemna == False): c.setZadanaCO(konf.zadana_co)
-      delta_ujemna = True
+      if (delta_ujemna == False):
+        c.setZadanaCO(konf.zadana_co)
+        delta_ujemna = True
         
     #  nowe_dmuchanie = konf.rozped_dmuchawa
     #  nowe_postoj = konf.rozped_postoj
@@ -165,6 +167,15 @@ def work():
     nowa_moc = 100*(float(nowe_podawanie)/float(nowe_postoj))
     if konf.moc_100 > 0:
       nowa_moc /= konf.moc_100
+
+    if (delta < 0 and konf.praca_ciagla == True):
+      if (nowa_moc < konf.moc_min and za_mala_moc == False):
+        za_mala_moc = True
+        c.setZadanaCO(konf.zadana_co)
+
+    if (nowa_moc >= konf.moc_min and za_mala_moc == True and konf.praca_ciagla == True):
+      za_mala_moc = False
+      c.setZadanaCO(konf.zadana_co+5)
 
   else:
     if (tryb_info == False):

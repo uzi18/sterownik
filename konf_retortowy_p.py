@@ -10,6 +10,7 @@ dmuchanie_max = 0
 kg_na_minute = 0.240
 praca_ciagla = True
 moc_100 = 1.0/1.0
+moc_min = 4.0
 zadana_co = 65
 
 korekcja_podawania=  2.5
