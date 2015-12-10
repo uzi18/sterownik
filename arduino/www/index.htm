@@ -50,12 +50,12 @@
 				<div class="span2 well">
 					<h2>Pomiary:</h2>
 					<table class="table">
-						<tr ng-repeat="thermo in thermos" ng-init="sources = ['tCO','tCWU1','tCWU2','tSpaliny','wentylator','wentylator_mod']">
-							<td>{{sources[$index]}}</td> 
-							<td><span class="badge badge-warning">{{thermo.temp | number:2}} &deg;C</span></td>
+						<tr ng-repeat="thermo in thermos" ng-init="sources = ['tCO','tCWU1','tCWU2','tSpaliny','wentylator','wentylator_mod','t4D']">
+							<td>{{sources[$index]}}<br>
+							<span class="badge badge-warning">{{thermo.temp | number:2}} &deg;C</span></td>
 						</tr>
-                                                         <td>Wentylator</td> 
-                                                        <td><span class="badge badge-warning">{{thermos[4].temp | number}} %</span></td>
+                                                         <td>Wentylator<br>
+                                                        <span class="badge badge-warning">{{thermos[4].temp | number}} %</span></td>
 					</table>
 					</div>
 				<div class="span4 well">
