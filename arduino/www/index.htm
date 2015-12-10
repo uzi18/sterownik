@@ -118,7 +118,7 @@
 							$scope.lastResponse = new Date();
 							$scope.aok = true;
 						});
-						now = $scope.lastResponse.getTime() - 1000*60*60*7;
+						now = $scope.lastResponse.getTime() + 1000*60*60;
 						
 						window.lines.forEach(function(l,i){
 							l.data.push([now,$scope.thermos[i].temp]);
