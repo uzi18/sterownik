@@ -41,6 +41,9 @@
                                                                 <span ng-show="pump.cwu2 == 'ON'" class="label label-success"> {{pump.cwu2}}</span>
                                                         </td>
 						</tr>
+                                                <tr>         <td>Podajnik</td> <td>
+                                                                <span ng-show="thermos.pod == '0'" class="label label-important"> OFF </span>
+                                                                <span ng-show="thermos.pod == '1'" class="label label-success"> ON </span></td>
 						<tr>
 							<td>Next Update</td> 
 							<td><i class="icon-calendar icon-white"></i> {{nextResponse}} s.</td>
@@ -50,12 +53,14 @@
 				<div class="span2 well">
 					<h2>Pomiary:</h2>
 					<table class="table">
-						<tr ng-repeat="thermo in thermos" ng-init="sources = ['tCO','tCWU1','tCWU2','tSpaliny','wentylator','wentylator_mod','t4D']">
+						<tr ng-repeat="thermo in thermos.thermos" ng-init="sources = ['tCO','tCWU1','tCWU2','tSpaliny','t4']">
 							<td>{{sources[$index]}}<br>
-							<span class="badge badge-warning">{{thermo.temp | number:2}} &deg;C</span></td>
+							<span class="badge badge-warning">{{thermo.t | number:2}} &deg;C</span></td>
 						</tr>
-                                                         <td>Wentylator<br>
-                                                        <span class="badge badge-warning">{{thermos[4].temp | number}} %</span></td>
+                                                <tr>         <td>Wentylator<br>
+                                                        <span class="badge badge-warning">{{thermos.wen0 | number}} %</span></td></tr>
+                                                <tr>         <td>Wentylator_mod<br>
+                                                        <span class="badge badge-warning">{{thermos.wen1 | number}} %</span></td></tr>
 					</table>
 					</div>
 				<div class="span4 well">
@@ -112,23 +117,51 @@
 			      otherwise({redirectTo: '/'});
 			}]);
 			
+			angular.module('cookiesExample', ['ngCookies'])
+			.controller('ExampleController', ['$cookies', function($cookies) {
+			  // Retrieving a cookie
+			  var favoriteCookie = $cookies.get('myFavorite');
+console.log("favoriteCookie");
+			  console.log(favoriteCookie);
+			  // Setting a cookie
+			  $cookies.put('myFavorite', 'oatmeal');
+			}]);
+			
 			function DashCtrl($scope){
 				$scope.update = function(){
 					$.get($scope.ip + "/thermos.json",function(data){
 						$scope.$apply(function(){
 							$scope.thermos = JSON.parse(data);
 							$scope.lastResponse = new Date();
+							//new Date(InputData[i++] + 2000, InputData[i++] - 1, InputData[i++], InputData[i++], InputData[i++], InputData[i++], 0);
 							$scope.aok = true;
 						});
 						now = $scope.lastResponse.getTime() + 1000*60*60;
-						
+						//console.log(data);console.log($scope.thermos);
 						window.lines.forEach(function(l,i){
-							l.data.push([now,$scope.thermos[i].temp]);
+							if (l.label != "wentylator" && l.label != "wentylator_mod" && l.label != "podajnik"){
+							    l.data.push([now,$scope.thermos.thermos[i].t]);
+							    if(l.data.length > $scope.dataPoints){
+								    l.data.shift();
+							    }
+							}
+							if (l.label == "wentylator") {
+							l.data.push([now,$scope.thermos.wen0]);
 							if(l.data.length > $scope.dataPoints){
 								l.data.shift();
-							}
+							}}
+							if (l.label == "wentylator_mod") {
+							l.data.push([now,$scope.thermos.wen1]);
+							if(l.data.length > $scope.dataPoints){
+								l.data.shift();
+							}}
+							if (l.label == "podajnik") {
+							l.data.push([now,$scope.thermos.pod*25]);
+							if(l.data.length > $scope.dataPoints){
+								l.data.shift();
+							}}
 						});
-
+						
 						window.updateGraph();
 						
 					}).error(function() {
@@ -216,8 +249,10 @@
 			{label: "tCWU1", data: [], lines:{show:true},points:{show:false}},
 			{label: "tCWU2", data: [], lines:{show:true},points:{show:false}},
                         {label: "tSpaliny", data: [], lines:{show:true},points:{show:false}},
+                        {label: "t4D", data: [], lines:{show:true},points:{show:false}},
                         {label: "wentylator", data: [], lines:{show:true},points:{show:false}},
                         {label: "wentylator_mod", data: [], lines:{show:true},points:{show:false}},
+                        {label: "podajnik", data: [], lines:{show:true},points:{show:false}},
 		];
 	
 		$(function () {
