@@ -58,14 +58,14 @@
 							<td>{{sources[$index]}}<br>
 							<span class="badge badge-warning">{{thermo.t | number:2}} &deg;C</span></td>
 						</tr>
-                                                <tr>         <td>Wentylator<br>
+                                                <tr><td>Wentylator<br>
                                                         <span class="badge badge-warning">{{thermos.wen0 | number}} %</span></td></tr>
-                                                <tr>         <td>Wentylator_mod<br>
+                                                <tr><td>Wentylator_mod<br>
                                                         <span class="badge badge-warning">{{thermos.wen1 | number}} %</span></td></tr>
 					</table>
 					</div>
 				<div class="span4 well">
-					<h2>Konfiguracja</h2>
+					<h2>Konfiguracja:</h2>
 					<table class="table">
 						<tr>
 							<td>Arduino IP</td> 
@@ -89,7 +89,7 @@
 				<div class="span3 well">
 					<h2>Polecenia:</h2>
 					<table class="table">
-					<tr><td><a ng-click="updateNow()" class="btn"><i class="icon-refresh icon-white"></i> Aktualizuj</a></td></tr>
+					<tr><td><a ng-click="updateNow()" class="btn"><i class="icon-refresh icon-white"></i> Aktualizuj </a></td></tr>
 					<!--<tr><td>
 						<div class="btn-group">
 							<a ng-click="pumpOn()" class="btn"><i class="icon-play icon-white"></i> Start CWU1</a>
@@ -280,3 +280,4 @@ console.log("favoriteCookie");
 		});
 	</script>
 </html>
+
