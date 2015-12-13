@@ -4,9 +4,11 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="b.css" />
 		<link rel="stylesheet" href="http://cdn.jsdelivr.net/jqplot/1.0.2/jquery.jqplot.min.css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.js"></script>
+		<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-route.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-cookies.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.7/jquery.flot.min.js"></script>
 		<script type="text/ng-template" id="dash.tpl.html">
 			<div class="row-fluid">
@@ -111,24 +113,15 @@
 		</script>
 		
 		<script>
-			angular.module('app', []).
-			  config(['$routeProvider', function($routeProvider) {
+
+			angular.module('app', ['ngRoute','ngCookies']).
+			  config(function($routeProvider, $locationProvider) {
 			  $routeProvider.
 			      when('/', {templateUrl: 'dash.tpl.html',   controller: DashCtrl}).
 			      otherwise({redirectTo: '/'});
-			}]);
-			
-			angular.module('cookiesExample', ['ngCookies'])
-			.controller('ExampleController', ['$cookies', function($cookies) {
-			  // Retrieving a cookie
-			  var favoriteCookie = $cookies.get('myFavorite');
-console.log("favoriteCookie");
-			  console.log(favoriteCookie);
-			  // Setting a cookie
-			  $cookies.put('myFavorite', 'oatmeal');
-			}]);
-			
-			function DashCtrl($scope){
+			});
+
+			function DashCtrl($scope, $cookies){
 				$scope.update = function(){
 					$.get($scope.ip + "/thermos.json",function(data){
 						$scope.$apply(function(){
