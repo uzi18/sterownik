@@ -25,6 +25,13 @@ GND     - GND
 52      - CLK
 A7      - CS
 
+czujniki DS18xx:
+arduino - czujniki
+22      - DATA
++5V     - VCC
+GND     - GND
+pin 22 podciagnac rezystorem 4k7 lub lepiej 3k3 do +5V
+
 moduł przekaźników (do arduino) lub triaków (AVT1679):
 arduino - moduł
 A15     - pompa CWU1 (CWU bruli/ecoal)
