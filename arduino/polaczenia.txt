@@ -48,12 +48,10 @@ GND     - GND
 wentylator DC z wejsciem PWM:
 arduino - moduł
 12      - wejscie PWM wentylatora
-11      - wejscie PWM wentylatora (sygnal odwrocony)
 8       - zalaczenie wentylatora (odcinanie zasilania przekaznikiem)
 +12V    - czerowny przewod
 GND     - czarny przewod
-koniecznie pin 12 - podciągnąć przez rezystor 4k7 ohm do +5V
-koniecznie pin 11 - podciągnąć przez rezystor 4k7 ohm do  0V
+koniecznie pin 12 - podciągnąć przez rezystor 4k7 ohm do +5V lub GND w zaleznosci od dmuchawy
 zasilacz 12V 1.5A wystarcza do takiej dmuchawy
 
 wentylator AC:
