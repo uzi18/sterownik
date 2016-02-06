@@ -31,6 +31,10 @@
 							<td><i class="icon-time icon-white"></i> {{uptime}} </td>
 						</tr>
 						<tr>
+							<td>Wersja</td> 
+							<td> {{version}} </td>
+						</tr>
+						<tr>
 							<td>Pompa CWU1</td> 
 							<td>
 								<span ng-show="pump.cwu1 == 'OFF'" class="label label-important"> {{pump.cwu1}}</span>
@@ -182,6 +186,7 @@
 							var h = x
 							//$scope.uptime = JSON.parse(data).time;
 							$scope.uptime = ""+h+" h. "+ m+" m. "+ s+"s.";
+							$scope.version = JSON.parse(data).ver;
 							$scope.aok = true;
 						});
 					});
