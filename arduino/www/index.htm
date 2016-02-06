@@ -56,7 +56,7 @@
 				<div class="span2 well">
 					<h2>Pomiary:</h2>
 					<table class="table">
-						<tr ng-repeat="thermo in thermos.thermos" ng-init="sources = ['tCO','tCWU1','tCWU2','tSpaliny','t4']">
+						<tr ng-repeat="thermo in thermos.thermos" ng-init="sources = ['tCO','tCWU1','tCWU2','tSpaliny','t4D']">
 							<td>{{sources[$index]}}<br>
 							<span class="badge badge-warning">{{thermo.t | number:2}} &deg;C</span></td>
 						</tr>
