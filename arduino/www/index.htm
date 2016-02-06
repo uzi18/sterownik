@@ -28,7 +28,7 @@
 						</tr>
 						<tr>
 							<td>Uptime</td> 
-							<td><i class="icon-time icon-white"></i> {{uptime}} s.</td>
+							<td><i class="icon-time icon-white"></i> {{uptime}} </td>
 						</tr>
 						<tr>
 							<td>Pompa CWU1</td> 
@@ -174,7 +174,14 @@
 					
 					$.get($scope.ip + "/stats.json",function(data){
 						$scope.$apply(function(){
-							$scope.uptime = JSON.parse(data).time;
+							var x = JSON.parse(data).time;
+							var s = x % 60;
+							x = (x /60)| 0;
+							var m = x % 60;
+							x = (x /60)| 0;
+							var h = x
+							//$scope.uptime = JSON.parse(data).time;
+							$scope.uptime = ""+h+" h. "+ m+" m. "+ s+"s.";
 							$scope.aok = true;
 						});
 					});
