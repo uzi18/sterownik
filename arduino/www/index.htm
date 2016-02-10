@@ -115,6 +115,11 @@
 					</table>
 				</div>
 			</div>
+			<textarea id="plikkonfiguracji" ng-model="plikkonfiguracji" placeholder="To jest miejsce na dane z pliku konfiguracyjnego. Nacisnij Odczyt">
+			</textarea>
+			<div class="btn-group">
+				<a ng-click="konfLoad()" class="btn"><i class="icon-play icon-white"></i> Odczyt konfiguracji ze sterownika</a><br><br>
+			</div>
 		</script>
 		
 		<script>
@@ -126,7 +131,7 @@
 			      otherwise({redirectTo: '/'});
 			});
 
-			function DashCtrl($scope, $cookies){
+			function DashCtrl($scope,$http,$cookies){
 				$scope.update = function(){
 					$.get($scope.ip + "/thermos.json",function(data){
 						$scope.$apply(function(){
@@ -205,6 +210,31 @@
 				$scope.resetSter = function(){
 					$.get($scope.ip + '/reset',{},function(){
 					});
+				}
+
+$scope.autoExpand = function(e) {
+    var element = typeof e === 'object' ? e.target : document.getElementById(e);
+    var scrollHeight = element.scrollHeight;// -60;
+    element.style.height =  scrollHeight + "px";
+};
+				$scope.konfLoad = function(){
+					$.get($scope.ip + '/config.txt').then(
+				    function(response) {
+				        $scope.plikkonfiguracji = response;
+					$scope.autoExpand('plikkonfiguracji');
+				    }, function(response) {
+				        //$scope.plikkonfiguracji = "problem z odczytem";
+				    });
+				
+				}
+
+				$scope.konfSave = function(){
+$.ajax({   url: $scope.ip + '/upload/config.txt',   type: 'PUT', data: ''+$scope.plikkonfiguracji });
+				//    $http.put($scope.ip + '/upload/config.txt',$scope.plikkonfiguracji).then(
+				//function(response) {
+				//}, function(response) {
+				//});
+				
 				}
 				
 				$scope.pumpOn = function(){
