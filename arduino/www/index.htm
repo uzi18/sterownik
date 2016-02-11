@@ -115,10 +115,11 @@
 					</table>
 				</div>
 			</div>
+			<div class="btn-group2">
+				<a ng-click="konfLoad()" class="btn"><i class="icon-play icon-white"></i> Odczyt konfiguracji ze sterownika</a>
 			<textarea id="plikkonfiguracji" ng-model="plikkonfiguracji" placeholder="To jest miejsce na dane z pliku konfiguracyjnego. Nacisnij Odczyt">
 			</textarea>
-			<div class="btn-group">
-				<a ng-click="konfLoad()" class="btn"><i class="icon-play icon-white"></i> Odczyt konfiguracji ze sterownika</a><br><br>
+				<a ng-click="konfSave()" class="btn"><i class="icon-play icon-white"></i> Zapis konfiguracji do sterownika</a>
 			</div>
 		</script>
 		
@@ -222,6 +223,7 @@ $scope.autoExpand = function(e) {
 				    function(response) {
 				        $scope.plikkonfiguracji = response;
 					$scope.autoExpand('plikkonfiguracji');
+					//$scope.autoExpand('plikkonfiguracji');
 				    }, function(response) {
 				        //$scope.plikkonfiguracji = "problem z odczytem";
 				    });
@@ -229,12 +231,10 @@ $scope.autoExpand = function(e) {
 				}
 
 				$scope.konfSave = function(){
-$.ajax({   url: $scope.ip + '/upload/config.txt',   type: 'PUT', data: ''+$scope.plikkonfiguracji });
-				//    $http.put($scope.ip + '/upload/config.txt',$scope.plikkonfiguracji).then(
-				//function(response) {
-				//}, function(response) {
-				//});
-				
+				  $http.put($scope.ip + '/upload/config.txt',$scope.plikkonfiguracji).then(
+				    function(response) {
+				    }, function(response) {
+				    });
 				}
 				
 				$scope.pumpOn = function(){
