@@ -26,3 +26,8 @@ DM_DOPALANIE_CZAS =
 DM_DOPALANIE_MOC =
 DM_TLO_MOC =
 
+Przypisanie wszystkich czujnikow z ecoal do sterownika
+T_MAPUJ_Z_ECOAL=1
+lub
+T_MAPUJ_Z_BRULI=1
+
