@@ -60,14 +60,12 @@
 				<div class="span2 well">
 					<h2>Pomiary:</h2>
 					<table class="table">
-						<tr ng-repeat="thermo in thermos.thermos" ng-init="sources = ['tCO','tCWU1','tCWU2','tSpaliny','t4D']">
-							<td>{{sources[$index]}}<br>
-							<span class="badge badge-warning">{{thermo.t | number:2}} &deg;C</span></td>
+						<tr ng-repeat="thermo in thermos.thermos" 
+						    ng-init="sources = ['tPIEC','tPOWROT','tPODAJNIK','tZEW','tWEW','tCWU','tPODLOGA','tSPALINY','tT1','tT2','tT3','tT4','tT5','tT6','tT7','tT8']">
+							<td><span class="badge badge-warning">{{thermo.t | number:1}} &deg;C</span> {{sources[$index]}}</td>
 						</tr>
-                                                <tr><td>Wentylator<br>
-                                                        <span class="badge badge-warning">{{thermos.wen0 | number}} %</span></td></tr>
-                                                <tr><td>Wentylator_mod<br>
-                                                        <span class="badge badge-warning">{{thermos.wen1 | number}} %</span></td></tr>
+                                                <tr><td><span class="badge badge-warning">{{thermos.wen0 | number}} %</span> Wentylator</td></tr>
+                                                <tr><td><span class="badge badge-warning">{{thermos.wen1 | number}} %</span> Wentylator_mod</td></tr>
 					</table>
 					</div>
 				<div class="span4 well">
