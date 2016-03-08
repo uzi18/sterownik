@@ -31,3 +31,13 @@ T_MAPUJ_Z_ECOAL=1
 lub
 T_MAPUJ_Z_BRULI=1
 
+zabezpieczenie przed cofaniem sie zaru
+czas wyrzutu paliwa z podajnika 
+w przypadku przekroczenia temperatury
+PODAJNIK_CZAS_WYRZUTU = 5
+PODAJNIK_T_MAX = 60
+
+zabezpieczenie przed zbyt wysoka temperatura pieca
+KOCIOL_T_MAX = 90
+
+koniec pliku
