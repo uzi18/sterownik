@@ -37,15 +37,15 @@
 						<tr>
 							<td>Pompa CWU1</td> 
 							<td>
-								<span ng-show="pump.cwu1 == 'OFF'" class="label label-important"> {{pump.cwu1}}</span>
-								<span ng-show="pump.cwu1 == 'ON'" class="label label-success"> {{pump.cwu1}}</span>
+								<span ng-show="thermos.cwu1 == 'OFF'" class="label label-important"> {{thermos.cwu1}}</span>
+								<span ng-show="thermos.cwu1 == 'ON'" class="label label-success"> {{thermos.cwu1}}</span>
 							</td>
                                                 </tr>
                                                 <tr>
                                                         <td>Pompa CWU2</td> 
                                                         <td>
-                                                                <span ng-show="pump.cwu2 == 'OFF'" class="label label-important"> {{pump.cwu2}}</span>
-                                                                <span ng-show="pump.cwu2 == 'ON'" class="label label-success"> {{pump.cwu2}}</span>
+                                                                <span ng-show="thermos.cwu2 == 'OFF'" class="label label-important"> {{thermos.cwu2}}</span>
+                                                                <span ng-show="thermos.cwu2 == 'ON'" class="label label-success"> {{thermos.cwu2}}</span>
                                                         </td>
 						</tr>
                                                 <tr>         <td>Podajnik</td> <td>
@@ -170,13 +170,6 @@
 					}).error(function() {
 						$scope.$apply(function(){
 							$scope.aok = false;
-						});
-					});
-					
-					$.get($scope.ip + "/pump.json",function(data){
-						$scope.$apply(function(){
-							$scope.pump = JSON.parse(data);
-							$scope.aok = true;
 						});
 					});
 					
