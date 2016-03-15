@@ -38,6 +38,26 @@ PODAJNIK_CZAS_WYRZUTU = 5
 PODAJNIK_T_MAX = 60
 
 zabezpieczenie przed zbyt wysoka temperatura pieca
-KOCIOL_T_MAX = 90
+PIEC_T_MAX = 90
+
+temperatura zalaczenia pomp
+PIEC_T_MIN = 40
+
+tryb pracy pieca (palnika) - zgodny z ECOAL,...
+PIEC_ALGORYTM = ECOAL
+PIEC_ZADANA = 50
+PIEC_HISTEREZA = 0
+
+tryb pracy pompy co (ECOAL,BRULI,ZIMA,LATO)
+CO_TRYB = ZIMA
+algorytm pracy pomy CO (CIAGLY,CYKLICZNY,WYLACZONY)
+CO_ALGORYTM = CIAGLY
+
+tryb pracy pompy cwu (ECOAL,BRULI,WLACZ,WYLACZ)
+CWU_TRYB = WYLACZ
+algorytm pracy pomy cwu (CIAGLY,CYKLICZNY,WYLACZONY)
+CWU_ALGORYTM = CIAGLY
+CWU_ZADANA = 40
+
 
 koniec pliku
