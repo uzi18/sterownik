@@ -43,7 +43,7 @@ PIEC_T_MAX = 90
 temperatura zalaczenia pomp
 PIEC_T_MIN = 40
 
-tryb pracy pieca (palnika) - zgodny z ECOAL,RR,...
+tryb pracy pieca (palnika) - zgodny z ECOAL,RR,RRP,...
 PIEC_ALGORYTM = ECOAL
 PIEC_ZADANA = 50
 PIEC_HISTEREZA = 0
