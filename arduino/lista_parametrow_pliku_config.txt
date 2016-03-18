@@ -46,6 +46,7 @@ PIEC_T_MIN = 40
 tryb pracy pieca (palnika) - zgodny z ECOAL,RR,RRM,...
 PIEC_ALGORYTM = ECOAL
 PIEC_ZADANA = 50
+uwaga histereza pieca * 0.1deg
 PIEC_HISTEREZA = 0
 
 parametry algorytmu RR, czas podtrzymania w minutach, reszta w sekundach:
