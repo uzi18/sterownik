@@ -43,7 +43,7 @@ PIEC_T_MAX = 90
 temperatura zalaczenia pomp
 PIEC_T_MIN = 40
 
-tryb pracy pieca (palnika) - zgodny z ECOAL,RR,RRP,...
+tryb pracy pieca (palnika) - zgodny z ECOAL,RR,RRM,...
 PIEC_ALGORYTM = ECOAL
 PIEC_ZADANA = 50
 PIEC_HISTEREZA = 0
@@ -64,11 +64,18 @@ CO_TRYB = ZIMA
 algorytm pracy pomy CO (CIAGLY,CYKLICZNY)
 CO_ALGORYTM = CIAGLY
 
-tryb pracy pompy cwu (ECOAL,BRULI,WLACZ,WYLACZ)
+tryb pracy pompy cwu (ECOAL,BRULI,WLACZ,WYLACZ,MIESZANIE)
 CWU_TRYB = WYLACZ
 algorytm pracy pomy cwu (CIAGLY,CYKLICZNY)
 CWU_ALGORYTM = CIAGLY
 CWU_ZADANA = 40
 CWU_HISTEREZA = 0
+zabezpieczenie przed zbyt wysoka t.cwu gdy CWU_T_MAX > 0
+CWU_T_MAX = 0
+
+CWU2_TRYB = WYLACZ
+CWU2_ALGORYTM = CIAGLY
+CWU2_ZADANA = 0
+
 
 koniec pliku
