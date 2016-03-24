@@ -35,17 +35,24 @@
 							<td> {{version}} </td>
 						</tr>
 						<tr>
-							<td>Pompa CWU1</td> 
+							<td>Pompa CO</td> 
 							<td>
-								<span ng-show="thermos.cwu1 == 'OFF'" class="label label-important"> {{thermos.cwu1}}</span>
-								<span ng-show="thermos.cwu1 == 'ON'" class="label label-success"> {{thermos.cwu1}}</span>
+								<span ng-show="thermos.co == '0'" class="label label-important"> OFF </span>
+								<span ng-show="thermos.co == '1'" class="label label-success"> ON </span>
 							</td>
+                                                </tr>
+                                                <tr>
+                                                        <td>Pompa CWU1</td> 
+                                                        <td>
+                                                                <span ng-show="thermos.cwu1 == '0'" class="label label-important"> OFF </span>
+                                                                <span ng-show="thermos.cwu1 == '1'" class="label label-success"> ON </span>
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>Pompa CWU2</td> 
                                                         <td>
-                                                                <span ng-show="thermos.cwu2 == 'OFF'" class="label label-important"> {{thermos.cwu2}}</span>
-                                                                <span ng-show="thermos.cwu2 == 'ON'" class="label label-success"> {{thermos.cwu2}}</span>
+                                                                <span ng-show="thermos.cwu2 == '0'" class="label label-important"> OFF </span>
+                                                                <span ng-show="thermos.cwu2 == '1'" class="label label-success"> ON </span>
                                                         </td>
 						</tr>
                                                 <tr>         <td>Podajnik</td> <td>
