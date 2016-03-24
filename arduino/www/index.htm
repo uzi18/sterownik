@@ -62,9 +62,17 @@
 							<td>Czas podajnika:</td> 
 							<td><i class="icon-calendar icon-white"></i> {{thermos.czpod}} s.</td>
 						</tr>
+                                                <tr>
+                                                        <td>Zużycie:</td> 
+                                                        <td><i class="icon-calendar icon-white"></i> {{thermos.czpod/60*predkoscPodawania/1000 | number:2}} kg.</td>
+                                                </tr>
+                                                <tr>
+                                                        <td>Średnie zużycie:</td> 
+                                                        <td><i class="icon-calendar icon-white"></i> {{thermos.czpod/60*predkoscPodawania/1000/(time/60)*60*24 | number:2}} kg/24h</td>
+                                                </tr>
 						<tr>
-							<td>Next Update</td> 
-							<td><i class="icon-calendar icon-white"></i> {{nextResponse}} s.</td>
+							<td><span ng-show="updateRate > 1"> Odczyt za: </span></td> 
+							<td><span ng-show="updateRate > 1"> <i class="icon-calendar icon-white"></i> {{nextResponse}} s.</span></td>
 						</tr>
 					</table>
 				</div>
@@ -194,6 +202,7 @@
 					$.get($scope.ip + "/stats.json",function(data){
 						$scope.$apply(function(){
 							var x = JSON.parse(data).time;
+                                                        $scope.time =x;
 							var s = x % 60;
 							x = (x /60)| 0;
 							var m = x % 60;
