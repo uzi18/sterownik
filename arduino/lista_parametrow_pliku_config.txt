@@ -37,6 +37,13 @@ w przypadku przekroczenia temperatury
 PODAJNIK_CZAS_WYRZUTU = 5
 PODAJNIK_T_MAX = 60
 
+#czas w sekundach potrzebny do oproznienia pełnego zasobnika
+PODAJNIK_CZAS_DO_OPROZNIENIA = 69000
+#aktualny czas pracy podajnika w sekundach - po uruchomieniu start od tej wartosci
+PODAJNIK_CZAS_PODAJNIKA = 0
+#stała zalezna od opału w g./min.
+PODAJNIK_PREDKOSC_PODAWANIA = 240
+
 zabezpieczenie przed zbyt wysoka temperatura pieca
 PIEC_T_MAX = 90
 
