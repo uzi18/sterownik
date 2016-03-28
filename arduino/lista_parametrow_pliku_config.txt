@@ -39,8 +39,9 @@ PODAJNIK_T_MAX = 60
 
 #czas w sekundach potrzebny do oproznienia pełnego zasobnika
 PODAJNIK_CZAS_DO_OPROZNIENIA = 69000
-#aktualny czas pracy podajnika w sekundach - po uruchomieniu start od tej wartosci
-PODAJNIK_CZAS_PODAJNIKA = 0
+#aktualny czas pozostaly do oproznienia zasobnika w sekundach
+#po uruchomieniu zliczamy od tej wartosci (domyslnie 50% zasobnika)
+PODAJNIK_CZAS_PODAJNIKA = 34500
 #stała zalezna od opału w g./min.
 PODAJNIK_PREDKOSC_PODAWANIA = 240
 
