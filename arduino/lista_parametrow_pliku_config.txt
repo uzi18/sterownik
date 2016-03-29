@@ -42,6 +42,8 @@ PODAJNIK_CZAS_DO_OPROZNIENIA = 69000
 #aktualny czas pozostaly do oproznienia zasobnika w sekundach
 #po uruchomieniu zliczamy od tej wartosci (domyslnie 50% zasobnika)
 PODAJNIK_CZAS_PODAJNIKA = 34500
+#procent ponizej ktorego ma wystapic alarm pustego zasobnika
+PODAJNIK_ALARM_MIN=15
 #stała zalezna od opału w g./min.
 PODAJNIK_PREDKOSC_PODAWANIA = 240
 
