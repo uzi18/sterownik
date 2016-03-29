@@ -134,6 +134,18 @@
 					-->
 					</tr>
 					</table>
+                                        <h2>Uzupełnianie zasobnika:</h2>
+                                        <table class="table">
+                                        <tr><td><a ng-click="zasobnikDoPelna()" class="btn"><i class="icon-refresh icon-white"></i> Do Pełna </a></td></tr>
+                                                <tr>
+                                                        <td>
+                                                                <div class="input-append">
+                                                                        <input type="number" class="input input-small" ng-model="zasypwkg">
+                                                                        <span class="add-on">kg.</span>
+                                                                </div>
+                                                        <a ng-click="zasobnikzasypkg()" class="btn"><i class="icon-refresh icon-white"></i> Zasypano </a></td>
+                                                </tr>
+                                        </table>
 				</div>
 			</div>
 			<div class="btn-group2">
@@ -214,12 +226,22 @@
 					$cookies.put('dataPoints',$scope.dataPoints);
 					$cookies.put('updateRate',$scope.updateRate);
 					$cookies.put('ip',$scope.ip);
+                                        $cookies.put('zasypwkg',$scope.zasypwkg);
 				}
-
-				$scope.resetSter = function(){
-					$.get($scope.ip + '/reset',{},function(){
+				$scope.zasobnikDoPelna = function(){
+					$.get($scope.ip + '/zasobnikfull',{},function(){
 					});
 				}
+                                $scope.zasobnikzasypkg = function(){
+                                        $.get($scope.ip + '/zasobnik'+$scope.zasypwkg,{},function(){
+                                        });
+                                        $cookies.put('zasypwkg',$scope.zasypwkg);
+                                }
+
+                                $scope.resetSter = function(){
+                                        $.get($scope.ip + '/reset',{},function(){
+                                        });
+                                }
 
 $scope.autoExpand = function(e) {
     var element = typeof e === 'object' ? e.target : document.getElementById(e);
@@ -275,7 +297,10 @@ $scope.autoExpand = function(e) {
 				if (angular.isUndefined($scope.updateRate) || isNaN($scope.updateRate) || $scope.updateRate == 0){
 				    $scope.updateRate = 5;
 				}
-
+                                $scope.zasypwkg = parseInt($cookies.get('zasypwkg'));
+                                if (angular.isUndefined($scope.zasypwkg) || isNaN($scope.zasypwkg) || $scope.zasypwkg == 0){
+                                    $scope.zasypwkg = 100;
+                                }
 				$scope.ip = $cookies.get('ip');
 				if (angular.isUndefined($scope.ip)){
 				    $scope.ip = "http://192.168.2.4";
