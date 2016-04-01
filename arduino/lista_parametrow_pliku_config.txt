@@ -1,16 +1,12 @@
-Adres IP:
-IP1=192
-IP2=168
-IP3=1
-IP4=119
-
-Adres MAC:
-MAC1=11
-MAC2=12
-MAC3=13
-MAC4=14
-MAC5=15
-MAC6=16
+#Konfiguracja sieci:
+#Adres IP (dla automatycznej konfiguracji sieci piszemy: NET_IP=auto):
+NET_IP=192.168.2.4
+#Adres MAC (w hex):
+NET_MAC=1A1B1C1D1E1F
+#Adresy pozostale
+NET_BRAMA=192.168.2.1
+NET_MASKA=255.255.255.0
+NET_DNS=192.168.2.1
 
 Parametry dmuchawy:
 DM_OFFSET = 0
