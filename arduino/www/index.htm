@@ -16,7 +16,7 @@
 					<h2>Status:</h2>
 					<table class="table">
 						<tr>
-							<td>Polaczenie:</td>
+							<td>Połączenie:</td>
 							<td>
 								<span ng-show="aok">
 									<i class="icon-thumbs-up icon-white"></i> <span class="label label-success">ONLINE</span>
@@ -26,13 +26,13 @@
 								</span>
 							</td>
 						</tr>
+                                                <tr>
+                                                        <td>Wersja</td> 
+                                                        <td>{{thermos.ver}}</td>
+                                                </tr>
 						<tr>
 							<td>Uptime</td> 
 							<td><i class="icon-time icon-white"></i> {{uptime}} </td>
-						</tr>
-						<tr>
-							<td>Wersja</td> 
-							<td> {{thermos.ver}} </td>
 						</tr>
 						<tr>
 							<td>Pompa CO</td> 
@@ -58,21 +58,26 @@
                                                 <tr>         <td>Podajnik</td> <td>
                                                                 <span ng-show="thermos.pod == '0'" class="label label-important"> OFF </span>
                                                                 <span ng-show="thermos.pod == '1'" class="label label-success"> ON </span></td>
+                                                </tr>
 						<tr>
 							<td>Czas podajnika:</td> 
-							<td><i class="icon-calendar icon-white"></i> {{thermos.podcz}} s.</td>
+							<td><i class="icon-time icon-white"></i> {{thermos.podcz}} s.</td>
 						</tr>
                                                 <tr>
-                                                        <td>Zużycie:</td> 
-                                                        <td><i class="icon-calendar icon-white"></i> {{thermos.podcz/60*thermos.podgmin/1000 | number:2}} kg.</td>
+                                                        <td>Zużyto:</td> 
+                                                        <td><i class="icon-fire icon-white"></i> {{zuzycie | number:2}} kg.</td>
                                                 </tr>
                                                 <tr>
                                                         <td>Średnie zużycie:</td> 
-                                                        <td><i class="icon-calendar icon-white"></i> {{thermos.podcz/60*thermos.podgmin/1000/(thermos.time/60)*60*24 | number:2}} kg/24h</td>
+                                                        <td><i class="icon-play icon-white"></i> {{zuzycie_kg_na_min*60*24 | number:2}} kg/24h</td>
                                                 </tr>
                                                 <tr>
-                                                        <td>Poziom podajnika:</td> 
-                                                        <td><i class="icon-calendar icon-white"></i> {{thermos.podczzas*100/thermos.podczdo | number:1}} %</td>
+                                                        <td>Poziom zasobnika:</td> 
+                                                        <td><i class="icon-signal icon-white"></i> {{thermos.podczzas*100/thermos.podczdo | number:1}} %<br>({{thermos.podczzas/60*thermos.podgmin/1000 | number:2}} kg.)</td>
+                                                </tr>
+                                                <tr>
+                                                        <td>Przewidywany<br>zasyp za:</td> 
+                                                        <td><i class="icon-calendar icon-white"></i> {{zasobnik_za_dni}} dni {{zasobnik_za_h}} h.</td>
                                                 </tr>
 						<tr>
 							<td><span ng-show="updateRate > 2"> Odczyt za: </span></td> 
@@ -209,6 +214,12 @@
 						});
 						
 						window.updateGraph();
+
+                                                $scope.zuzycie = $scope.thermos.podcz/60*$scope.thermos.podgmin/1000;
+                                                $scope.zuzycie_kg_na_min = $scope.thermos.podcz/60*$scope.thermos.podgmin/1000/($scope.thermos.time/60);
+                                                $scope.zasobnik_oprozniony_za = $scope.thermos.podczzas/60*$scope.thermos.podgmin/1000/$scope.zuzycie_kg_na_min/60;
+                                                $scope.zasobnik_za_dni = parseInt($scope.zasobnik_oprozniony_za/24);
+                                                $scope.zasobnik_za_h = parseInt($scope.zasobnik_oprozniony_za%24);
 						
 					}).error(function() {
 						$scope.$apply(function(){
