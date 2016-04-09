@@ -112,14 +112,14 @@
 							<td>Aktualizuj co:</td>
 							<td>
 								<div class="input-append">
-									<input type="number" class="input input-small" ng-model="updateRate">
+									<input type="number" class="input input-small" min="1" ng-model="updateRate">
 									<span class="add-on">s.</span>
 								</div>
 							</td>
 						</tr>
 						<tr>
 							<td>Ilosc danych:</td>
-							<td><input type="number" class="input input-small" ng-model="dataPoints"></td>
+							<td><input type="number" class="input input-small" min="100" ng-model="dataPoints"></td>
 						</tr>
                                         <tr><td><a ng-click="saveIp()" class="btn"><i class="icon-refresh icon-white"></i> Zapisz </a></td></tr>
                                         </table>
@@ -150,7 +150,7 @@
                                                 <tr>
                                                         <td>
                                                                 <div class="input-append">
-                                                                        <input type="number" class="input input-small" ng-model="zasypwkg">
+                                                                        <input type="number" class="input input-small" min="1" ng-model="zasypwkg">
                                                                         <span class="add-on">kg.</span>
                                                                 </div>
                                                         <a ng-click="zasobnikzasypkg()" class="btn"><i class="icon-refresh icon-white"></i> Zasypano </a></td>
