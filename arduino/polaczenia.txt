@@ -41,12 +41,16 @@ A12     - 4D zamykanie
 A11     - 4D otwieranie
 A10     - podajnik
 A9      - pompa CO
+A8      - pompa CYRKULACJI
 13      - Heartbeat (wolno brak polaczenia rs232, szybko - polaczenie OK)
 ...
 24      - podajnik [sygnał odwrócony - stan aktywny niski (0VDC)]
 25      - pompa CO [sygnał odwrócony]
 26      - pompa CWU1 [sygnał odwrócony]
 27      - pompa CWU2 [sygnał odwrócony]
+28      - pompa CYRKULACJI [sygnał odwrócony]
+29      - 4D zamykanie [sygnał odwrócony]
+30      - 4D otwieranie [sygnał odwrócony]
 ...
 GND     - GND
 
