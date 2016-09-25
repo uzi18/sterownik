@@ -84,6 +84,14 @@ CWU2_TRYB = WYLACZ
 CWU2_ALGORYTM = CIAGLY
 CWU2_ZADANA = 0
 
+# praca pompki cyrkulacyjnej cwu: algorytm CIAGLY,CYKLICZNY,WYLACZONY
+CYRKULACJA_ALGORYTM = WYLACZONY
+# minimalna temperatura CWU przy ktorej bedzie dzialac cyrkulacja
+CYRKULACJA_TMIN = 40
+# parametry dla trybu cyklicznego w minutach:
+CYRKULACJA_CZAS_WLACZ = 1
+CYRKULACJA_CZAS_WYLACZ = 10
+
 #krzywa grzania dla 4D (uwaga min.30 max 60):
 KRZYWA_GRZANIA-30=55
 KRZYWA_GRZANIA-20=55
