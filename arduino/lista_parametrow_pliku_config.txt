@@ -104,6 +104,8 @@ KRZYWA_GRZANIA+15=30
 ZAWOR4D-CZAS_OTWARCIA = 120
 ZAWOR4D-CZAS_KROK = 2
 ZAWOR4D-CZAS_POMIARU = 50
+# ktory czujnik polozony jest za zaworem i nalezy uzyc go do pomiaru
+ZAWOR4D-CZUJNIK=T1
 
 
 koniec pliku
