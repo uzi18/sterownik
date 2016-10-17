@@ -42,6 +42,7 @@ A11     - 4D otwieranie
 A10     - podajnik
 A9      - pompa CO
 A8      - pompa CYRKULACJI
+A6      - wejscie styku bezpotencjalowego (zwierajacego do GND) termostatu pokojowego
 13      - Heartbeat (wolno brak polaczenia rs232, szybko - polaczenie OK)
 ...
 24      - podajnik [sygnał odwrócony - stan aktywny niski (0VDC)]

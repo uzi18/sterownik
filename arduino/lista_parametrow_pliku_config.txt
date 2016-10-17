@@ -106,6 +106,8 @@ ZAWOR4D-CZAS_KROK = 2
 ZAWOR4D-CZAS_POMIARU = 50
 # ktory czujnik polozony jest za zaworem i nalezy uzyc go do pomiaru
 ZAWOR4D-CZUJNIK=T1
+# o ile deg. ma byc obnizona tzadana za zaworem jesli A6 zwarte do GND
+ZAWOR4D-OBNIZONA=3
 
 
 koniec pliku
