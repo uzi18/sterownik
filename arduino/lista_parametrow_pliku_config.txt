@@ -27,6 +27,9 @@ T_MAPUJ_Z_ECOAL=1
 lub
 T_MAPUJ_Z_BRULI=1
 
+# mapowanie modulu termopary
+#TSPALINY = MAX31855[0]
+
 zabezpieczenie przed cofaniem sie zaru
 czas wyrzutu paliwa z podajnika 
 w przypadku przekroczenia temperatury
