@@ -95,6 +95,13 @@ CYRKULACJA_TMIN = 40
 CYRKULACJA_CZAS_WLACZ = 1
 CYRKULACJA_CZAS_WYLACZ = 10
 
+#harmonogram cyrkulacji
+#w poniedzialek 6-8 i 10-12
+PROG_CYRK_PO=6:0-8:0
+PROG_CYRK_PO=10:00-12:00
+#we wszystkie dni tygodnia od 18:00-24:00
+PROG_CYRK_*=18:00-
+
 #krzywa grzania dla 4D (uwaga min.30 max 60):
 KRZYWA_GRZANIA-30=55
 KRZYWA_GRZANIA-20=55
