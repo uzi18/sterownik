@@ -149,6 +149,7 @@
 						</div>
 					    </td>
                                         </tr>
+                                        <tr><td><a ng-click="resetAlarm()" class="btn"><i class="icon-refresh icon-white"></i> Reset alarmu </a></td></tr>
                                         <!--<tr><td>
                                                 <div class="btn-group">
                                                         <a ng-click="pumpOn()" class="btn"><i class="icon-play icon-white"></i> Start CWU2</a>
@@ -272,6 +273,11 @@
 
                                 $scope.resetSter = function(){
                                         $.get($scope.ip + '/reset',{},function(){
+                                        });
+                                }
+
+                                $scope.resetAlarm = function(){
+                                        $.get($scope.ip + '/alarmreset',{},function(){
                                         });
                                 }
 
