@@ -52,6 +52,7 @@ A6      - wejscie styku bezpotencjalowego (zwierajacego do GND) termostatu pokoj
 28      - pompa CYRKULACJI [sygnał odwrócony]
 29      - 4D zamykanie [sygnał odwrócony]
 30      - 4D otwieranie [sygnał odwrócony]
+31      - alarm - buzzer
 ...
 GND     - GND
 

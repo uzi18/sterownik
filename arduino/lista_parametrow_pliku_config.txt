@@ -96,6 +96,7 @@ CYRKULACJA_CZAS_WLACZ = 1
 CYRKULACJA_CZAS_WYLACZ = 10
 
 #harmonogram cyrkulacji
+#*,PO,WT,SR,CZ,PT,SO,ND
 #w poniedzialek 6-8 i 10-12
 PROG_CYRK_PO=6:0-8:0
 PROG_CYRK_PO=10:00-12:00
