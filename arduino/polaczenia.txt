@@ -53,6 +53,7 @@ A6      - wejscie styku bezpotencjalowego (zwierajacego do GND) termostatu pokoj
 29      - 4D zamykanie [sygnał odwrócony]
 30      - 4D otwieranie [sygnał odwrócony]
 31      - alarm - buzzer
+32      - dmuchawa AC (sterowanie triakiem MOC3020)
 ...
 GND     - GND
 
