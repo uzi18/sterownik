@@ -111,14 +111,19 @@ KRZYWA_GRZANIA-0 =45
 KRZYWA_GRZANIA+5 =45
 KRZYWA_GRZANIA+15=30
 
+# tryb pracy: WYLACZONY,ZADANA,KRZYWA (nastawa z krzywej grzania)
+ZAWOR4D-TRYB=WYLACZONY
+#jesli TRYB ZADANA - to ponizej ustawiamy wartosc
+ZAWOR4D-ZADANA=0
 #ZAWOR4D parametry 120s pelne otwarcie, krok 2s,pomiar co 50s:
 ZAWOR4D-CZAS_OTWARCIA = 120
 ZAWOR4D-CZAS_KROK = 2
 ZAWOR4D-CZAS_POMIARU = 50
 # ktory czujnik polozony jest za zaworem i nalezy uzyc go do pomiaru
 ZAWOR4D-CZUJNIK=T1
+# histereza na + i na - od zadanej przy ktorej ma dzialac korekcja zaworu (w 0,1deg)
+ZAWOR4D-HISTEREZA=0
 # o ile deg. ma byc obnizona tzadana za zaworem jesli A6 zwarte do GND
 ZAWOR4D-OBNIZONA=3
-
 
 koniec pliku
