@@ -27,6 +27,11 @@ T_MAPUJ_Z_ECOAL=1
 lub
 T_MAPUJ_Z_BRULI=1
 
+#przyklad mapowania czujnika dallas
+# identyfikatory czujnikow dostepne pod adresem
+# http://adres_ip_lucjana/dallas
+#TPIEC=DALLAS[28FF265C64160379]
+
 # mapowanie modulu termopary
 #TSPALINY = MAX31855[0]
 
