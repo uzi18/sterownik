@@ -21,8 +21,8 @@ czujnik spalin (opcjonalny):
 arduino - moduł max31855 + termopara typ K
 +3.3V   - VCC
 GND     - GND
-50      - DO
-52      - CLK
+50      - DO/SO
+52      - CLK/SCK
 A7      - CS
 
 czujniki DS18xx:
