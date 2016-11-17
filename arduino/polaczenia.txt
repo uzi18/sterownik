@@ -63,7 +63,7 @@ arduino - moduł
 8       - zalaczenie wentylatora (odcinanie zasilania przekaznikiem) [sygnał odwrócony]
 +12V    - czerowny przewod
 GND     - czarny przewod
-koniecznie pin 12 - podciągnąć przez rezystor 4k7 ohm do +5V lub GND w zaleznosci od dmuchawy
+koniecznie pin 7 - podciągnąć przez rezystor 4k7 ohm do +5V lub GND w zaleznosci od dmuchawy
 zasilacz 12V 1.5A wystarcza do takiej dmuchawy
 
 wentylator AC:
