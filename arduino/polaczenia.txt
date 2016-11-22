@@ -36,8 +36,8 @@ modul enkodera:
 arduino - enkoder
 +5V     - VCC
 GND     - GND
-38      - CLK
-36      - DT
+15      - CLK
+14      - DT
 34      - SW
 
 moduł przekaźników (do arduino) lub triaków (AVT1679):
