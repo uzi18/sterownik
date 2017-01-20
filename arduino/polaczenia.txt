@@ -1,10 +1,10 @@
 Arduino Mega 2560 + Ethernet Shield z karta uSD
 Zasilony z zasilacza 6-12VDC
-Podpięty kabelkiem USB (typ A-typ B tzw. drukarkowy) z RPi (programowanie i komunikacja z python/www)
+Podpięty kabelkiem USB (typ A-typ B tzw. drukarkowy) z RPi  (opcjonalne - programowanie i komunikacja z python/www)
 
 Lista połączeń:
 
-komunikacja z bruli/ecoal:
+komunikacja z bruli/ecoal (opcjonalna):
 arduino - moduł RS232-TTL (szukać moduł MAX3232 DB9)
 +5V     - VCC
 18      - TXD
@@ -18,12 +18,20 @@ DB9M    - DB9M
 2       - 3
 
 czujnik spalin (opcjonalny):
-arduino - moduł max31855 + termopara typ K
+arduino - moduł z MAX31855K + termopara typ K !!!! UWAGA nie mozna podpinac pod 5V !!!
 +3.3V   - VCC
 GND     - GND
 50      - DO/SO
 52      - CLK/SCK
-A7      - CS
+48      - CS
+
+czujnik spalin (opcjonalny):
+arduino - moduł z MAX6675K + termopara typ K
++5V     - VCC
+GND     - GND
+50      - DO/SO
+52      - CLK/SCK
+49      - CS
 
 czujniki DS18xx:
 arduino - czujniki
@@ -36,9 +44,10 @@ modul enkodera:
 arduino - enkoder
 +5V     - VCC
 GND     - GND
-15      - CLK
 14      - DT
-34      - SW
+15      - CLK
+34      - SW/BTN
+35      - wybor typu enkodera (zworka do GND zmienia typ - jesli przeskakuje o 2 pozycje)
 
 moduł przekaźników (do arduino) lub triaków (AVT1679):
 arduino - moduł
@@ -50,7 +59,7 @@ A11     - 4D otwieranie
 A10     - podajnik
 A9      - pompa CO
 A8      - pompa CYRKULACJI
-A6      - wejscie styku bezpotencjalowego (zwierajacego do GND) termostatu pokojowego
+A6      - pomiar pradu podajnika
 13      - Heartbeat (wolno brak polaczenia rs232, szybko - polaczenie OK)
 ...
 24      - podajnik [sygnał odwrócony - stan aktywny niski (0VDC)]
@@ -62,6 +71,7 @@ A6      - wejscie styku bezpotencjalowego (zwierajacego do GND) termostatu pokoj
 30      - 4D otwieranie [sygnał odwrócony]
 31      - alarm - buzzer
 32      - dmuchawa AC (sterowanie triakiem MOC3020)
+36      - wejscie styku bezpotencjalowego (zwierajacego do GND) termostatu pokojowego
 ...
 GND     - GND
 
