@@ -12,6 +12,8 @@ Parametry dmuchawy:
 DM_OFFSET = 0
 DM_INWERSJA_PWM = 0
 DM_MODULACJA = 0
+#jesli 0 - brak detektora lub detektor przed bezpiecznikiem od peryferiow
+DETEKTOR_TESTUJE_BEZPIECZNIK=1
 
 Parametry modulacji (gdy DM_MODULACJA = 1):
 DM_ROZRUCH_CZAS =
