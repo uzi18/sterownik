@@ -1,5 +1,5 @@
-Wszelkie błędy, propozycje zmian i dodatkowe funkcje zgłaszamy w Issues: https://github.com/uzi18/sterownik/issues
-Issues zgłaszane przez osoby wspierające Lucjana będą rozpatrywane/dodawane z pierwszeństwem.
-
+#Wszelkie błędy, propozycje zmian i dodatkowe funkcje zgłaszamy w [Issues](https://github.com/uzi18/sterownik/issues)
+  * [Issues](https://github.com/uzi18/sterownik/issues) zgłaszane przez osoby wspierające Lucjana będą rozpatrywane z pierwszeństwem.  
+  * Na [stronie wsparcia](https://www.paypal.me/wsparcieDlaLucjana) w uwagach prosze podawać nr. [issue](https://github.com/uzi18/sterownik/issues), którego sie tyczy.  
 
 ## Podoba Ci się projekt, kliknij i wesprzyj Lucjana: [![Wesprzyj Lucjana](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/wsparcieDlaLucjana)
