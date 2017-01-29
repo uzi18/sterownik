@@ -84,6 +84,9 @@ tryb pracy pompy co (ECOAL,BRULI,ZIMA,LATO)
 CO_TRYB = ZIMA
 algorytm pracy pomy CO (CIAGLY,CYKLICZNY)
 CO_ALGORYTM = CIAGLY
+# dla trybu cyklicznego
+CO_CZAS_WLACZ=30
+CO_CZAS_WYLACZ=30
 
 tryb pracy pompy cwu (ECOAL,BRULI,WLACZ,WYLACZ,MIESZANIE)
 CWU_TRYB = WYLACZ
