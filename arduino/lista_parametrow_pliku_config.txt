@@ -36,6 +36,10 @@ T_MAPUJ_Z_BRULI=1
 
 # mapowanie modulu termopary
 #TSPALINY = MAX31855[0]
+#TSPALINY = MAX6675[0]
+
+#przyklad dodania offsetu -10.0 deg do T1
+#OFFSET_T1=-100
 
 zabezpieczenie przed cofaniem sie zaru
 czas wyrzutu paliwa z podajnika 
