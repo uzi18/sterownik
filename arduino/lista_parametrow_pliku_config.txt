@@ -42,10 +42,14 @@ T_MAPUJ_Z_BRULI=1
 #OFFSET_T1=-100
 
 zabezpieczenie przed cofaniem sie zaru
-czas wyrzutu paliwa z podajnika 
-w przypadku przekroczenia temperatury
+jesli TPODAJNIK wzrosnie powyzej T_MAX, uruchamia sie podajnik 
+na czas wyrzutu paliwa z podajnika 5min. i uruchamia sie alarm
 PODAJNIK_CZAS_WYRZUTU = 5
 PODAJNIK_T_MAX = 60
+jesli TPODAJNIK wzrosnie powyzej T_WYSOKA,
+uruchamia sie cykle 30s. podnoszenia zaru
+PODAJNIK_CZAS_PODNOSZENIA = 30
+PODAJNIK_T_WYSOKA = 50
 
 #czas w sekundach potrzebny do oproznienia pełnego zasobnika
 PODAJNIK_CZAS_DO_OPROZNIENIA = 69000
