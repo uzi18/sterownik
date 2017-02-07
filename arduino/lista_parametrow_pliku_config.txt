@@ -67,7 +67,7 @@ PIEC_T_MAX = 90
 temperatura zalaczenia pomp
 PIEC_T_MIN = 40
 
-tryb pracy pieca (palnika) - zgodny z ECOAL,RR,RRM,...
+tryb pracy pieca (palnika) - zgodny z ECOAL,RR,RRM,RRM2,...
 PIEC_ALGORYTM = ECOAL
 PIEC_ZADANA = 50
 uwaga histereza pieca * 0.1deg
@@ -83,6 +83,30 @@ RR_PRACA_PODANIE = 10
 RR_PRACA_POSTOJ = 30
 RR_PRACA_MOC = 40
 
+# 1 - wlaczone tlo, 2 - dopalanie
+RRM_TLO_WLACZONE=0
+RRM_TLO_MOC=20
+RRM_TLO_CZAS_PODANIE=10
+# w min.
+RRM_TLO_CZAS=15
+#jesli tlo podbije TPIEC 5deg ponad zadana przechodzimy w podtrzymanie
+RRM_MAX_PRZEBICIE_TLO=5
+# dopalanie 150s 30%
+RRM_DOPALANIE_MOC=30
+RRM_DOPALANIE_CZAS=150
+
+# 1 - tryb wielomocowy dla RRM2
+RRM_WIELE_MOCY=0
+# moce od 0 (najmniejsza) do 5 (najwieksza)
+# moc 0 domyslna
+RRW_PODANIE0=10
+RRW_POSTOJ0=100
+RRW_NADMUCH0=30
+# moc 1
+RRW_PODANIE1=10
+RRW_POSTOJ1= 50
+RRW_NADMUCH1=40
+RRW_HISTEREZA1=20
 
 tryb pracy pompy co (ECOAL,BRULI,ZIMA,LATO)
 CO_TRYB = ZIMA
@@ -91,6 +115,13 @@ CO_ALGORYTM = CIAGLY
 # dla trybu cyklicznego
 CO_CZAS_WLACZ=30
 CO_CZAS_WYLACZ=30
+
+#przyklad termostatu dla czujnika TWEW
+# zadana 20.0 histereza 1.0, dla pompy CO
+TERMOSTAT1_ZADANA = 20
+TERMOSTAT1_HISTEREZA = 10
+TERMOSTAT1_CZUJNIK = TWEW
+TERMOSTAT1_WYJSCIE = CO
 
 tryb pracy pompy cwu (ECOAL,BRULI,WLACZ,WYLACZ,MIESZANIE)
 CWU_TRYB = WYLACZ
