@@ -23,11 +23,10 @@ value = "&nvalue=0&svalue="
 while 1:
   try:
     response = urlopen(lucek)
-    data = response.read()
-    data = string.replace(data, '},{"t": ', ',')
-    data = string.replace(data, '{"thermos":[{"t": ', '')
-    sep = "}],"
-    data = data.split(sep, 1)[0]
+    data = response.read().decode("utf-8")
+    data = data.replace('},{"t": ', ',')
+    data = data.replace('{"thermos":[{"t": ', '')
+    data = data.split("}],", 1)[0]
     data = data.split(",")
     
     print(data)
