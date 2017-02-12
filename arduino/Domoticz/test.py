@@ -1,7 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from urllib2 import urlopen
+import sys
+
+if sys.version_info[0] == 3:
+  from urllib.request import urlopen
+else:
+  from urllib2 import urlopen
+
 import time 
 import string
 
