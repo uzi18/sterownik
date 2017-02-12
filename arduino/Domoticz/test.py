@@ -27,49 +27,9 @@ while 1:
     print(data)
     
     idx = konfiguracja.idx_start
-    tpiec = data[0] 
-    response = urlopen(domoticz + str(idx) + value + tpiec)
-
-    idx += 1
-    tpowrot = data[1]
-    response = urlopen(domoticz + str(idx) + value + tpowrot)
-
-    idx += 1
-    tpodajnik = data[2]
-    response = urlopen(domoticz + str(idx) + value + tpodajnik)
-
-    idx += 1
-    tzew = data[3]
-    response = urlopen(domoticz + str(idx) + value + tzew)
-
-    idx += 1
-    tzew = data[4]
-    response = urlopen(domoticz + str(idx) + value + tzew)
-
-    idx += 1
-    tzew = data[5]
-    response = urlopen(domoticz + str(idx) + value + tzew)
-
-    idx += 1
-    tcwu = data[6]
-    response = urlopen(domoticz + str(idx) + value + tcwu)
-
-    idx += 1
-    tzew = data[7]
-    response = urlopen(domoticz + str(idx) + value + tzew)
-
-    idx += 1
-    tzew = data[8]
-    response = urlopen(domoticz + str(idx) + value + tzew)
-
-    idx += 1
-    tzew = data[9]
-    response = urlopen(domoticz + str(idx) + value + tzew)
-
-    idx += 1
-    tzew = data[10]
-    response = urlopen(domoticz + str(idx) + value + tzew)
-
+    for x in range(16):
+      t = data[x]
+      response = urlopen(domoticz + str(idx+x) + value + t)
 
   except:
     pass
