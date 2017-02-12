@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 from urllib2 import urlopen
 import time 
 import string
@@ -20,7 +23,8 @@ while 1:
     sep = "}],"
     data = data.split(sep, 1)[0]
     data = data.split(",")
-    print data
+    
+    print(data)
     
     idx = konfiguracja.idx_start
     tpiec = data[0] 
