@@ -16,6 +16,21 @@ try:
 except ImportError:
   raise ImportError('brak pliku konfiguracji polaczenia ze sterownikiem: konfiguracja.py')
 
+if not 'idx_start' in dir(konfiguracja):
+  print("brak poprawnej konfiguracji: idx_start")
+  exit()
+
+if not 'ip_domoticz' in dir(konfiguracja):
+  print("brak poprawnej konfiguracji: ip_domoticz")
+  exit()
+
+if not 'ip_lucjan' in dir(konfiguracja):
+  print("brak poprawnej konfiguracji: ip_lucjan")
+  exit()
+
+if not 'port_domoticz' in dir(konfiguracja):
+  konfiguracja.port_domoticz = 8080
+
 if not 'interwal' in dir(konfiguracja):
   konfiguracja.interwal = 30
   
