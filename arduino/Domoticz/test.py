@@ -16,6 +16,11 @@ try:
 except ImportError:
   raise ImportError('brak pliku konfiguracji polaczenia ze sterownikiem: konfiguracja.py')
 
+if not 'interwal' in dir(konfiguracja):
+  konfiguracja.interwal = 30
+  
+print(" interwal = "+str(konfiguracja.interwal)+"s.")
+
 lucek = "http://"+konfiguracja.ip_lucjan+"/t.json"
 domoticz = "http://"+konfiguracja.ip_domoticz+":"+str(konfiguracja.port_domoticz)+"/json.htm?type=command&param=udevice&idx="
 value = "&nvalue=0&svalue="
@@ -39,4 +44,4 @@ while 1:
   except:
     pass
 
-  time.sleep(60)
+  time.sleep(konfiguracja.interwal)
