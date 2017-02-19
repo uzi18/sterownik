@@ -9,7 +9,6 @@ NET_MASKA=255.255.255.0
 NET_DNS=192.168.2.1
 
 Parametry dmuchawy:
-DMUCHAWA_GRUPOWO = 1
 DM_OFFSET = 0
 DM_INWERSJA_PWM = 0
 DM_MODULACJA = 0
@@ -71,6 +70,14 @@ PIEC_T_MIN = 40
 tryb pracy pieca RECZNY,AUTO
 PIEC_TRYB = RECZNY
 jesli piec ma automatycznie startowac po uruchomieniu - ustawiamy AUTO
+w trybie recznym mozna wlaczac (1) lub wylaczac urzadzenia (0)
+#OUT_PODAJNIK=1
+#OUT_POMPACO=0
+#OUT_POMPACWU=0
+#OUT_POMPACWU2=0
+#OUT_POMPACYRK=0
+#moc wentylatora 50%:
+#OUT_WENTYLATOR=50
 
 tryb pracy palnika - zgodny z ECOAL,RR,RRM,RRM2,...
 PIEC_ALGORYTM = ECOAL
