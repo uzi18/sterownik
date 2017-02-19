@@ -30,6 +30,13 @@ if not 'ip_lucjan' in dir(konfiguracja):
   print("brak poprawnej konfiguracji: ip_lucjan")
   exit()
 
+if not 'esp_link' in dir(konfiguracja):
+  konfiguracja.esp_link = 0
+
+if konfiguracja.esp_link and not 'ip_esp' in dir(konfiguracja):
+  print("brak poprawnej konfiguracji: ip_esp")
+  exit()
+
 if not 'port_domoticz' in dir(konfiguracja):
   konfiguracja.port_domoticz = 8080
 
@@ -45,6 +52,9 @@ if konfiguracja.ip_lucjan.count('.') == 0:
   rs.flushInput()
   rs.flushOutput()
 
+if konfiguracja.esp_link:
+  import telnetlib
+
 lucek = "http://"+konfiguracja.ip_lucjan+"/t.json"
 domoticz = "http://"+konfiguracja.ip_domoticz+":"+str(konfiguracja.port_domoticz)+"/json.htm?type=command&param=udevice&idx="
 value = "&nvalue=0&svalue="
@@ -52,13 +62,22 @@ value = "&nvalue=0&svalue="
 while 1:
   try:
     data = ''
-    if rs == None:
+    if rs == None and not konfiguracja.esp_link:
       response = urlopen(lucek)
       data = response.read().decode("utf-8")
       data = data.replace('},{"t": ', ',')
       data = data.replace('{"thermos":[{"t": ', '')
       data = data.split("}],", 1)[0]
       data = data.split(",")
+    elif rs == None and konfiguracja.esp_link:
+      tn = telnetlib.Telnet(konfiguracja.ip_esp,23)
+      tn.write('t')
+      tn.read_until('t:[')
+      data = tn.read_some()
+      tn.close()
+      data = data.split("]")[0]
+      data = data.split(",")
+      data = [float(i)/10 for i in data]
     else:
       rs.flushInput()
       rs.flushOutput()
