@@ -1,0 +1,6 @@
+#!/bin/sh
+IP_ESP=192.168.2.6
+
+wget -O /tmp/piec.hex https://raw.githubusercontent.com/uzi18/sterownik/master/arduino/sterownik_ac_plus_dc_fan.hex
+megaflash -v $IP_ESP /tmp/piec.hex
+#curl --data '' http://$IP_ESP/console/reset && avrdude -patmega2560 -cwiring -Pnet:$IP_ESP:23 -b115200 -D -Uflash:w:/tmp/piec.hex:i

@@ -9,6 +9,7 @@ NET_MASKA=255.255.255.0
 NET_DNS=192.168.2.1
 
 Parametry dmuchawy:
+DMUCHAWA_GRUPOWO = 1
 DM_OFFSET = 0
 DM_INWERSJA_PWM = 0
 DM_MODULACJA = 0
@@ -67,7 +68,11 @@ PIEC_T_MAX = 90
 temperatura zalaczenia pomp
 PIEC_T_MIN = 40
 
-tryb pracy pieca (palnika) - zgodny z ECOAL,RR,RRM,RRM2,...
+tryb pracy pieca RECZNY,AUTO
+PIEC_TRYB = RECZNY
+jesli piec ma automatycznie startowac po uruchomieniu - ustawiamy AUTO
+
+tryb pracy palnika - zgodny z ECOAL,RR,RRM,RRM2,...
 PIEC_ALGORYTM = ECOAL
 PIEC_ZADANA = 50
 uwaga histereza pieca * 0.1deg
