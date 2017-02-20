@@ -73,7 +73,8 @@ while 1:
       tn = telnetlib.Telnet(konfiguracja.ip_esp,23)
       tn.write('t')
       tn.read_until('t:[')
-      data = tn.read_some()
+      while data.count(']') == 0:
+        data += tn.read_some()
       tn.close()
       data = data.split("]")[0]
       data = data.split(",")
