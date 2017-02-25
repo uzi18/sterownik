@@ -22,10 +22,6 @@ if not 'idx_start' in dir(konfiguracja):
   print("brak poprawnej konfiguracji: idx_start")
   exit()
 
-if not 'ip_domoticz' in dir(konfiguracja):
-  print("brak poprawnej konfiguracji: ip_domoticz")
-  exit()
-
 if not 'ip_lucjan' in dir(konfiguracja):
   print("brak poprawnej konfiguracji: ip_lucjan")
   exit()
@@ -56,8 +52,10 @@ if konfiguracja.esp_link:
   import telnetlib
 
 lucek = "http://"+konfiguracja.ip_lucjan+"/t.json"
-domoticz = "http://"+konfiguracja.ip_domoticz+":"+str(konfiguracja.port_domoticz)+"/json.htm?type=command&param=udevice&idx="
-value = "&nvalue=0&svalue="
+
+if 'ip_domoticz' in dir(konfiguracja) and 'port_domoticz' in dir(konfiguracja):
+  domoticz = "http://"+konfiguracja.ip_domoticz+":"+str(konfiguracja.port_domoticz)+"/json.htm?type=command&param=udevice&idx="
+  value = "&nvalue=0&svalue="
 
 while 1:
   try:
@@ -93,11 +91,17 @@ while 1:
       
     print(data)
     
-    idx = konfiguracja.idx_start
-    if len(data) == 16:
-      for x in range(16):
-        t = data[x]
-        response = urlopen(domoticz + str(idx+x) + value + str(t))
+    if 'ip_nettemp' in dir(konfiguracja) and 'key_nettemp' in dir(konfiguracja):
+      d=";".join(str(x) for x in data)
+      response = urlopen("http://"+konfiguracja.ip_nettemp+"/receiver.php?key="+konfiguracja.key_nettemp+"&device=ip&ip=localhost&name=Lucjan_&id=1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16&type=temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp&value="+d)
+      print(response.msg)
+    
+    if 'ip_domoticz' in dir(konfiguracja) and 'port_domoticz' in dir(konfiguracja):
+      idx = konfiguracja.idx_start
+      if len(data) == 16:
+        for x in range(16):
+          t = data[x]
+          response = urlopen(domoticz + str(idx+x) + value + str(t))
 
   except:
     pass

@@ -9,5 +9,7 @@ esp_link = 0
 ip_domoticz = 'localhost'
 port_domoticz = 8080
 idx_start = 1
+ip_nettemp = 'localhost'
+key_nettemp = 'xxxx'
 interwal = 30
 
