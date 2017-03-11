@@ -139,6 +139,8 @@ tryb pracy pompy cwu (ECOAL,BRULI,WLACZ,WYLACZ,MIESZANIE)
 CWU_TRYB = WYLACZ
 algorytm pracy pomy cwu (CIAGLY,CYKLICZNY)
 CWU_ALGORYTM = CIAGLY
+# uzyj priorytetu CWU wzgledem CO - WLACZ,WYLACZ
+CWU_PRIORYTET = WYLACZ
 CWU_ZADANA = 40
 CWU_HISTEREZA = 0
 zabezpieczenie przed zbyt wysoka t.cwu gdy CWU_T_MAX > 0
