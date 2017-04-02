@@ -82,7 +82,7 @@ w trybie recznym mozna wlaczac (1) lub wylaczac urzadzenia (0)
 #moc wentylatora 50%:
 #OUT_WENTYLATOR=50
 
-tryb pracy palnika - zgodny z ECOAL,RR,RRM,RRM2,...
+algorytm pracy palnika - ECOAL,RR,RRM,RRM2,ZASYPOWY,WYLACZONY,...
 PIEC_ALGORYTM = ECOAL
 PIEC_ZADANA = 50
 uwaga histereza pieca * 0.1deg
