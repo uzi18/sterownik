@@ -1,0 +1,9 @@
+1. W Konfiguracja->sprzêt dajemy "utwórz wirtualne czujniki" 
+2. Wpisujemy nazwê i wybieramy typ czujnika - "Prze³¹cznik"
+3. Przechodzimy do zak³adki "Prze³¹czniki"
+4. Tu powinien pojawiæ siê nasz prze³¹cznik. Wchodzimy w Edycja i ustawiamy: 
+    W³¹cz akcjê: http://IP_LUCJANA/setZAWOR4D-OBNIZONA=0
+    Wy³¹cz akcjê: http://IP_LUCJANA/setZAWOR4D-OBNIZONA=3
+	(oczywiœcie obi¿enie temperatury za zaworem ustawiamy wedle ¿yczenia. Zamiast "IP_LUCJANA" wpisujemy prawdziwe IP Lucjana). 
+5. Wchodzimy sobie w zak³adkê Konfiguracja->wiêcej opcji->zdarzenia
+6. Tworzymy nowe zdarzenie - po prawej stronie wpisujemy nazwê zdarzenia, wybieramy typ "LUA" i "Device". Wklejamy treœæ skryptu, wpisuj¹c temp. zadan¹, histerezê i nazwê wczeœniej utworzonego prze³¹cznika. Po prawej przycisk "Save" i mo¿na jeszcze sudo systemctl restart domoticz.service. 
