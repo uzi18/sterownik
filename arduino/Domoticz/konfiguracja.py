@@ -12,4 +12,5 @@ idx_start = 1
 ip_nettemp = 'localhost'
 key_nettemp = 'xxxx'
 interwal = 30
-
+interwal_nettemp = 5
+interwal_domoticz = 30

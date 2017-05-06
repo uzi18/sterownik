@@ -38,8 +38,19 @@ if not 'port_domoticz' in dir(konfiguracja):
 
 if not 'interwal' in dir(konfiguracja):
   konfiguracja.interwal = 30
+
+if not 'interwal_domoticz' in dir(konfiguracja):
+  konfiguracja.interwal_domoticz = konfiguracja.interwal
+
+if not 'interwal_nettemp' in dir(konfiguracja):
+  konfiguracja.interwal_nettemp = konfiguracja.interwal
   
 print(" interwal = "+str(konfiguracja.interwal)+"s.")
+print(" interwal domoticz = "+str(konfiguracja.interwal_domoticz)+"s.")
+print(" interwal nettemp = "+str(konfiguracja.interwal_nettemp)+"s.")
+
+licznik_dm = 0
+licznik_nt = 0
 
 if konfiguracja.ip_lucjan.count('.') == 0:
   import serial
@@ -90,20 +101,39 @@ while 1:
       data = [float(i)/10 for i in data]
       
     print(data)
+    print(len(data))
     
     if len(data) == 16:
-      if 'ip_nettemp' in dir(konfiguracja) and 'key_nettemp' in dir(konfiguracja):
+      if licznik_nt == 0 and 'ip_nettemp' in dir(konfiguracja) and 'key_nettemp' in dir(konfiguracja):
+        print("Send NT:")
         d=";".join(str(x) for x in data)
         response = urlopen("http://"+konfiguracja.ip_nettemp+"/receiver.php?key="+konfiguracja.key_nettemp+"&device=ip&ip=localhost&name=Lucjan_&id=1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16&type=temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp&value="+d)
         print(response.msg)
+        print(response.readlines())
+        
+      if licznik_nt == 0:
+        licznik_nt = konfiguracja.interwal_nettemp
       
-      if 'ip_domoticz' in dir(konfiguracja) and 'port_domoticz' in dir(konfiguracja):
+      if licznik_dm == 0 and 'ip_domoticz' in dir(konfiguracja) and 'port_domoticz' in dir(konfiguracja):
+        print("Send DM:")
         idx = konfiguracja.idx_start
         for x in range(16):
           t = data[x]
           response = urlopen(domoticz + str(idx+x) + value + str(t))
+        #drukujemy tylko ostatni komunikat
+        print(response.msg)
+        print(response.readlines())
+
+      if licznik_dm == 0:
+        licznik_dm = konfiguracja.interwal_domoticz
+
+    while licznik_nt != 0 and licznik_dm != 0:
+      time.sleep(1)
+      licznik_nt -=1
+      licznik_dm -=1
 
   except:
     pass
 
-  time.sleep(konfiguracja.interwal)
+  
+  
