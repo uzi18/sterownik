@@ -18,6 +18,17 @@ DETEKTOR_TESTUJE_BEZPIECZNIK=1
 # zmiana czasu na zimowy
 #RTC_ZIMA=1
 
+# temperatura zewnetrzna auto przejscia CO w tryb lato
+AUTOLATO_TEMP = 0
+# histereza powrotu CO do trybu zima
+AUTOLATO_HISTEREZA = 0
+# temperatura dla twew auto przejsca CO w tryb lato
+AUTOLATO_TWEW = 0
+# dodatkowe tryb pracy autolato 
+AUTOLATO_TRYB = 0
+# poza przejsciem w tryb lato wylaczamy calkowicie piec
+#AUTOLATO_TRYB = WYL_ALGO
+
 Parametry modulacji (gdy DM_MODULACJA = 1):
 DM_ROZRUCH_CZAS =
 DM_ROZRUCH_MOC =
