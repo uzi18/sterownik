@@ -33,6 +33,7 @@ T_dolna_CWU = 38;            # TEMPERATURA MIN CWU
 # TRYB AUTOLATO
 T_zewnetrzna_lato = 16.5
 Tryb_autolato = True
+tempMaxDom = 22.8
 
 #PODTRZYMANIE
 podtrzymanie_postoj = 7 #w minutach

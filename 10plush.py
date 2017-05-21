@@ -347,9 +347,13 @@ def regulatorCO():
         if (c.getTempCO() < konf.tempZalaczeniaPomp):
             pompa = False      
         a = ''
-        if konf.Tryb_autolato and c.getTempZew() > konf.T_zewnetrzna_lato and c.getTempWew() > 22.8:
+        if konf.Tryb_autolato:
+          if c.getTempZew() > konf.T_zewnetrzna_lato:
             pompa = False
-            a = "AUTOLATO"           
+            a = "AUTO LATO"
+           if c.getTempWew() > konf.tempMaxDom:
+            pompa = False
+            a = "AUTO WEW"
         if (pompa and c.getPompaCO() == False):
             c.setPompaCO(True)
             print ("*** CO->ON")
