@@ -351,7 +351,7 @@ def regulatorCO():
           if c.getTempZew() > konf.T_zewnetrzna_lato:
             pompa = False
             a = "AUTO LATO"
-           if c.getTempWew() > konf.tempMaxDom:
+          if c.getTempWew() > konf.tempMaxDom:
             pompa = False
             a = "AUTO WEW"
         if (pompa and c.getPompaCO() == False):
