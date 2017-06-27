@@ -20,8 +20,8 @@ DETEKTOR_TESTUJE_BEZPIECZNIK=1
 
 # temperatura zewnetrzna auto przejscia CO w tryb lato
 AUTOLATO_TEMP = 0
-# histereza powrotu CO do trybu zima
-AUTOLATO_HISTEREZA = 0
+# histereza powrotu CO do trybu zima 1,5deg
+AUTOLATO_HISTEREZA = 15
 # temperatura dla twew auto przejsca CO w tryb lato
 AUTOLATO_TWEW = 0
 # dodatkowe tryb pracy autolato 
@@ -64,15 +64,18 @@ na czas wyrzutu paliwa z podajnika 5min. i uruchamia sie alarm
 PODAJNIK_CZAS_WYRZUTU = 5
 PODAJNIK_T_MAX = 60
 jesli TPODAJNIK wzrosnie powyzej T_WYSOKA,
-uruchamia sie cykle 30s. podnoszenia zaru
+uruchamia sie cykle 30s (* max ilosc powtorek jesli ustawiono) podnoszenia zaru
 PODAJNIK_CZAS_PODNOSZENIA = 30
+PODAJNIK_T_WYSOKA_POWTORKI = 0
 PODAJNIK_T_WYSOKA = 50
 
 #czas w sekundach potrzebny do oproznienia pełnego zasobnika
 PODAJNIK_CZAS_DO_OPROZNIENIA = 69000
 #aktualny czas pozostaly do oproznienia zasobnika w sekundach
-#po uruchomieniu zliczamy od tej wartosci (domyslnie 50% zasobnika)
-PODAJNIK_CZAS_PODAJNIKA = 34500
+#UWAGA! po uruchomieniu zliczamy od tej wartosci
+# (domyslnie 50% zasobnika) i tracimy poziom zasobnika!!
+# poziom zasobnika ustawiac najlepiej przez WWW
+#PODAJNIK_CZAS_PODAJNIKA = 34500
 #procent ponizej ktorego ma wystapic alarm pustego zasobnika
 PODAJNIK_ALARM_MIN=15
 #stała zalezna od opału w g./min.
@@ -107,6 +110,8 @@ RR_PODTRZYMANIE_CZAS = 10
 RR_PODTRZYMANIE_PODANIE = 10
 RR_PODTRZYMANIE_POSTOJ = 30
 RR_PODTRZYMANIE_MOC = 40
+# gdy > 0 i sterownik jest w trybie lato korzystamy z czasu lato:
+RR_PODTRZYMANIE_CZAS_LATO = 0
 
 RR_PRACA_PODANIE = 10
 RR_PRACA_POSTOJ = 30
