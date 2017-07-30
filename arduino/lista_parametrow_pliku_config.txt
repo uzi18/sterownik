@@ -15,8 +15,17 @@ DM_MODULACJA = 0
 #jesli 0 - brak detektora lub detektor przed bezpiecznikiem od peryferiow
 DETEKTOR_TESTUJE_BEZPIECZNIK=1
 
+#algorytm regulacji mocy dmuchawy
+# 0 stary, 1 nowy
+#DM_TYP=0
+
 # zmiana czasu na zimowy
 #RTC_ZIMA=1
+
+#ustawianie daty/czasu w RTC - uruchamiac jednorazowo
+#RTC=2017-04-07 12:13:14
+#RTC_DATA=2017-04-07
+#RTC_CZAS=12:13:14
 
 # temperatura zewnetrzna auto przejscia CO w tryb lato
 AUTOLATO_TEMP = 0
