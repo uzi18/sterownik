@@ -71,6 +71,7 @@ A6      - pomiar pradu podajnika
 30      - 4D otwieranie [sygnał odwrócony]
 31      - alarm - buzzer
 32      - dmuchawa AC (sterowanie triakiem MOC3020)
+33      - dmuchawa AC (modul low level trigger z G3MB-202PL) [sygnał odwrócony]
 36      - wejscie styku bezpotencjalowego (zwierajacego do GND) termostatu pokojowego
 ...
 GND     - GND
