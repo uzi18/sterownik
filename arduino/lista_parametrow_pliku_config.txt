@@ -48,7 +48,7 @@ DM_DOPALANIE_MOC =
 DM_TLO_MOC =
 
 Parametry trybu zasypowego:
-ZASYP_MOC=30
+ZASYPOWY_MOC=30
 
 Przypisanie wszystkich czujnikow z ecoal do sterownika
 T_MAPUJ_Z_ECOAL=1
