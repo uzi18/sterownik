@@ -63,6 +63,8 @@ T_MAPUJ_Z_BRULI=1
 # mapowanie modulu termopary
 #TSPALINY = MAX31855[0]
 #TSPALINY = MAX6675[0]
+# zmapowanie na pinie CS=48 i z wlaczonym filtrowaniem
+#TSPALINY = MAX6675[48.1]
 
 #przyklad dodania offsetu -10.0 deg do T1
 #OFFSET_T1=-100
