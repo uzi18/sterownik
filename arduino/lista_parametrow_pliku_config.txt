@@ -224,4 +224,10 @@ ZAWOR4D-HISTEREZA=0
 # o ile deg. ma byc obnizona tzadana za zaworem jesli A6 zwarte do GND
 ZAWOR4D-OBNIZONA=3
 
+#autoryzacja www
+#0 - brak, 1 - autoryzacja strony, 2 - autoryzacja api, 3 - autoryzacja api i strony
+#WWW_AUTH=0
+#login i haslo zakodowane w base64 np.: user:admin
+#WWW_HASLO=dXNlcjphZG1pbg==
+
 koniec pliku
