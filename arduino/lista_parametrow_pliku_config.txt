@@ -116,6 +116,12 @@ PIEC_ZADANA = 50
 uwaga histereza pieca * 0.1deg
 PIEC_HISTEREZA = 0
 
+#zadana dla regulatora pokojowego
+#TWEW_ZADANA=22
+#o ile ma zostac obnizona zadana na piecu 
+#gdy osiagniemy TWEW_ZADANA - ponizej o 5.0 deg.
+#TWEW_CO_OBNIZONA=50
+
 parametry algorytmu RR, czas podtrzymania w minutach, reszta w sekundach:
 RR_PODTRZYMANIE_CZAS = 10
 RR_PODTRZYMANIE_PODANIE = 10
