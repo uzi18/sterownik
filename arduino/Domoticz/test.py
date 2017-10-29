@@ -54,10 +54,10 @@ licznik_nt = 0
 
 if konfiguracja.ip_lucjan.count('.') == 0:
   import serial
-  rs=serial.Serial(konfiguracja.ip_lucjan,115200)
-  time.sleep(20)
+  rs=serial.Serial(konfiguracja.ip_lucjan,115200,timeout=5)
   rs.flushInput()
   rs.flushOutput()
+  time.sleep(10)
 
 if konfiguracja.esp_link:
   import telnetlib
@@ -80,10 +80,14 @@ while 1:
       data = data.split(",")
     elif rs == None and konfiguracja.esp_link:
       tn = telnetlib.Telnet(konfiguracja.ip_esp,23)
-      tn.write('t')
-      tn.read_until('t:[')
+      tn.write(b't')
+      print ("esp: czekam na dane")
+#      time.sleep(0.5)
+      print(tn.read_until('t:['))
       while data.count(']') == 0:
-        data += tn.read_some()
+        a = tn.read_some()
+        print(a)
+        data += a
       tn.close()
       data = data.split("]")[0]
       data = data.split(",")
@@ -91,15 +95,21 @@ while 1:
     else:
       rs.flushInput()
       rs.flushOutput()
-      rs.write('t')
+      rs.write(b'tt')
+      print ("Serial: czekam na dane")
+#      rs.flushOutput()
+#      time.sleep(1)
       while not (data.startswith("t:[") and data.endswith("\r\n")):
         data = rs.readline()
+        print(data)
 
       data = data.replace('t:[', '')
       data = data.replace(']\r\n', '')
       data = data.split(",")
       data = [float(i)/10 for i in data]
-      
+    
+    print('');
+    print("Lucjan RCV:")
     print(data)
     print(len(data))
     
@@ -107,7 +117,9 @@ while 1:
       if licznik_nt == 0 and 'ip_nettemp' in dir(konfiguracja) and 'key_nettemp' in dir(konfiguracja):
         print("Send NT:")
         d=";".join(str(x) for x in data)
-        response = urlopen("http://"+konfiguracja.ip_nettemp+"/receiver.php?key="+konfiguracja.key_nettemp+"&device=ip&ip=localhost&name=Lucjan_&id=1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16&type=temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp&value="+d)
+        adr = "http://"+konfiguracja.ip_nettemp+"/receiver.php?key="+konfiguracja.key_nettemp+"&device=ip&ip=localhost&name=Lucjan_&id=1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16&type=temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp&value="+d
+        print(adr)
+        response = urlopen(adr)
         print(response.msg)
         print(response.readlines())
         
@@ -119,7 +131,9 @@ while 1:
         idx = konfiguracja.idx_start
         for x in range(16):
           t = data[x]
-          response = urlopen(domoticz + str(idx+x) + value + str(t))
+          adr = domoticz + str(idx+x) + value + str(t)
+          print(adr)
+          response = urlopen(adr)
         #drukujemy tylko ostatni komunikat
         print(response.msg)
         print(response.readlines())
