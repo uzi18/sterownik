@@ -146,6 +146,14 @@ RRM_MAX_PRZEBICIE_TLO=5
 RRM_DOPALANIE_MOC=30
 RRM_DOPALANIE_CZAS=150
 
+# opcje naweglania - po 5 cyklach podtrzymania wejscie w grzanie
+# powoduje podanie paliwa przez 60s. (max 240s)
+#RRM_NAWEGLANIE_CYKL = 5
+#RRM_NAWEGLANIE = 60
+# opcja opoznienia podania paliwa po przejsciu w grzanie 
+# podajemy 30s pozniej
+#RRM_OPOZNIENIE_PODANIA = 30
+
 # 1 - tryb wielomocowy dla RRM2
 RRM_WIELE_MOCY=0
 # moce od 0 (najmniejsza) do 5 (najwieksza)
