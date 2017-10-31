@@ -40,6 +40,12 @@ arduino - czujniki
 GND     - GND
 pin 22 podciagnac rezystorem 4k7 lub lepiej 3k3 do +5V
 
+czujnik pozycji tloka w podajniku tlokowym (sygnał 5V - tlok pracuje, 0V - tlok na pozycji startowej)
+arduino - czujnik
++5V     - VCC
+6       - sygnał z czujnika
+GND     - GND
+
 modul enkodera:
 arduino - enkoder
 +5V     - VCC

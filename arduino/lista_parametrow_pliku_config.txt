@@ -80,6 +80,11 @@ PODAJNIK_CZAS_PODNOSZENIA = 30
 PODAJNIK_T_WYSOKA_POWTORKI = 0
 PODAJNIK_T_WYSOKA = 50
 
+#parametry podajnika tlokowego
+#PODAJNIK_TLOKOWY=1
+#czas pelnego ruchu tloka w sekundach
+#TLOK_CZAS_CYKLU=40
+
 #czas w sekundach potrzebny do oproznienia pełnego zasobnika
 PODAJNIK_CZAS_DO_OPROZNIENIA = 69000
 #aktualny czas pozostaly do oproznienia zasobnika w sekundach
