@@ -81,6 +81,7 @@ PODAJNIK_T_WYSOKA_POWTORKI = 0
 PODAJNIK_T_WYSOKA = 50
 
 #parametry podajnika tlokowego
+#czasy podawania w ilosci cykli
 #PODAJNIK_TLOKOWY=1
 #czas pelnego ruchu tloka w sekundach
 #TLOK_CZAS_CYKLU=40
