@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import logging
+logging.basicConfig(level=logging.ERROR,filename=__file__ + ".log",format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 if sys.version_info[0] == 3:
   from urllib.request import urlopen
@@ -51,6 +54,8 @@ print(" interwal nettemp = "+str(konfiguracja.interwal_nettemp)+"s.")
 
 licznik_dm = 0
 licznik_nt = 0
+
+logger.error('Start')
 
 if konfiguracja.ip_lucjan.count('.') == 0:
   import serial
@@ -146,8 +151,7 @@ while 1:
       licznik_nt -=1
       licznik_dm -=1
 
-  except:
+  except Exception, e:
+    logger.error('Exception', exc_info=True)
     pass
 
-  
-  
