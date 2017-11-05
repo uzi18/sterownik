@@ -59,7 +59,7 @@ logger.error('Start')
 
 if konfiguracja.ip_lucjan.count('.') == 0:
   import serial
-  rs=serial.Serial(konfiguracja.ip_lucjan,115200,timeout=5)
+  rs=serial.Serial(konfiguracja.ip_lucjan,115200,timeout=3)
   rs.flushInput()
   rs.flushOutput()
   time.sleep(10)
@@ -84,29 +84,49 @@ while 1:
       data = data.split("}],", 1)[0]
       data = data.split(",")
     elif rs == None and konfiguracja.esp_link:
-      tn = telnetlib.Telnet(konfiguracja.ip_esp,23)
+      stop = False
+      x,y = 0,0
+      t = int(time.time())
+      tn = telnetlib.Telnet(konfiguracja.ip_esp,23,3)
       tn.write(b't')
       print ("esp: czekam na dane")
-#      time.sleep(0.5)
-      print(tn.read_until('t:['))
-      while data.count(']') == 0:
+      while 1:
         a = tn.read_some()
         print(a)
         data += a
+        x = data.find('t:[')
+        y = data.find(']\r\n')
+        if (y>x and x>=0 and y>=0):
+          data = data[x:y]
+          break
+        elif x >= 0:
+          data = data[x:]
+        else:
+          data = a
+        if int(time.time())-t>3:
+          t = int(time.time())
+          tn.write(b't')
+          logger.error('ESP: Timeout')
+      
       tn.close()
+      data = data.replace('t:[', '')
       data = data.split("]")[0]
       data = data.split(",")
       data = [float(i)/10 for i in data]
+      print (data)
     else:
       rs.flushInput()
       rs.flushOutput()
-      rs.write(b'tt')
+      rs.write(b't')
       print ("Serial: czekam na dane")
-#      rs.flushOutput()
-#      time.sleep(1)
-      while not (data.startswith("t:[") and data.endswith("\r\n")):
+      t = int(time.time())
+      while not (data.startswith("t:[") and data.endswith("]\r\n")):
         data = rs.readline()
         print(data)
+        if int(time.time())-t>3:
+          t = int(time.time())
+          logger.error('Serial: Timeout')
+          rs.write(b't')
 
       data = data.replace('t:[', '')
       data = data.replace(']\r\n', '')
