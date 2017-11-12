@@ -1,0 +1,12 @@
+rezystor 100kOhm/2W
+wejscie 235VAC
+przed mostkiem 4,23VAC 
+za mostkiem 2,98VDC
+spadek napiecia na diodzie led 1,87VDC
+spadek napiecia na opto 1,1VDC
+
+Napiecie miedzy P3-P4:
+bez podania zasilania 230VAC miedzy P1 i P2 - 5.0VDC
+po podaniu zasilania 230VAC - 0,3VDC - 100Hz - Dioda D2 swieci
+
+Pin P3 podpinamy pod pin 2 Arduino
