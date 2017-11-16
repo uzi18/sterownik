@@ -1,4 +1,6 @@
 ## repozytorium zawiera: 
+
+[![Join the chat at https://gitter.im/sterownik/Lobby](https://badges.gitter.im/sterownik/Lobby.svg)](https://gitter.im/sterownik/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 * Lucjan (katalog arduino) - sterownik pieca CO na bazie Arduino Mega w tym schematy, wsad i wiele innych
 * skrypty w python dla eCoal.pl/bruli.pl dla nie wspierancyh juz sterowników
 
