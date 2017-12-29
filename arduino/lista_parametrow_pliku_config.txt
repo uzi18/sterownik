@@ -103,6 +103,8 @@ PIEC_T_MAX = 90
 
 temperatura zalaczenia pomp
 PIEC_T_MIN = 40
+po spadku temperatury ponizej T_MIN generowany jest alarm
+#PIEC_ALARM_T_MIN = 1
 
 tryb pracy pieca RECZNY,AUTO
 PIEC_TRYB = RECZNY
