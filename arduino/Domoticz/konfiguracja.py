@@ -6,7 +6,8 @@ ip_lucjan = '192.168.2.4'
 ip_esp = '192.168.2.6'
 # 1 - polaczenie przez esp_link:
 esp_link = 0
-ip_domoticz = 'localhost'
+# uwaga Domoticz nie akceptuje polaczenia localhost, nalezy pisac 127.0.0.1
+#ip_domoticz = '127.0.0.1'
 port_domoticz = 8080
 idx_start = 1
 ip_nettemp = 'localhost'
