@@ -1,5 +1,5 @@
 Arduino Mega 2560 + Ethernet Shield z karta uSD
-Zasilony z zasilacza 6-12VDC
+Zasilony z zasilacza 5-9VDC
 Podpięty kabelkiem USB (typ A-typ B tzw. drukarkowy) z RPi  (opcjonalne - programowanie i komunikacja z python/www)
 
 Lista połączeń:
@@ -32,6 +32,13 @@ GND     - GND
 50      - DO/SO
 52      - CLK/SCK
 49      - CS
+
+czujnik poziomu zasobnika (opcjonalny):
+w pole R27 modulu wlutowac rezystor 47k
+arduino - moduł z JSN-SR04T-2.0
++5V     - VCC
+GND     - GND
+RX2     - TX
 
 czujniki DS18xx:
 arduino - czujniki
