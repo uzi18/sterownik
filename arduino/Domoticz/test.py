@@ -176,6 +176,7 @@ while 1:
         licznik_dm = konfiguracja.interwal_domoticz
 
     while 1:
+      print("NT: "+str(licznik_nt)+" DM: "+str(licznik_dm))
       time.sleep(1)
       if slij_nettemp and licznik_nt > 0:
          licznik_nt -=1
