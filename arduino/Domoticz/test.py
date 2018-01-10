@@ -74,6 +74,9 @@ if 'ip_domoticz' in dir(konfiguracja) and 'port_domoticz' in dir(konfiguracja):
   domoticz = "http://"+konfiguracja.ip_domoticz+":"+str(konfiguracja.port_domoticz)+"/json.htm?type=command&param=udevice&idx="
   value = "&nvalue=0&svalue="
 
+slij_nettemp = 'ip_nettemp' in dir(konfiguracja) and 'key_nettemp' in dir(konfiguracja);
+slij_domoticz = 'ip_domoticz' in dir(konfiguracja) and 'port_domoticz' in dir(konfiguracja);
+
 while 1:
   try:
     if os.path.exists("/var/lock/lucjan_programator"):
@@ -145,7 +148,7 @@ while 1:
     print(len(data))
     
     if len(data) == 16:
-      if licznik_nt == 0 and 'ip_nettemp' in dir(konfiguracja) and 'key_nettemp' in dir(konfiguracja):
+      if licznik_nt == 0 and slij_nettemp:
         print("Send NT:")
         d=";".join(str(x) for x in data)
         adr = "http://"+konfiguracja.ip_nettemp+"/receiver.php?key="+konfiguracja.key_nettemp+"&device=ip&ip=localhost&name=Lucjan_&id=1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16&type=temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp;temp&value="+d
@@ -157,7 +160,7 @@ while 1:
       if licznik_nt == 0:
         licznik_nt = konfiguracja.interwal_nettemp
       
-      if licznik_dm == 0 and 'ip_domoticz' in dir(konfiguracja) and 'port_domoticz' in dir(konfiguracja):
+      if licznik_dm == 0 and slij_domoticz:
         print("Send DM:")
         idx = konfiguracja.idx_start
         for x in range(16):
@@ -172,10 +175,14 @@ while 1:
       if licznik_dm == 0:
         licznik_dm = konfiguracja.interwal_domoticz
 
-    while licznik_nt != 0 and licznik_dm != 0:
+    while 1:
       time.sleep(1)
-      licznik_nt -=1
-      licznik_dm -=1
+      if slij_nettemp and licznik_nt > 0:
+         licznik_nt -=1
+      if slij_domoticz and licznik_dm > 0:
+         licznik_dm -=1
+      if licznik_nt == 0 or licznik_dm == 0:
+         break;
 
   except Exception, e:
     logger.error('Exception', exc_info=True)
