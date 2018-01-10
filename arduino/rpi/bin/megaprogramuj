@@ -1,2 +1,5 @@
 #!/bin/sh
-avrdude -patmega2560 -cwiring -P/dev/ttyACM0 -b115200 -D -Uflash:w:/tmp/piec.hex:i
+touch /var/lock/lucjan_programator
+avrdude -patmega2560 -cwiring -P/dev/ttyACM0 -b115200 -D -Uflash:w:$1:i
+rm -f /var/lock/lucjan_programator
+

@@ -1,2 +1,5 @@
 #!/bin/sh
+touch /var/lock/lucjan_programator
 avrdude -patmega2560 -cwiring -P/dev/ttyACM0 -b115200 -V -U lfuse:r:/dev/null:i
+rm -f /var/lock/lucjan_programator
+

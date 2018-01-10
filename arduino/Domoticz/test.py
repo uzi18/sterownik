@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import os.path
 import logging
 logging.basicConfig(level=logging.ERROR,filename=__file__ + ".log",format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -75,6 +76,11 @@ if 'ip_domoticz' in dir(konfiguracja) and 'port_domoticz' in dir(konfiguracja):
 
 while 1:
   try:
+    if os.path.exists("/var/lock/lucjan_programator"):
+        print ("pauza: pracuje programator")
+        time.sleep(10)
+        continue
+    
     data = ''
     if rs == None and not konfiguracja.esp_link:
       response = urlopen(lucek)
