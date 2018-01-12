@@ -4,14 +4,28 @@ Podpięty kabelkiem USB (typ A-typ B tzw. drukarkowy) z RPi  (opcjonalne - progr
 
 Lista połączeń:
 
+modul zegara RTC (OBOWIAZKOWY)
+arduino - moduł modul zegara RTC z ukladem DS1307
++5V     - VCC
+20      - SDA
+21      - SCL
+GND     - GND
+
+wyswietlacz LCD alfanumeryczny 2x16 (4x20 tez dziala)
+arduino - konwerter I2C-LCD
++5V     - VCC
+20      - SDA
+21      - SCL
+GND     - GND
+
 komunikacja z bruli/ecoal (opcjonalna):
-arduino - moduł RS232-TTL (szukać moduł MAX3232 DB9)
+arduino - moduł RS232-TTL (szukać moduł z ukladem MAX3232 i gniazdem DB9)
 +5V     - VCC
 18      - TXD
 19      - RXD
 GND     - GND
 
-kabelek RS232 - null modem oba gniazda meskie (oryginalny przewód do prgramowania to tylko przedluzacz):
+kabelek RS232 - null modem oba gniazda meskie (oryginalny przewód do programowania to tylko przedluzacz 1:1):
 DB9M    - DB9M
 5       - 5
 3       - 2
