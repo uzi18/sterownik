@@ -149,6 +149,12 @@
 						</div>
 					    </td>
                                         </tr>
+					<tr><td>
+						<div class="btn-group">
+							<a ng-click="przeladujKonf()" class="btn"><i class="icon-play icon-white"></i> Przeladuj<BR>Konfig</a>
+						</div>
+					    </td>
+                                        </tr>
                                         <tr><td><a ng-click="resetAlarm()" class="btn"><i class="icon-refresh icon-white"></i> Reset alarmu </a></td></tr>
                                         <!--<tr><td>
                                                 <div class="btn-group">
@@ -286,6 +292,11 @@
 
                                 $scope.resetSter = function(){
                                         $.get($scope.ip + '/reset',{},function(){
+                                        });
+                                }
+
+                                $scope.przeladujKonf = function(){
+                                        $.get($scope.ip + '/configreload',{},function(){
                                         });
                                 }
 
