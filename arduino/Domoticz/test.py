@@ -86,7 +86,8 @@ while 1:
     
     data = ''
     if rs == None and not konfiguracja.esp_link:
-      response = urlopen(lucek)
+      print ("ETH: czekam na dane")
+      response = urlopen(lucek,None,3)
       data = response.read().decode("utf-8")
       data = data.replace('},{"t": ', ',')
       data = data.replace('{"thermos":[{"t": ', '')
@@ -98,7 +99,7 @@ while 1:
       t = int(time.time())
       tn = telnetlib.Telnet(konfiguracja.ip_esp,23,3)
       tn.write(b't')
-      print ("esp: czekam na dane")
+      print ("ESP: czekam na dane")
       while 1:
         a = tn.read_some()
         print(a)
@@ -114,7 +115,8 @@ while 1:
           data = a
         if int(time.time())-t>3:
           t = int(time.time())
-          tn.write(b't')
+          if not os.path.exists("/var/lock/lucjan_programator"):
+            tn.write(b't')
           logger.error('ESP: Timeout')
       
       tn.close()
@@ -127,7 +129,7 @@ while 1:
       rs.flushInput()
       rs.flushOutput()
       rs.write(b't')
-      print ("Serial: czekam na dane")
+      print ("SER: czekam na dane")
       t = int(time.time())
       while not (data.startswith("t:[") and data.endswith("]\r\n")):
         data = rs.readline()
@@ -135,7 +137,8 @@ while 1:
         if int(time.time())-t>3:
           t = int(time.time())
           logger.error('Serial: Timeout')
-          rs.write(b't')
+          if not os.path.exists("/var/lock/lucjan_programator"):
+            rs.write(b't')
 
       data = data.replace('t:[', '')
       data = data.replace(']\r\n', '')
