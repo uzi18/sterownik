@@ -1,0 +1,28 @@
+Autorewers v2.
+Opis czêœci i po³aczeñ.
+Wszystkie elementy wykonawcze za³¹czane s¹ stanem niskim !!!
+
+Jako czujnik napiêcia 230V z gniazda podajnika w sterowniku zastosowano  zmodyfikowany detektor zera - widok na schemacie.
+Jako element wykonawczy za³¹czaj¹cy silnik podajnika zastosowano przekaŸnik SSR za³¹czany stanem niskim.
+Jako element wykonawczy prze³aczaj¹cy obroty silnika podajnika zastosowano podwójny przekaŸnik SSR za³¹czany stanem niskim.
+Jako element wykonawczy alarmu zewnêtrznego zastosowano zwyk³y przekaŸnik za³¹czany stanem niskim.
+Jako elelment pomiarowy pr¹du silnika podajnika zastosowano przek³adnik pr¹dowy (czujnik CTS) z rezystorem - widok na schemacie.
+Arduino nano v3.1
+
+
+Po³¹czenia
+
+pin arduino 	- 	element zewnêtrzny
+
+Vin		-	zasilanie 6-12V pr¹d sta³y
+D7		-	SSR obroty ty³
+D6		-	SSR PRACA
+D4		-	SSR obroty przód
+D3		-	przycisk kalibracja
+D2		-	detektor zera
+GND		-	masa
+A1		-	czujnik CTS
+GND		-	dzielnik napiêcia dla czujnika CTS
+5V		-	dzielnik napiêcia dla czujnika CTS
+A4		-	LCD
+A5		-	LCD
