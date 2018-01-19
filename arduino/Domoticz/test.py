@@ -61,9 +61,9 @@ logger.error('Start')
 if konfiguracja.ip_lucjan.count('.') == 0:
   import serial
   rs=serial.Serial(konfiguracja.ip_lucjan,115200,timeout=3)
-  rs.flushInput()
-  rs.flushOutput()
-  time.sleep(10)
+  #rs.flushInput()
+  #rs.flushOutput()
+  #time.sleep(10)
 
 if konfiguracja.esp_link:
   import telnetlib
@@ -103,6 +103,8 @@ while 1:
       while 1:
         a = tn.read_some()
         print(a)
+        if os.path.exists("/var/lock/lucjan_debug"):
+           logger.error(a)
         data += a
         x = data.find('t:[')
         y = data.find(']\r\n')
@@ -126,14 +128,16 @@ while 1:
       data = [float(i)/10 for i in data]
       print (data)
     else:
-      rs.flushInput()
-      rs.flushOutput()
+      #rs.flushInput()
+      #rs.flushOutput()
       rs.write(b't')
       print ("SER: czekam na dane")
       t = int(time.time())
       while not (data.startswith("t:[") and data.endswith("]\r\n")):
         data = rs.readline()
         print(data)
+        if os.path.exists("/var/lock/lucjan_debug"):
+           logger.error(data)
         if int(time.time())-t>3:
           t = int(time.time())
           logger.error('Serial: Timeout')
