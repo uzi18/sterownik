@@ -115,7 +115,7 @@ while 1:
           data = data[x:]
         else:
           data = a
-        if int(time.time())-t>3:
+        if int(time.time())-t>5:
           t = int(time.time())
           if not os.path.exists("/var/lock/lucjan_programator"):
             tn.write(b't')
@@ -138,7 +138,7 @@ while 1:
         print(data)
         if os.path.exists("/var/lock/lucjan_debug"):
            logger.error(data)
-        if int(time.time())-t>3:
+        if int(time.time())-t>5:
           t = int(time.time())
           logger.error('Serial: Timeout')
           if not os.path.exists("/var/lock/lucjan_programator"):
