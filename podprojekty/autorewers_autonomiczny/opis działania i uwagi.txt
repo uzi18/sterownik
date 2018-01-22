@@ -16,6 +16,7 @@
  skasowane zostan¹ wszystkie alarmy i autorewers wejdzie ponownie w tryb nadzoru.
 
 Pod³¹czenie autorewersu do pieca.
+Zasilanie 230V pod³¹czamy od sieæ 230V (ca³a czêœæ wysokonapiêciowa na osobnym schemacie). 
 Sterownik wejœcie podajnika pod³¹czamy do sterownika zamiast kabla od podajnika.
 Silnik podajnik pod³¹czamy do silnika podajnika na piecu.
 Zmiana kierunku pod³¹czamy do kabla ktory musimy dorobiæ i pod³¹czyæ w puszce silnika podajnika (na osobnym schemacie).
