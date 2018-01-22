@@ -1,0 +1,36 @@
+ Autorewers 2.0 program v0.65 autor Stanislaw Gromowski
+
+ Program jest wsadem do urz¹dzenia autorewers s³u¿¹cego do nadzorowania pracy podajnika
+ w piecach wêglowych z podajnikiem œlimakowym.
+
+ Kalibracja - nacisn¹æ przycisk kalibracji, wówczas autorewer uruchomi podajnik na kilka sekund
+ i podczas jego pracy zmierzy p³yn¹cy pr¹d przez silnik, zmierzon¹ wartoœæ zapisze w pamiêci eeprom.
+ Wartoœæ ta nastêpnie bêdzie po zwiêkszeniu o wspó³czynnik 0,3 bedzie s³u¿y³a jako parametr odniesienia.
+
+ Program po kalibracji pr¹dem nominalnym podczas pracy podajnika wykrywa przeci¹¿enie
+ silnika podajnika i uruchamia bieg wsteczny na ok 15 sekund,nastêpnie wykonuje ruch testowy do przodu
+ jeœli zakleszczenie ust¹pi³o przechodzi w tryb nadzoru, je¿eli nadal wykryje przeci¹¿enie uruchamia ponownie bieg wsteczny.
+ Cykl ten zostanie  wykonany trzykrotnie i jeœli trzy razy z rzêdu nie uda mu siê wejœæ do normalnej pracy zatrzymuje siê i zg³asza alarm.
+ 
+ Wyjœcie z alarmu polega na od³¹czeniu zasilania od sterownika i ponownym pod³¹czeniu,
+ skasowane zostan¹ wszystkie alarmy i autorewers wejdzie ponownie w tryb nadzoru.
+
+Pod³¹czenie autorewersu do pieca.
+Sterownik wejœcie podajnika pod³¹czamy do sterownika zamiast kabla od podajnika.
+Silnik podajnik pod³¹czamy do silnika podajnika na piecu.
+Zmiana kierunku pod³¹czamy do kabla ktory musimy dorobiæ i pod³¹czyæ w puszce silnika podajnika (na osobnym schemacie).
+Alarm zewnêtrzny pod³¹czamy np do jakiegoœ dzwonka lub buzzera lub do styków alarmu zewnêtrznego np w sterowniku jeœli takie mamy.
+
+
+
+
+Wa¿ne uwagi !
+
+Wszystkie elementy wykonawcze (SSR-y i przekaŸnik) pracuj¹ w trybie low lewel trigger, czyli za³aczanie niskim stanem.
+
+Czujnik CTS czyli przek³adnik posiada bocznik rezystorowy.
+
+Do zmiany kierunku obrotów silnika podajnika trzeba dorobiæ trój¿y³owy kabel w puszce silnikowej (na osobnym schemacie).
+
+Gdyby autorewers nie wykrywa³ za³¹czenia silnika podajnika to najprawdopodobniej na wyjœciu do gniazda silnika podajnika w sterowniku
+zastosowane s¹ kondensatory filtruj¹ce, nale¿y je usun¹æ (analogiczna sytuacja do pomp elektronicznych za³¹czanych z gniazd CO i CWU).
