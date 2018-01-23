@@ -1,5 +1,5 @@
 Autorewers v2.
-Opis czêœci i po³aczeñ.
+Opis czêœci i po³aczeñ. schemat 1
 Wszystkie elementy wykonawcze za³¹czane s¹ stanem niskim !!!
 
 Jako czujnik napiêcia 230V z gniazda podajnika w sterowniku zastosowano  zmodyfikowany detektor zera - widok na schemacie.
@@ -26,3 +26,11 @@ GND		-	dzielnik napiêcia dla czujnika CTS
 5V		-	dzielnik napiêcia dla czujnika CTS
 A4		-	LCD
 A5		-	LCD
+
+
+Czêœæ zasilana napiêciem z sieci 230V. schemat 2
+
+Do puszki silnika wprowadzamy dodatkowy kabel (trzy ¿y³y) i pod³¹czamy zgodnie ze schematem do zacisków kondensatora a kabel id¹cy 
+od zasilania silnika do jednego z zacisków na kndensatorze odpinamy i ³¹czymy z trzeci¹ ¿y³¹ nowo wprowadzonego kabla.
+T¹ trzeci¹ ¿y³ê pod³¹czamy w autorewersie do zacisku nr 1 na SSRach, pozosta³e dwie do zacisków 2 i 3 na SSRach.
+Gdyby okaza³o siê ¿e mamy niew³aœciwe obroty to kable na zaciskach 2 i 3 zamieniamy miejscami.
