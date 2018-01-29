@@ -61,6 +61,9 @@ arduino - czujniki
 GND     - GND
 pin 22 podciagnac rezystorem 4k7 lub lepiej 3k3 do +5V
 
+czujnik KTY81-210:
++5V----[2k7]----Analog----[KTY81/210]----GND
+
 czujnik pozycji tloka w podajniku tlokowym (sygnał 5V - tlok pracuje, 0V - tlok na pozycji startowej)
 arduino - czujnik
 +5V     - VCC
