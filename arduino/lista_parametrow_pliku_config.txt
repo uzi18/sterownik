@@ -60,6 +60,10 @@ T_MAPUJ_Z_BRULI=1
 # http://adres_ip_lucjana/dallas
 #TPIEC=DALLAS[28FF265C64160379]
 
+# mapowanie czujnika KTY81-210
+# dla analogowego wejscia A1
+# TPIEC = KTY81[1]
+
 # mapowanie modulu termopary
 #TSPALINY = MAX31855[0]
 #TSPALINY = MAX6675[0]
