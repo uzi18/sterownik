@@ -92,6 +92,9 @@ PODAJNIK_T_WYSOKA = 50
 #czas pelnego ruchu tloka w sekundach
 #TLOK_CZAS_CYKLU=40
 
+# glebokosc pustego zasobnika w cm odczyt z czujnika SR04T
+#PODAJNIK_GLEBOKOSC = 0
+
 #czas w sekundach potrzebny do oproznienia pełnego zasobnika
 PODAJNIK_CZAS_DO_OPROZNIENIA = 69000
 #aktualny czas pozostaly do oproznienia zasobnika w sekundach
