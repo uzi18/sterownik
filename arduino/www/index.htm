@@ -92,7 +92,10 @@
                                                 </tr>
                                                 <tr>
                                                         <td>Poziom zasobnika:</td> 
-                                                        <td><i class="icon-signal icon-white"></i> {{thermos.podczzas*100/thermos.podczdo | number:1}} %<br>({{thermos.podczzas/60*thermos.podgmin/1000 | number:2}} kg.)</td>
+                                                        <td><i class="icon-signal icon-white"></i> {{thermos.podczzas*100/thermos.podczdo | 
+number:1}}%<br>({{thermos.podczzas/60*thermos.podgmin/1000 | number:2}} kg.)
+<span ng-show="thermos.podcm >= 0"><br>{{thermos.podcm}} cm. </span>
+</td>
                                                 </tr>
                                                 <tr>
                                                         <td>Przewidywany<br>zasyp:</td> 
