@@ -157,8 +157,8 @@ RRM_TLO_MOC=20
 RRM_TLO_CZAS_PODANIE=10
 # w min.
 RRM_TLO_CZAS=15
-#jesli tlo podbije TPIEC 5deg ponad zadana przechodzimy w podtrzymanie
-RRM_MAX_PRZEBICIE_TLO=5
+#jesli tlo podbije TPIEC o 15deg ponad zadana przechodzimy w podtrzymanie i wylaczamy tlo.
+#RRM_MAX_PRZEBICIE_TLO=15
 #prog t.zew. dla wylaczenia tla np. +2deg.
 #RRM_T_WYL_TLO = 2
 # dopalanie 150s 30%
