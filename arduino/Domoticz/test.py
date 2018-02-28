@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import json
 import os.path
 import logging
 logging.basicConfig(level=logging.ERROR,filename=__file__ + ".log",format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -16,6 +17,7 @@ import time
 import string
 
 rs = None
+js = {}
 
 try:
   import konfiguracja
@@ -88,11 +90,11 @@ while 1:
     if rs == None and not konfiguracja.esp_link:
       print ("ETH: czekam na dane")
       response = urlopen(lucek,None,3)
-      data = response.read().decode("utf-8")
-      data = data.replace('},{"t": ', ',')
-      data = data.replace('{"thermos":[{"t": ', '')
-      data = data.split("}],", 1)[0]
-      data = data.split(",")
+      j    = response.read().decode("utf-8")
+      js   = json.loads(j)
+      print (js)
+      data2= js.get('thermos')
+      data = [i.values()[0] for i in data2]
     elif rs == None and konfiguracja.esp_link:
       stop = False
       x,y = 0,0
