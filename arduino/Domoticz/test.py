@@ -145,7 +145,7 @@ while 1:
           logger.error('Serial: Timeout')
           if not os.path.exists("/var/lock/lucjan_programator"):
             rs.write(b't')
-
+      
       data = data.replace('t:[', '')
       data = data.replace(']\r\n', '')
       data = data.split(",")
@@ -180,10 +180,23 @@ while 1:
         #drukujemy tylko ostatni komunikat
         print(response.msg)
         print(response.readlines())
+        
+        # plus nowosci
+        if 'idx_podajnik_cm' in dir(konfiguracja) and konfiguracja.idx_podajnik_cm > 0 and js.has_key("podcm"):
+            t = js.get("podcm")
+            adr = domoticz + str(konfiguracja.idx_podajnik_cm) + value + str(t)
+            print(adr)
+            response = urlopen(adr)
 
+        if 'idx_podajnik_procent' in dir(konfiguracja) and konfiguracja.idx_podajnik_procent > 0 and js.has_key("podcmp"):
+            t = js.get("podcmp")
+            adr = domoticz + str(konfiguracja.idx_podajnik_procent) + value + str(t)
+            print(adr)
+            response = urlopen(adr)
+        
       if licznik_dm == 0:
         licznik_dm = konfiguracja.interwal_domoticz
-
+      
     while 1:
       print("NT: "+str(licznik_nt)+" DM: "+str(licznik_dm))
       time.sleep(1)
