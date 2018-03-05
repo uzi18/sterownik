@@ -16,6 +16,6 @@ interwal = 30
 interwal_nettemp = 5
 interwal_domoticz = 30
 
-idx_podajnik_cm = 0
-idx_podajnik_procent = 0
+idx_zasobnik_cm = 0
+idx_zasobnik_procent = 0
 

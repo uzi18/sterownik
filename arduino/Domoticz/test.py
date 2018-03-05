@@ -165,6 +165,20 @@ while 1:
         response = urlopen(adr)
         print(response.msg)
         print(response.readlines())
+
+        # plus nowosci
+        if 'idx_zasobnik_cm' in dir(konfiguracja) and konfiguracja.idx_zasobnik_cm > 0 and js.has_key("podcm") and js.get("pod") == 0:
+            t = js.get("podcm")
+            adr = "http://"+konfiguracja.ip_nettemp+"/receiver.php?key="+konfiguracja.key_nettemp+"&device=ip&ip=localhost&name=Lucjan_&id=zasobnik_cm&type=battery&value="+str(t)
+            print(adr)
+            response = urlopen(adr)
+
+        if 'idx_zasobnik_procent' in dir(konfiguracja) and konfiguracja.idx_zasobnik_procent > 0 and js.has_key("podcmp") and js.get("pod") == 0:
+            t = js.get("podcmp")
+            adr = "http://"+konfiguracja.ip_nettemp+"/receiver.php?key="+konfiguracja.key_nettemp+"&device=ip&ip=localhost&name=Lucjan_&id=zasobnik_procent&type=battery&value="+str(t)
+            print(adr)
+            response = urlopen(adr)
+
         
       if licznik_nt == 0:
         licznik_nt = konfiguracja.interwal_nettemp
@@ -182,15 +196,15 @@ while 1:
         print(response.readlines())
         
         # plus nowosci
-        if 'idx_podajnik_cm' in dir(konfiguracja) and konfiguracja.idx_podajnik_cm > 0 and js.has_key("podcm"):
+        if 'idx_zasobnik_cm' in dir(konfiguracja) and konfiguracja.idx_zasobnik_cm > 0 and js.has_key("podcm") and js.get("pod") == 0:
             t = js.get("podcm")
-            adr = domoticz + str(konfiguracja.idx_podajnik_cm) + value + str(t)
+            adr = domoticz + str(konfiguracja.idx_zasobnik_cm) + value + str(t)
             print(adr)
             response = urlopen(adr)
 
-        if 'idx_podajnik_procent' in dir(konfiguracja) and konfiguracja.idx_podajnik_procent > 0 and js.has_key("podcmp"):
+        if 'idx_zasobnik_procent' in dir(konfiguracja) and konfiguracja.idx_zasobnik_procent > 0 and js.has_key("podcmp") and js.get("pod") == 0:
             t = js.get("podcmp")
-            adr = domoticz + str(konfiguracja.idx_podajnik_procent) + value + str(t)
+            adr = domoticz + str(konfiguracja.idx_zasobnik_procent) + value + str(t)
             print(adr)
             response = urlopen(adr)
         
