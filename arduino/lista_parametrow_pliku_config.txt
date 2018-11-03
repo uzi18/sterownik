@@ -16,7 +16,7 @@ DM_MODULACJA = 0
 DETEKTOR_TESTUJE_BEZPIECZNIK=1
 
 #algorytm regulacji mocy dmuchawy
-# 0 stary, 1 nowy
+# 0 stary, 1 nowy (zakres od 30 do 75% - powyzej blad/spada moc)
 #DM_TYP=0
 
 # zmiana czasu na zimowy
@@ -217,6 +217,8 @@ CWU2_ALGORYTM = CIAGLY
 CWU2_ZADANA = 0
 CWU2_HISTEREZA = 0
 CWU2_CZUJNIK = TCWU
+#tryb roznicowy z uzyciem histerezy miedzy czujnikami
+#CWU2_CZUJNIKR = T3
 
 # praca pompki cyrkulacyjnej cwu: algorytm CIAGLY,CYKLICZNY,WYLACZONY
 CYRKULACJA_ALGORYTM = WYLACZONY
