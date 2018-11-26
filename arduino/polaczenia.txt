@@ -60,6 +60,7 @@ arduino - czujniki
 +5V     - VCC
 GND     - GND
 pin 22 podciagnac rezystorem 4k7 lub lepiej 3k3 do +5V
+23      - aktywne podciagniecie (schemat w dokumentacja/pics/1wire-aktywne_podciagniecie)
 
 czujnik KTY81-210:
 +5V----[2k7]----Analog----[KTY81/210]----GND
@@ -124,6 +125,7 @@ arduino - moduł
 +5V     - +5V
 2       - sygnał
 GND     - GND
+(schemat w dokumentacja/pics/detektor)
 
 UWAGA!
 Z czasem rozwoju sterownika podłączenia (piny) mogą ulec zmianie ...
