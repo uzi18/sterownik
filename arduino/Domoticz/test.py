@@ -5,8 +5,15 @@ import sys
 import json
 import os.path
 import logging
-logging.basicConfig(level=logging.ERROR,filename=__file__ + ".log",format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+from logging.handlers import RotatingFileHandler
+#logging.basicConfig(level=logging.ERROR,filename=__file__ + ".log",format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+log_formatter = logging.Formatter('%(asctime)s %(levelname)s %(funcName)s(%(lineno)d) %(message)s')
+log_handler = RotatingFileHandler(__file__ + ".log", mode='a', maxBytes=10*1024*1024, backupCount=5, encoding=None, delay=0)
+log_handler.setFormatter(log_formatter)
+log_handler.setLevel(logging.ERROR)
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.ERROR)
+logger.addHandler(log_handler)
 
 if sys.version_info[0] == 3:
   from urllib.request import urlopen
