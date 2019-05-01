@@ -59,7 +59,8 @@ arduino - czujniki
 22      - DATA
 +5V     - VCC
 GND     - GND
-pin 22 podciagnac rezystorem 4k7 lub lepiej 3k3 do +5V
+pin 22 podciagnac rezystorem 4k7 lub lepiej 3k3 do +5V, w przypadku problemow z komunikacja 
+(dlugi przewod, >5 czujnikow) mozna zmniejszac go kolejno na 2k7,2k,1.5k,1k az do uzyskania poprawnej komunikacji
 23      - aktywne podciagniecie (schemat w dokumentacja/pics/1wire-aktywne_podciagniecie)
 
 czujnik KTY81-210:
