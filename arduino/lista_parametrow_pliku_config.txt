@@ -8,6 +8,10 @@ NET_BRAMA=192.168.2.1
 NET_MASKA=255.255.255.0
 NET_DNS=192.168.2.1
 
+#po ilu sekundach ma sie wygasic wyswietlacz
+# zakres 0-200, gdzie 0 - nie wygaszamy
+#LCD_WYGAS = 0
+
 Parametry dmuchawy:
 DM_OFFSET = 0
 DM_INWERSJA_PWM = 0
@@ -135,6 +139,9 @@ PIEC_HISTEREZA = 0
 
 #zadana dla regulatora pokojowego
 #TWEW_ZADANA=22
+#histereza dla regulatora pokojowego
+#TWEW_HISTEREZA=10
+
 #o ile ma zostac obnizona zadana na piecu 
 #gdy osiagniemy TWEW_ZADANA - ponizej o 5.0 deg.
 #TWEW_CO_OBNIZONA=50
@@ -195,11 +202,14 @@ CO_CZAS_WLACZ=30
 CO_CZAS_WYLACZ=30
 
 #przyklad termostatu dla czujnika TWEW
-# zadana 20.0 histereza 1.0, dla pompy CO
-TERMOSTAT1_ZADANA = 20
-TERMOSTAT1_HISTEREZA = 10
-TERMOSTAT1_CZUJNIK = TWEW
-TERMOSTAT1_WYJSCIE = CO
+# zadana 20.0 histereza 1.0, dla pinu 99
+# mozna ustawic do 5 niezaleznych termostatow - UT1 do UT5
+#UT1_PIN = 99
+#UT1_ZADANA = 20
+#UT1_HISTEREZA = 10
+#UT1_CZUJNIK = TWEW
+#pin zalaczany gdy ktorykolwiek z PIN termostatow sie zalaczy (np. pompa podlogowki)
+#UT_WSPOLNY_PIN = 100
 
 tryb pracy pompy cwu (ECOAL,BRULI,WLACZ,WYLACZ,MIESZANIE)
 CWU_TRYB = WYLACZ
@@ -228,13 +238,25 @@ CYRKULACJA_TMIN = 40
 CYRKULACJA_CZAS_WLACZ = 1
 CYRKULACJA_CZAS_WYLACZ = 10
 
+#uwaga odstepy co 15min. w harmonogramach
 #harmonogram cyrkulacji
 #*,PO,WT,SR,CZ,PT,SO,ND
 #w poniedzialek 6-8 i 10-12
-PROG_CYRK_PO=6:0-8:0
-PROG_CYRK_PO=10:00-12:00
+#PROG_CYRK_PO=6:0-8:0
+#PROG_CYRK_PO=10:00-12:00
 #we wszystkie dni tygodnia od 18:00-24:00
-PROG_CYRK_*=18:00-
+#PROG_CYRK_*=18:00-
+
+#harmonogram pompy CO
+#j.w.
+#w sobote caly dzien
+#PROG_CO_SO=-
+
+#harmonogram wymuszania obnizonej temperatury 
+# dla CO lub 4D zaleznie od konfiguracji
+#j.w.
+#caly tydzien od 0 do 6 rano
+#PROG_OB_*=-6:00
 
 #krzywa grzania dla 4D (uwaga min.30 max 60):
 KRZYWA_GRZANIA-30=55
@@ -244,7 +266,7 @@ KRZYWA_GRZANIA-0 =45
 KRZYWA_GRZANIA+5 =45
 KRZYWA_GRZANIA+15=30
 
-# tryb pracy: WYLACZONY,ZADANA,KRZYWA (nastawa z krzywej grzania)
+# tryb pracy: WYLACZONY, POZYCJA (z PRESET), ZADANA, KRZYWA (nastawa z krzywej grzania)
 ZAWOR4D-TRYB=WYLACZONY
 #jesli TRYB ZADANA - to ponizej ustawiamy wartosc
 ZAWOR4D-ZADANA=0
@@ -260,6 +282,8 @@ ZAWOR4D-HISTEREZA=0
 ZAWOR4D-OBNIZONA=3
 #pozycja startowa dla zaworu w % po uruchomieniu
 #ZAWOR4D-PRESET=0
+#martwy czas dla zmiany kierunku (10 = 1s.)
+ZAWOR4D-CZAS_ZMIANY_KIERUNKU=0
 
 #autoryzacja www
 #0 - brak, 1 - autoryzacja strony, 2 - autoryzacja api, 3 - autoryzacja api i strony
