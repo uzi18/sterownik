@@ -101,7 +101,7 @@ while 1:
       js   = json.loads(j)
       print (js)
       data2= js.get('thermos')
-      data = [i.values()[0] for i in data2]
+      data = [list(i.values())[0] for i in data2]
     elif rs == None and konfiguracja.esp_link:
       stop = False
       x,y = 0,0
